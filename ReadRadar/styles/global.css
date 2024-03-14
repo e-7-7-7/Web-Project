@@ -11,11 +11,14 @@ body, h1, p {
       "aside main"
       "footer footer";
     grid-template-columns: 0.5fr 3fr; /* 1fr for aside, 3fr for main */
-    grid-template-rows: auto 35px 1fr auto; /* Adjust row sizes as needed */
+    grid-template-rows: auto auto 1fr auto; /* Adjust row sizes as needed */
     height: 100vh;
 
   }
-  
+
+
+
+
   header {
     grid-area: header;
     background-color: #d885a3; /* Your chosen header color */
@@ -26,8 +29,84 @@ body, h1, p {
   nav {
     grid-area: navbar;
     background-color: #c0dbea; /* Your chosen navbar color */
-    padding: 1em;
+    padding: 0.1rem;
+    
+   
+    
+   
+
+    ul {
+      display: flex;
+      list-style: none;
+      justify-content: start;
+
+     
+     
+
+      li:not(:last-child)::after {
+          content: "|";
+          margin: 0.2rem;
+          
+          
+      }
   }
+
+   
+
+    a {
+      text-decoration: none;
+      color: blue;
+    
+    }
+
+    a:hover {
+      background-color: beige;
+    }
+
+    .search{
+      display: flex;
+      flex-direction: row;
+      justify-content: end;
+     
+    }
+
+    
+
+
+
+  
+   
+ 
+  }
+
+
+  
+  #searchInput {
+    padding: 0.2em;
+    font-size: 1em;
+    border: 0.4px solid #ddd;
+    border-radius: 10px;
+    margin-right: 0.5em;
+  }
+  
+  #searchForm button {
+    padding: 0.2em 0.3em;
+    font-size: 1em;
+    background-color: #5c6bc0;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  
+  #searchForm button:hover {
+    background-color: #3949ab;
+  }
+
+  
+
+
+
   
   aside {
     grid-area: aside;
