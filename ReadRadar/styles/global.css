@@ -1,0 +1,84 @@
+body, h1, p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    display: grid;
+    grid-template-areas:
+      "header header"
+      "navbar navbar"
+      "aside main"
+      "footer footer";
+    grid-template-columns: 0.5fr 3fr; /* 1fr for aside, 3fr for main */
+    grid-template-rows: auto 35px 1fr auto; /* Adjust row sizes as needed */
+    height: 100vh;
+
+  }
+  
+  header {
+    grid-area: header;
+    background-color: #d885a3; /* Your chosen header color */
+    padding: 1em;
+    text-align: center;
+  }
+  
+  nav {
+    grid-area: navbar;
+    background-color: #c0dbea; /* Your chosen navbar color */
+    padding: 1em;
+  }
+  
+  aside {
+    grid-area: aside;
+    background-color: #94a3b8; /* Your chosen aside color */
+    padding: 1em;
+  }
+  
+  main {
+    grid-area: main;
+    background-color: #ffffff; /* Your chosen main color */
+    padding: 1em;
+  }
+  
+  footer {
+    grid-area: footer;
+    background-color: #020617; /* Your chosen footer color */
+    padding: 1em;
+    text-align: center;
+  }
+  
+  /* Responsive design adjustments for smaller screens */
+  @media (max-width: 768px) {
+    body {
+      grid-template-areas:
+        "header"
+        "navbar"
+        "main"
+        "aside"
+        "footer";
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 50px 1fr 50px auto; /* Adjust for screen size */
+    }
+  
+    nav, aside {
+      padding: 0.5em;
+    }
+  }
+  /* Responsive design adjustments for smaller screens */
+@media (max-width: 768px) {
+    body {
+      grid-template-areas:
+        "header"
+        "navbar"
+        "main"
+        "aside"
+        "footer";
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 50px 1fr 50px auto; /* Adjust for screen size */
+    }
+  
+    nav, aside {
+      padding: 0.5em;
+    }
+  }
