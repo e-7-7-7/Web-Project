@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
       if(user) {
         //alert(`Login successful as ${user.role}`);
-        window.location.href = 'index.html';
+        window.location.href = '../index.html';
         
       } else {
         alert('Login failed. Incorrect username or password.');
