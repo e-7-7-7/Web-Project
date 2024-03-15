@@ -124,29 +124,43 @@ body, h1, p {
     border: 1px none; 
   }
   #searchForm button {
-    padding: 0.2em 0.3em;
-    font-size: 1em;
-    background-color: #5c6bc0;
-    color: white;
-    border: none;
-    border-radius: 2px;
+    
+    border: 1px none;
     cursor: pointer;
   }
   
   #searchForm button:hover {
-    background-color: #3949ab;
+    background-color: #dedfe7;
+    border-radius: 3rem;
+  }
+
+  .books h4{
+    font-size: 21px;
+    padding-bottom: 0.5rem;
+    border-bottom: 4px solid black;
+    width: fit-content; 
+    margin-left: 4rem;
   }
 
   
 
 
-
-  
+  aside #shopping-cart {
+    padding-right: 1rem;
+    justify-content: center;
+    width: 3rem;
+  }
+  .aside-title{
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+  }
   aside {
     grid-area: aside;
     background-color: #94a3b8; /* Your chosen aside color */
     padding: 1em;
   }
+
   
   main {
     grid-area: main;
