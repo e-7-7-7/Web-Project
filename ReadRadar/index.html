@@ -5,52 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/global.css">
     <title>ReadRadar</title>
+    <link  rel="icon" href="media/icons/radar -white.svg" type="image/x-icon">
 </head>
 <body>
 
     <header>
         <div class="name">
-            <h1>ReadRadar</h1>
-            
-            <section class="profile">
-                <!-- A window get opened when user clicks on the icon of profile -->
-            </section>
+            <img src="media/icons/radar.svg" alt=""><h1>ReadRadar</h1>
         </div>
+        <div class="search">
+            <img src="media/icons/search.svg" alt="">
+            <form id="searchForm">
+                <input type="search" id="searchInput" name="search" placeholder="Search for books...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <section class="profile">
+                <!-- A window get opened when user clicks on the icon of profile -->
+        </section>
    
     </header>
 
         <nav class="navigation">
             <div class="nav">
                 <ul>
-                    <li><a href="#index.html">Home</a></li>
-                    <li><a href="#bestBooks">Best books</a></li>
-                    <li><a href="#Geners">Geners</a></li>
-                    <li><a href="#purchaseHist.html">Purchase History</a></li>
-                    <li><a href="#contact">Contact Us</a></li>
+                    <li><img src="media/icons/home.svg" alt=""><a href="#index.html">Home</a></li>
+                    <li><img src="media/icons/trophy.svg" alt=""><a href="#bestBooks">2023 Best books</a></li>
+                    <li><img src="media/icons/book-marked.svg" alt=""><a href="#Geners">Geners</a></li>
+                    <li><img src="media/icons/shopping-cart.svg" alt=""><a href="#purchaseHist.html">Purchase History</a></li>
+                    <li><img src="media/icons/headset.svg" alt=""><a href="#contact">Contact Us</a></li>
                 </ul>
             </div>
-            <div class="search">
-                <form id="searchForm">
-                    <input type="search" id="searchInput" name="search" placeholder="Search for books...">
-                    <button type="submit">Search</button>
-                  </form>
-            </div>
-            
-        
-    
+
         </nav>
 
     
 
     <main>
-     
         <div class="books">
-            <section id="2024 Books"></section>
-            <section id="bestBooks"></section>
-            <section id="Action"></section>
-            <section id="Mystery"></section>
-            <section id="Fiction"></section>
-            <section id="Self Devlopment"></section>
+            <section id="2024 Books">
+                <h4>2024 Books</h4>
+                <!-- Books be added here -->
+            </section>
+            <section id="bestBooks">
+                <h4>2023 Best Books</h4>
+                 <!-- Books be added here -->
+            </section>
+            <section id="Action">
+                <h4>Action</h4>
+                 <!-- Books be added here -->
+            </section>
+            <section id="Mystery">
+                <h4>Mystery</h4>
+                 <!-- Books be added here -->
+            </section>
+            <section id="Fiction">
+                <h4>Fiction</h4>
+                 <!-- Books be added here -->
+            </section>
+            <section id="Self Devlopment">
+                <h4>Self Devlopment</h4>
+                 <!-- Books be added here -->
+            </section>
         </div>
     </main>
     <aside>aside
