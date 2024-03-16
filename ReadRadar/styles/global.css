@@ -52,7 +52,7 @@ body, h1, p {
   .search{
     display: flex;
     align-items: center;
-    border: 1px none;
+    border: 10px none;
     background-color: white;
     width: 20rem;
     height: 2rem;
