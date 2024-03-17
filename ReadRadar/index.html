@@ -34,7 +34,42 @@
                     <li><img src="media/icons/book-marked.svg" alt=""><a href="#Geners">Geners</a></li>
                     <li><img src="media/icons/shopping-cart.svg" alt=""><a href="#purchaseHist.html">Purchase History</a></li>
                     <li><img src="media/icons/headset.svg" alt=""><a href="#contact">Contact Us</a></li>
+                    <li><a href="#Add item" id="addItemLink">Add Item</a></li>
                 </ul>
+
+                <!-- Pop-up Form -->
+                <div id="popupForm" class="popup-form-hidden">
+                    <form id="uploadItemForm">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" required>
+
+                        <label for="author">Author:</label>
+                        <input type="text" id="author" name="author">
+
+                        <label for="genre">Genre:</label>
+                        <select id="genre" name="genre">
+                            <option value="Fiction">Fiction</option>
+                            <option value="Action">Action</option>
+                            <option value="Mystery">Mystery</option>
+                            <option value="Self Devlopment">Self-Development</option>
+                            <option value="Arabic">Arabic</option>
+                            <!-- Add more options as needed -->
+                        </select>
+
+                        <label for="price">Price:</label>
+                        <input type="number" id="price" name="price" required step="0.01">
+
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description"></textarea>
+                        <label for="cover">Cover Image:</label>
+                        <input type="file" id="cover" name="cover" accept="image/*">
+
+                        <button type="submit" id="submit">Add Item</button>
+                    </form>
+                    
+                </div>
+
+            
             </div>
 
         </nav>
@@ -43,30 +78,42 @@
 
     <main>
         <div class="books">
-            <section id="2024 Books">
-                <h4>2024 Books</h4>
-                <!-- Books be added here -->
+            <h4>2024 Books</h4>
+            <section id="2024-Books">
+
+                
             </section>
+            <h4>2023 Best Books</h4>
             <section id="bestBooks">
-                <h4>2023 Best Books</h4>
+                
                  <!-- Books be added here -->
             </section>
+            <h4>Action</h4>
             <section id="Action">
-                <h4>Action</h4>
+               
                  <!-- Books be added here -->
             </section>
+            <h4>Mystery</h4>
             <section id="Mystery">
-                <h4>Mystery</h4>
+                
                  <!-- Books be added here -->
             </section>
+            <h4>Fiction</h4>
             <section id="Fiction">
-                <h4>Fiction</h4>
+               
                  <!-- Books be added here -->
             </section>
-            <section id="Self Devlopment">
-                <h4>Self Devlopment</h4>
+            <h4>Self Devlopment</h4>
+            <section id="Self-Devlopment">
+                
                  <!-- Books be added here -->
             </section>
+            <h4>Arabic</h4>
+            <section id="Arabic">
+                
+                 <!-- Books be added here -->
+            </section>
+            
         </div>
     </main>
     <aside>

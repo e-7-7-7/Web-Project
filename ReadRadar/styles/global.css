@@ -142,6 +142,55 @@ body, h1, p {
     margin-left: 4rem;
   }
 
+  /* style.css */
+.popup-form-hidden {
+  display: none;
+}
+
+#popupForm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure it's above other content */
+  border-radius: 8px;
+  input,select, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+
+   
+  }
+
+}
+
+
+
+
+
+button#submit {
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+
+
+button#closePopup {
+  background-color: #dc3545;
+}
+
+
   
 
 
@@ -167,6 +216,102 @@ body, h1, p {
     background-color: #ffffff; /* Your chosen main color */
     padding: 1em;
   }
+
+
+
+#Fiction{
+  
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+#2024-Books{
+  
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+#bestBooks{
+  
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+
+#Action{
+  
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+
+#Mystery{
+  
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+#Self-Devlopment{
+  
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+
+#Arabic{
+  
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+
+
+
+
+ 
+  
+  .inner-card {
+    
+    
+    padding: 3rem;
+    margin: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    max-width: 8rem; /* Ensures images don't exceed their container's width */
+    height: auto; /* Maintains aspect ratio */
+    position: relative;
+  }
+  
+  .inner-card img {
+    padding: 0.4rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    max-width: 100%; /* Ensures images don't exceed their container's width */
+    height: auto; /* Maintains aspect ratio */
+  }
+  
+  .inner-card p {
+    padding: 0.4rem;
+  }
+  
+  .inner-card button {
+    margin: 1rem;
+    width: 100%;
+    justify-content: center; /* Updated from justify-items for proper CSS */
+    background-color: #2B8CBE;
+    color: white;
+    display: flex; /* To apply justify-content */
+    align-items: center; /* To vertically center the text */
+    text-align: center; /* Ensures text is centered */
+  }
+  
+
+  
   
   footer {
     grid-area: footer;
@@ -198,12 +343,15 @@ body, h1, p {
       
     }
 
+    
 
 
   }
   /* Responsive design adjustments for smaller screens */
   @media (max-width: 768px) {
+    
     body {
+      background-color: #007bff;
       grid-template-areas:
         "header"
         "navbar"
@@ -216,5 +364,6 @@ body, h1, p {
   
     nav, aside {
       padding: 0.5em;
+      
     }
   }
