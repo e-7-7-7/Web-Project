@@ -8,9 +8,7 @@
   font-family: serif;
 }
 
-head #icon{
-  
-}
+
 
 body, h1, p {
     margin: 0;
@@ -56,7 +54,15 @@ body, h1, p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
+    /* justify-content: space-between; Aligns the profile to the left and search to the right */
+}
+
+.profile {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    padding: 1em; 
+}
 
 
   /*search related*/
@@ -344,6 +350,11 @@ button#closePopup {
       flex-direction: row;
       justify-content: space-between;
     }
+
+  .profile {
+      position: relative; 
+  }
+    
     nav {
       justify-content: flex-start;
       padding-left: 8rem;
@@ -361,6 +372,7 @@ button#closePopup {
       font-size:  15px;;
       
     }
+    
 
     
 
