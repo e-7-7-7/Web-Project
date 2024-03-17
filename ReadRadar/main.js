@@ -49,3 +49,52 @@ function createBookCard(coverImageUrl, title, author, price, description, genre)
     section.appendChild(card);
 
 }
+
+//Purchase Item process 
+//UNDER MODIFICATION//
+let price; 
+let balance; 
+
+
+const quantityInput = document.getElementById('quantity');
+quantityInput.addEventListener('input', function(event) {
+    const quantity = event.target.value;
+    const subtotal = price * quantity;
+    purchaseItem("Book", subtotal); 
+});
+
+function fetchData() {
+    return fetch('your_json_file.json') 
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      });
+}
+
+
+function processBalances(data) {
+    
+    balance = data[0].balance; 
+    console.log('Initial Balance:', balance);
+}
+
+
+fetchData()
+  .then(data => {
+    processBalances(data);
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
+
+
+function purchaseItem(title, subtotal) {
+    if (balance >= subtotal) {
+        balance -= subtotal;
+        console.log(`Successfully purchased ${title}. Remaining balance: ${balance}`);
+    } else {
+        console.log("Insufficient balance to purchase", title);
+    }
+}
