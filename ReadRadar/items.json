@@ -32,7 +32,7 @@
       "author": "N. Scott Momaday",
       "genre": "",
       "price": 13.99,
-      "cover": "ReadRadar/media/books/A-court-of-thrones.svg",
+      "cover": "ReadRadar/media/books/Housemaid.svg",
       "description": ""
     }
 
@@ -42,7 +42,7 @@
         "author": "",
         "genre": "",
         "price": 15.99,
-        "cover": "",
+        "cover": "ReadRadar/media/books/the-5am-club.svg",
         "description": "A book that discusses the early morning routine to achieve extraordinary results."
       },
       {
@@ -51,7 +51,7 @@
         "author": "",
         "genre": "",
         "price": 18.99,
-        "cover": "",
+        "cover": "ReadRadar/media/books/the-48-laws.svg",
         "description": ""
       },
       {
@@ -60,7 +60,7 @@
         "author": "",
         "genre": "",
         "price": 12.99,
-        "cover": "",
+        "cover": "ReadRadar/media/books/Yellowface.svg",
         "description": ""
       }
 
