@@ -6,13 +6,15 @@ export default class Transaction{
     #seller_id;
     #customer_id;
     #amount;
+    #date;
 
     constructor(seller,customer,book_arry){
         this.setSeller(seller);
         this.setCustomer(customer);
         this.setBooks(book_arry);
         this.setAmount();
-        this.#id = ++this.class_id;
+        this.#date= new Date();
+        this.#id = ++Transaction.class_id;
     }
 
     setSeller(seller_id){
@@ -41,6 +43,10 @@ export default class Transaction{
 
     getID(){
         return this.#id;
+    }
+
+    getDate(){
+        return this.#date;
     }
 
 

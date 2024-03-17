@@ -1,14 +1,21 @@
 import User from './user.js';
 
-export default class Customer extends user{
+export default class Customer extends User{
     #id;
+    static class_id = 0;
     #name;
     #surName;
     #balance = 0;
+    static usernames =[]
 
     constructor(username,password,name,surName){
-
+        super(username,password);
+        Customer.usernames.push(username);
+        this.setName(name);
+        this.setSurName(surName);
+        this.#id = ++Customer.class_id
     }
+
 
     getID(){
         return this.#id;
@@ -38,12 +45,9 @@ export default class Customer extends user{
         this.#balance = balance;
     }
 
-    getUsername(){
-        return super.getUsername();
+    setUsername(username){
+        super.setUsername(username);
     }
 
-    getPassword(){
-        return super.getPassword();
-    }
 
 }
