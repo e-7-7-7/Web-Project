@@ -52,6 +52,17 @@ function createBookCard(coverImageUrl, title, author, price, description, genre)
 
 //Purchase Item process 
 //UNDER MODIFICATION//
+
+//TO-DO BY OMAR
+/*After reading from the customer.json \
+1- createElements Parapgraphs to display the subtotal and 
+quantity and price for each 
+
+2- Add event listener for cancel to canel and clear the your cart 
+section
+
+3- Add event listener for proceed to redirect to checkout.html*/
+
 let price; 
 let balance; 
 
