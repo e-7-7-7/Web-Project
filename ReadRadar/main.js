@@ -1,3 +1,4 @@
+import customer from 'data/customer.js'
 
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#addItemLink').addEventListener('click', function(event) {
@@ -50,21 +51,55 @@ function createBookCard(coverImageUrl, title, author, price, description, genre)
 
 }
 
+
+
 //Purchase Item process 
 //UNDER MODIFICATION//
 
 //TO-DO BY OMAR
 /*After reading from the customer.json \
-1- createElements Parapgraphs to display the subtotal and 
-quantity and price for each 
 
 2- Add event listener for cancel to canel and clear the your cart 
 section
 
 3- Add event listener for proceed to redirect to checkout.html*/
 
+
+
 let price; 
-let balance; 
+let balance;
+let title;
+
+//Function to process book title and price
+function proccessBookData() {
+    fetch('items.json') 
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(book => {
+          title=book.title;
+          price=book.price
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching book data:', error);
+      });
+  }
+
+
+//function to proccess customer balance
+
+function proccessCustBalance() {
+    fetch('data/customer.json') 
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(acc => {
+          balance = acc.balance;
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching book data:', error);
+      });
+  }
 
 
 const quantityInput = document.getElementById('quantity');
@@ -74,33 +109,21 @@ quantityInput.addEventListener('input', function(event) {
     purchaseItem("Book", subtotal); 
 });
 
-function fetchData() {
-    return fetch('your_json_file.json') 
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      });
-}
 
-
-function processBalances(data) {
+    function displaySubtotal(){
+        const p1 = document.createElement('p');
+        p1.textContent = 'Subtotal:'
+        const p2 = document.createElement('p');
+        p2.textContent = 'One Lost Soul'
+        const p3 = document.createElement('p');
+        p3.textContent = '30 QAR'
     
-    balance = data[0].balance; 
-    console.log('Initial Balance:', balance);
-}
-
-
-fetchData()
-  .then(data => {
-    processBalances(data);
-  })
-  .catch(error => {
-    console.error('There was a problem with the fetch operation:', error);
-  });
-
-
+        const addElement = document.getElementById('purchase')
+        addElement.appendChild(p1)
+        addElement.appendChild(p2)
+        addElement.appendChild(p3)
+    
+    };
 function purchaseItem(title, subtotal) {
     if (balance >= subtotal) {
         balance -= subtotal;
