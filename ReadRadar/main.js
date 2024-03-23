@@ -30,6 +30,25 @@ document.addEventListener('DOMContentLoaded', function() {
         // Close the form
         document.querySelector('#popupForm').style.display = 'none';
     });
+
+    
+    const quantityInput = document.getElementById('quantity');
+    quantityInput.addEventListener('input', function(event) {
+        const quantity = event.target.value;
+        const subtotal = price * quantity;
+        purchaseItem("Book", subtotal); 
+    });
+
+    document.querySelector("#cancel").addEventListener("click", function(event) {
+      event.preventDefault(); 
+
+      let cartContent = document.getElementById("#purchContent");
+      cartContent.innerHTML = ""; 
+    });
+
+
+
+    
 });
 
 function createBookCard(coverImageUrl, title, author, price, description, genre) {
@@ -58,9 +77,6 @@ function createBookCard(coverImageUrl, title, author, price, description, genre)
 
 //TO-DO BY OMAR
 /*After reading from the customer.json \
-
-2- Add event listener for cancel to canel and clear the your cart 
-section
 
 3- Add event listener for proceed to redirect to checkout.html*/
 
@@ -102,13 +118,6 @@ function proccessCustBalance() {
   }
 
 
-const quantityInput = document.getElementById('quantity');
-quantityInput.addEventListener('input', function(event) {
-    const quantity = event.target.value;
-    const subtotal = price * quantity;
-    purchaseItem("Book", subtotal); 
-});
-
 
     function displaySubtotal(){
         const p1 = document.createElement('p');
@@ -118,7 +127,7 @@ quantityInput.addEventListener('input', function(event) {
         const p3 = document.createElement('p');
         p3.textContent = '30 QAR'
     
-        const addElement = document.getElementById('purchase')
+        const addElement = document.getElementById('#purchase')
         addElement.appendChild(p1)
         addElement.appendChild(p2)
         addElement.appendChild(p3)
@@ -132,3 +141,4 @@ function purchaseItem(title, subtotal) {
         console.log("Insufficient balance to purchase", title);
     }
 }
+
