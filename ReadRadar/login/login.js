@@ -1,3 +1,5 @@
+import User from "../data/user";
+
 document.addEventListener('DOMContentLoaded', function() {
     const users = [
       { username: "customer1", password: "password123", role: "Customer" },

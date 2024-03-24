@@ -1,4 +1,4 @@
-import customer from 'data/customer.js'
+
 
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#addItemLink').addEventListener('click', function(event) {
