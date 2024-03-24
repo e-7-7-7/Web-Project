@@ -1,4 +1,4 @@
-// import customer from 'data/customer.js'
+
 
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#addItemLink').addEventListener('click', function(event) {
@@ -35,21 +35,37 @@ document.addEventListener('DOMContentLoaded', function() {
     const quantityInput = document.getElementById('quantity');
     quantityInput.addEventListener('input', function(event) {
         const quantity = event.target.value;
+        
+       
+        const priceElement = document.querySelector('.inner-card p:nth-child(3)');
+        const price = parseFloat(priceElement.textContent.replace('Price: $', ''));
+    
         const subtotal = price * quantity;
         purchaseItem("Book", subtotal); 
     });
+    
 
-    document.querySelector("#cancel").addEventListener("click", function(event) {
-      event.preventDefault(); 
 
-      let cartContent = document.getElementById("#purchContent");
-      cartContent.innerHTML = ""; 
+
+
+  });
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    const cancelButton = document.querySelector('#cancel');
+    cancelButton.addEventListener('click', function(event) {
+        document.querySelector('#purchContent').remove();
     });
+    const proceedButton = document.querySelector('#proceed');
+    proceedButton.addEventListener('click', function(event) {
+      event.preventDefault();
+      document.querySelector('#checkoutForm').style.display = 'block';
+    });
+});
 
 
 
     
-});
+
 
 function createBookCard(coverImageUrl, title, author, price, description, genre) {
     const card = document.createElement('div');

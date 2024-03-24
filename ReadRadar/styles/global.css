@@ -194,6 +194,29 @@ body, h1, p {
   }
 
 }
+#checkoutForm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure it's above other content */
+  border-radius: 8px;
+  input,select, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+
+   
+  }
+
+}
 
 
 
@@ -250,7 +273,7 @@ button#closePopup {
  
 }
 
-#2024-Books{
+#books{
   
   display: flex;
   flex-direction: row;

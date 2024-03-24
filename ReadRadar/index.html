@@ -33,7 +33,7 @@
                     <li><img src="media/icons/home.svg" alt=""><a href="index.html">Home</a></li>
                     <li><img src="media/icons/trophy.svg" alt=""><a href="#bestBooks">2023 Best books</a></li>
                     <li><img src="media/icons/book-marked.svg" alt=""><a href="#Genres">Genres</a></li>
-                    <li><img src="media/icons/shopping-cart.svg" alt=""><a href="purchaseHist.html">Purchase History</a></li>
+                    <li><img src="media/icons/shopping-cart.svg" alt=""><a href="/Purchase History/purchaseHist.html">Purchase History</a></li>
                 </ul>
 
                 <ul>
@@ -123,23 +123,45 @@
     </main>
     <aside>
         <section class="aside-title">
-            <img id = "shopping-cart" src="media/icons/shopping-cart.svg" alt=""><h2> Your Cart</h3>
+            <img id = "shopping-cart" src="media/icons/shopping-cart.svg" alt=""><h2> Your Cart</h2>
         </section>
 
         <div id="purchContent">
             <section id="book-picked">
-                <p>puioasdfpsfho ph fhpsdfuiosfhui fhp u udhp p</p>
+               
             </section>
             <section id="purchase">
     
             </section>
         </div>
-
-
+        
+        <form>
+            <label for="qunatity">Qunatity:</label>
+            <input type="number" id="qunatity" name="qunatity" min="1">
+        </form>
+    
         <section class="purchase-buttons">
             <button type="submit" id="cancel">Cancel</button>
             <button type="submit" id="proceed">Proceed</button>
         </section>
+
+        <div id="checkoutForm" class="popup-form-hidden">
+
+            <section id="checkout">
+                <h2> <img src="media/icons/shopping-basket.svg" alt="">Checkout</h2>
+            </section>
+            <section id="transaction">
+
+            </section>
+
+            <form id="purchaseForm">
+                    <label for="qunatity">Qunatity:</label>
+                    <input type="number" id="qunatity" name="qunatity" min="1">
+                    <button type="submit" id="cancel">Cancel</button>
+                    <button type="submit" id="checkout">Checkout</button>
+            </form>
+            
+        </div>
         <!-- It will show the selected book by the user 
             and it will let him pick the qunatity and show 
             the total and send him to check out -->
