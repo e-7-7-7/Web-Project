@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/View_sales.css">
+    <title>Sales</title>
+    <link  rel="icon" href="media/icons/radar -white.svg" type="image/x-icon">
+</head>
+
+
+<body>
+
+    <header>
+        <div class="name">
+            <img src="/media/icons/radar.svg" alt=""><h1>ReadRadar</h1>
+        </div>
+        <div class="search">
+            <img src="/media/icons/search.svg" alt="">
+            <form id="searchForm">
+                <input type="search" id="searchInput" name="search" placeholder="Search for books">
+                <button type="submit"><img src="/media/icons/arrow-right.svg" alt=""></button>
+            </form>
+        </div>
+        <section class="profile">
+                <!-- A window get opened when user clicks on the icon of profile -->
+                <img src="/media/icons/circle-user.svg" alt="">
+        </section>
+   
+    </header>
+
+        <nav class="navigation">
+            <div class="nav">
+                <ul>
+                    <li><img src="/media/icons/home.svg" alt=""><a href="/index.html">Home</a></li>
+                    <li><img src="/media/icons/trophy.svg" alt=""><a href="#bestBooks">2023 Best books</a></li>
+                    <li><img src="/media/icons/book-marked.svg" alt=""><a href="#Genres">Genres</a></li>
+                    <li><img src="/media/icons/shopping-cart.svg" alt=""><a href="#purchaseHist.html">Purchase History</a></li>
+                </ul>
+
+                <ul>
+                    <li><img src="/media/icons/headset.svg" alt=""><a href="#contact">Contact Us</a></li>
+                    <li><a href="#View sales" id="viewSalesLink">View Sales</a></li>
+                </ul>
+
+            </div>
+
+        </nav>
+
+    <section name="salesType" id="salesType" class="salesType">
+        <button type="button" id="onsaleButton" class="selected">On Sale Books</button>
+        <button type="button" id="allButton" class="selected">All Books</button>
+        <button type="button" id="soldButton" class="selected">Sold Books</button>  
+    </section>
+
+    <main id="book_list" class="book_list">
+        <div id="popupArea"  class="hidden">
+            <form id="updateBookForm" >
+
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author">
+
+                <label for="genre">Genre:</label>
+                <select id="genre" name="genre">
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Action">Action</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Self Devlopment">Self-Development</option>
+                    <option value="Arabic">Arabic</option>
+                    <!-- Add more options as needed -->
+                </select>
+
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" required step="0.01">
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description"></textarea>
+                <label for="cover">Cover Image:</label>
+                <input type="file" id="cover" name="cover" accept="image/*">
+
+                <input type="text" name="id" id="id" hidden>
+
+                <button type="submit" id="update">Update</button>
+                <button type="button" id="cancel">Cancel</button>
+            </form>
+        </div>
+
+        <div name="list_title" id="list_title" class="list_title"></div>
+        <div id="book_list_area" class="book_list_area"></div>
+       
+    </main>
+    <footer>
+        <div class="socials"></div>
+        <section id="contact">
+            <p id="phoneNo">+974 66118811</p>
+            <p id="email">readradar.cont@book.qa</p>
+        </section>
+        <section> <p>2024 © ReadRadar</p></section>
+    </footer>
+
+   <script src="sales.js"></script>
+
+</body>
+</html>

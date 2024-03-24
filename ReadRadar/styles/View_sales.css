@@ -1,0 +1,334 @@
+:root {
+  --primary-color: #d885a3;
+  --secondary-color: #c0dbea;
+  --text-dark: #020617;
+  --text-light: #94a3b8;
+  --white: #ffffff;
+  /* --max-width: 1200px; */
+  font-family: serif;
+}
+
+
+
+body, h1, p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    display: grid;
+    grid-template-areas:
+      "header"
+      "navbar"
+      "section"
+      "main"
+      "footer";
+    grid-template-rows: auto auto auto 1fr auto; /* Adjust row sizes as needed */
+    height: 100vh;
+  
+  }
+
+  .name{
+    display: flex;
+    align-items: center;
+    padding-bottom: 1rem;
+  }
+  
+  .name h1{
+    color: var(--white);
+  }
+  .name img, .profile img{
+    filter: invert(100%);
+    padding-right: 0.3rem;
+    width: 2rem;
+  }
+  
+  
+  header {
+    grid-area: header;
+    background-color: #08519C; /* Your chosen header color */
+    padding: 1em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* justify-content: space-between; Aligns the profile to the left and search to the right */
+}
+
+.profile {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    padding: 1em; 
+}
+
+
+  /*search related*/
+
+
+  .search img{
+    padding-right:1rem ;
+    padding-left:0.7rem;
+  }
+  .search{
+    display: flex;
+    align-items: space-between;
+    border: 10px none;
+    background-color: white;
+    width: 20rem;
+    height: 2rem;
+    border-radius: 2rem;
+    padding-right: 1rem;
+  }
+
+
+
+  #searchInput {
+    padding: 0.2em;
+    font-size: 1em;
+    border: 0.4px none;
+    border-radius: 10px;
+    margin-right: 0.5em;
+    width: 12rem;
+  }
+  #searchInput :focus {
+    border: 1px none; 
+  }
+  #searchForm button {
+    
+    border: 1px none;
+    cursor: pointer;
+  }
+  
+  #searchForm button:hover {
+    background-color: #dedfe7;
+  }
+
+  /*naviagtion related*/
+  
+  nav {
+    grid-area: navbar;
+    background-color: #2B8CBE;
+    padding: 1rem;
+  }
+
+  .nav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+
+  
+  nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0; 
+    padding: 0; 
+  }
+  
+  nav li {
+    
+    display: flex; 
+    align-items: center;
+    text-wrap: nowrap;
+    font-size:  13px;
+    
+  }
+  
+  nav img {
+    width: 1.3rem;
+    filter: invert(100%);
+    padding-right: 0.3rem;
+  }
+  
+   
+
+    a {
+      text-decoration: none;
+      color: var(--white);
+      margin-right: 1.3rem; 
+    }
+
+
+
+
+/*section related*/
+
+.salesType{
+  grid-area: section;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: #ffffff;
+    button{
+      transition: 0.4s;
+      padding: 0.5rem;
+      flex: 1;
+      font-size: 16px;
+      background-color: #31cce0;
+      border: none;
+    }
+
+    button:hover{
+      transition: 0.4s;
+      background-color: #eae3e4;
+    }
+}
+
+.selected{
+  background-color: #d6102d;
+}
+
+
+/*main Related*/
+
+
+
+#list_title{
+  margin: 0.5rem;
+  text-align: center;
+}
+
+.book_list_area {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1rem;
+
+  .card {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      text-align: center;
+      margin: 60px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      transition: 0.4s;
+      border-radius: 5px;
+      height: 90%;
+
+      display: flex;
+      flex-direction: column;
+
+      img {
+          width: 100%;
+          height: 100%;
+          aspect-ratio: 16/9;
+          margin-bottom: 1rem;
+          flex: 1;
+      }
+
+      p {
+          width: 100%;
+          text-align: justify;
+      }
+  }
+
+  .card:hover {
+      box-shadow: 0 28px 36px 0 rgba(22, 3, 3, 0.2);
+  }
+  
+}
+
+
+
+  /* style.css */
+.hidden {
+  display: none;
+}
+
+#updateBookForm {
+  transition: 0.4s;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure it's above other content */
+  border-radius: 8px;
+  input,select, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+}
+
+
+
+
+
+button#submit {
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+
+
+button#closePopup {
+  background-color: #dc3545;
+}
+
+
+
+  
+  footer {
+    grid-area: footer;
+    background-color: #020617; /* Your chosen footer color */
+    color: white;
+    margin-top: 100px;
+    padding: 0.4em;
+    text-align: center;
+  }
+  
+  @media screen and (min-width: 600px) {
+    header {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+  .profile {
+      position: relative; 
+  }
+    
+    nav {
+      justify-content: flex-start;
+      padding-left: 8rem;
+    }
+    .search{
+      width: 50rem;
+      height: 2.5rem;
+    }
+    #searchInput {
+      border-radius: 10px;
+      margin-right: 0.5em;
+      width: 40rem;
+    }
+    nav li {
+      font-size:  15px;;
+      
+    }
+    
+
+    
+
+
+  }
+  /* Responsive design adjustments for smaller screens */
+  @media (max-width: 768px) {
+    
+    nav, aside {
+      padding: 0.5em;
+    }
+  }
