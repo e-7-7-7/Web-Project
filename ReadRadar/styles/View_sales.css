@@ -1,3 +1,6 @@
+
+
+
 :root {
   --primary-color: #d885a3;
   --secondary-color: #c0dbea;
@@ -13,6 +16,7 @@
 body, h1, p {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
   }
   
   body {
@@ -46,6 +50,7 @@ body, h1, p {
   
   header {
     grid-area: header;
+    position: relative;
     background-color: #08519C; /* Your chosen header color */
     padding: 1em;
     text-align: center;
@@ -53,14 +58,21 @@ body, h1, p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* justify-content: space-between; Aligns the profile to the left and search to the right */
+    justify-content: space-between;
 }
 
 .profile {
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    padding: 1em; 
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1rem; 
+    margin:1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    gap: 0.3rem;
+
 }
 
 
@@ -163,24 +175,30 @@ body, h1, p {
   flex-direction: row;
   justify-content: space-around;
   color: #ffffff;
-    button{
-      transition: 0.4s;
-      padding: 0.5rem;
-      flex: 1;
-      font-size: 16px;
-      background-color: #31cce0;
-      border: none;
-    }
-
-    button:hover{
-      transition: 0.4s;
-      background-color: #eae3e4;
-    }
+  
+  button{
+    transition: 0.4s;
+    padding: 0.5rem;
+    flex: 1;
+    font-size: 16px;
+    background-color: #eae3e4;
+    border: none;
+  }
+  
+  button:hover{
+    transition: 0.4s;
+    background-color: #58ebff;
+  }
+  .selected{
+    transition: 0.4s;
+    background-color: #31cce0;
+  }
+  
+   
 }
 
-.selected{
-  background-color: #d6102d;
-}
+
+
 
 
 /*main Related*/
@@ -199,10 +217,11 @@ body, h1, p {
   gap: 1rem;
 
   .card {
+    line-height: 2;
       background-color: rgba(255, 255, 255, 0.8);
       padding: 20px;
-      text-align: center;
-      margin: 60px;
+      text-align:  left;
+      margin: 50px;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       transition: 0.4s;
       border-radius: 5px;
@@ -223,6 +242,10 @@ body, h1, p {
           width: 100%;
           text-align: justify;
       }
+
+      label{
+        font-weight: bolder;
+      }
   }
 
   .card:hover {
@@ -232,8 +255,43 @@ body, h1, p {
 }
 
 
+.bookButtons{
+  display: flex;
+  flex-direction: column;
+  margin:0.5rem;
+  gap: 0.5rem;
+}
 
-  /* style.css */
+.bookButton{
+  border-radius: 10px;
+  color: white;
+  padding:0.5rem
+}
+
+#updateButton{
+  transition: 0.4s;
+  background-color: #08519C;
+}
+
+#updateButton:hover{
+  transition: 0.4s;
+  background-color: #007bff;
+
+}
+
+#deleteButton{
+  transition: 0.4s;
+  background-color: #e42c2c;
+}
+
+#deleteButton:hover{
+  transition: 0.4s;
+  background-color: #ff5656;
+
+}
+
+
+
 .hidden {
   display: none;
 }
@@ -265,7 +323,8 @@ body, h1, p {
 
 
 
-button#submit {
+#update {
+  transition: 0.4s;
   cursor: pointer;
   padding: 10px 20px;
   background-color: #007bff;
@@ -276,9 +335,28 @@ button#submit {
 
 
 
-button#closePopup {
-  background-color: #dc3545;
+#update:hover {
+  transition: 0.4s;
+  background-color: #0099ff;
 }
+
+
+#cancel {
+  transition: 0.4s;
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: #e42c2c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+
+#cancel:hover {
+  transition: 0.4s;
+  background-color: #ff5656;
+}
+
 
 
 
@@ -291,16 +369,21 @@ button#closePopup {
     padding: 0.4em;
     text-align: center;
   }
+
+
   
-  @media screen and (min-width: 600px) {
+  /*handlig diffrent screen sizes here*/
+  @media screen and (min-width: 800px) {
     header {
       flex-direction: row;
       justify-content: space-between;
     }
 
-  .profile {
-      position: relative; 
-  }
+    .profile{
+      position: relative;
+    }
+
+  
     
     nav {
       justify-content: flex-start;
@@ -319,16 +402,5 @@ button#closePopup {
       font-size:  15px;;
       
     }
-    
 
-    
-
-
-  }
-  /* Responsive design adjustments for smaller screens */
-  @media (max-width: 768px) {
-    
-    nav, aside {
-      padding: 0.5em;
-    }
   }

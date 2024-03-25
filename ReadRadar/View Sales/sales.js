@@ -3,6 +3,7 @@
 let books =[];  // we store on sale books here for a specific seller
 let transactions=[]; // we store sold books here
 let Allbooks=[] //  we store on sale books here for all sellers
+
 // we will assume that seller id = 1
 loadFiles();
 
@@ -141,13 +142,27 @@ function onsaleBookToHTML(book){
     console.log(title);
     return `<div class="card">
                 <img src="${book.cover}" alt="${book.title}">
-                <p name="bookTitle" id = ""><strong>Title: </strong>${book.title}</p>
-                <p><strong>Author(s): </strong>${book.author}</p>
-                <p><strong>Genre: </strong>${book.genre}</p>
-                <p><strong>Price: </strong>${book.price}</p>
-                <p><strong>ID: </strong>${book.id}</p>
-                <button type="button" id="updateButton" onclick="mapBook(${book.id})">Update</button>
-                <button type="button" id="deleteButton" onclick="deleteBook(${book.id})">Delete</button>
+
+                <label for="">Title:</label>
+                <p name="bookTitle" id = "">${book.title}</p>
+
+                
+                <label for="">Author(s):</label>
+                <p>${book.author}</p>
+
+                <label for="">Genre:</label>
+                <p>${book.genre}</p>
+                
+
+                <label for="">Price: </label>
+                <p>${book.price} Qr</p>
+
+                <label for="">Book ID: </label>
+                <p>${book.id}</p>
+                <div class="bookButtons">
+                    <button class ="bookButton" type="button" id="updateButton" onclick="mapBook(${book.id})">Update</button>
+                    <button class ="bookButton" type="button" id="deleteButton" onclick="deleteBook(${book.id})">Delete</button>
+                </div>
             </div>` ;
 
 }
@@ -169,14 +184,29 @@ function transactionToHTML(transaction){ // converts a transcation to html
     return transaction.books.map(book=> 
         `<div class="card">
             <img src="${book.cover}" alt="${book.title}">
-            <p name="bookTitle" id = ""><strong>Title: </strong>${book.title}</p>
-            <p><strong>Author(s): </strong>${book.author}</p>
-            <p><strong>Genre: </strong>${book.genre}</p>
-            <p><strong>Price: </strong>${book.price}</p>
-            <p><strong>Customer: </strong>${transaction.custmoer_id}</p>
-            <p><strong>Transaction ID: </strong>${transaction.id}</p>
-            <p><strong>Date: </strong>${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} (${hours}:${date.getMinutes()} ${time})</p>
-        </div>`).join(" ") ;   
+
+            <label for="">Title:</label>
+            <p name="bookTitle" id = "">${book.title}</p>
+
+            <label for="">Author(s):</label>
+            <p>${book.author}</p>
+
+            <label for="">Genre:</label>
+            <p>${book.genre}</p>
+            
+            <label for="">Price: </label>
+            <p>${book.price} Qr</p>
+
+            <label for="">Customer ID:</label>
+            <p>${transaction.customer_id}</p>
+
+            <label for="">Transaction ID:</label>
+            <p>${transaction.id}</p>
+
+            <label for="">Date:</label>
+            <p>${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} (${hours}:${date.getMinutes()} ${time})</p>
+        
+            </div>`).join(" ") ;   
 }
 
 function deleteBook(id){
