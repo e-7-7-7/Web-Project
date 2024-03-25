@@ -188,6 +188,7 @@ body, h1, p {
   button:hover{
     transition: 0.4s;
     background-color: #58ebff;
+    cursor: pointer;
   }
   .selected{
     transition: 0.4s;
@@ -260,33 +261,38 @@ body, h1, p {
   flex-direction: column;
   margin:0.5rem;
   gap: 0.5rem;
+  
 }
 
 .bookButton{
   border-radius: 10px;
   color: white;
-  padding:0.5rem
+  padding:0.5rem; 
 }
 
 #updateButton{
   transition: 0.4s;
   background-color: #08519C;
+  
 }
 
 #updateButton:hover{
   transition: 0.4s;
   background-color: #007bff;
+  cursor: pointer;
 
 }
 
 #deleteButton{
   transition: 0.4s;
   background-color: #e42c2c;
+  
 }
 
 #deleteButton:hover{
   transition: 0.4s;
   background-color: #ff5656;
+  cursor: pointer;
 
 }
 
@@ -399,7 +405,7 @@ body, h1, p {
       width: 40rem;
     }
     nav li {
-      font-size:  15px;;
+      font-size:  15px;
       
     }
 

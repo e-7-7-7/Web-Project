@@ -58,11 +58,19 @@ body, h1, p {
 }
 
 .profile {
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    padding: 1em; 
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1rem; 
+  margin:1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  gap: 0.3rem;
+
 }
+
 
 
   /*search related*/
@@ -403,9 +411,9 @@ button#closePopup {
       justify-content: space-between;
     }
 
-  .profile {
-      position: relative; 
-  }
+    .profile{
+      position: relative;
+    }
     
     nav {
       justify-content: flex-start;
@@ -421,8 +429,7 @@ button#closePopup {
       width: 40rem;
     }
     nav li {
-      font-size:  15px;;
-      
+      font-size:  15px;
     }
     
 
