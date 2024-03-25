@@ -53,11 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     
-const quantityInput = document.querySelector('#quantity');
-quantityInput.addEventListener('click', function(event) {
-    const quantity = event.target.value;
-    purchaseItem("Book", subtotal); 
-});
+
     
 
 
@@ -82,62 +78,109 @@ function createBookCard(coverImageUrl, title, author, price, description, genre)
 
 
 
-//Purchase Item process 
-//UNDER MODIFICATION//
 
 
 
-let price; 
+let price;
 let balance;
 let title;
-let subtotal; 
+let subtotal;
 
-
-
-// The Following 4 function will be called when the user Select a book to be purchased
-
-//Here will be the function of showing the selected book in the Cart Aside
-function displaySelected(){
-
-}
-
-function proccessBookData() {
+// Fetch book data from JSON file
+//Needs Modification when Adding books is finished 
+function processBookData() {
     fetch('items.json') 
-      .then(res => res.json())
-      .then(data => {
-        data.forEach(book => {
-          title=book.title;
-          price=book.price
+        .then(res => res.json())
+        .then(data => {
+            const book = data[0]; // Assuming the first book in the array
+            title = book.title;
+            price = book.price;
+            displaySelectedBook();
+        })
+        .catch(error => {
+            console.error('Error fetching book data:', error);
         });
-      })
-      .catch(error => {
-        console.error('Error fetching book data:', error);
-      });
-  }
-
-  function proccessSubtotal(){
-    const quantityInput = document.querySelector('#quantity');
-    quantityInput.addEventListener('input', function(event) {
-        const quantity = event.target.value;
-    });
-
-    subtotal = price * quantity;
 }
 
-  function displaySubtotal(){
-    const p1 = document.createElement('p');
-    p1.textContent = 'Subtotal:'
-    const p2 = document.createElement('p');
-    p2.textContent = 'One Lost Soul'
-    const p3 = document.createElement('p');
-    p3.textContent = '30 QAR'
+function displaySelectedBook() {
+    const cartSection = document.querySelector('#book-picked');
+    cartSection.innerHTML = `<p>${title}</p><p>Price: $${price}</p>`;
 
-    const addElement = document.getElementById('#purchase')
-    addElement.appendChild(p1)
-    addElement.appendChild(p2)
-    addElement.appendChild(p3)
+    const quantityInput = document.getquerySelector('#quantity');
 
-};
+    quantityInput.addEventListener('input', calculateSubtotal);
+}
+
+function calculateSubtotal(event) {
+    const quantity = parseInt(event.target.value) || 0;
+    subtotal = price * quantity;
+
+    // Display subtotal
+    const subtotalDisplay = document.querySelector('#subtotal');
+    subtotalDisplay.textContent = `Subtotal: $${subtotal}`;
+}
+
+// Call function to fetch book data when the page loads
+document.addEventListener('DOMContentLoaded', processBookData);
+
+
+
+// //Purchase Item process 
+// //UNDER MODIFICATION//
+
+
+
+// let price; 
+// let balance;
+// let title;
+// let subtotal; 
+
+
+
+// // The Following 4 function will be called when the user Select a book to be purchased using the buy button on each book 
+
+// //Here will be the function of showing the selected book in the Cart Aside
+// function displaySelected(){
+
+// }
+
+// function proccessBookData() {
+//     fetch('items.json') 
+//       .then(res => res.json())
+//       .then(data => {
+//         data.forEach(book => {
+//           title=book.title;
+//           price=book.price
+//         });
+//       })
+//       .catch(error => {
+//         console.error('Error fetching book data:', error);
+//       });
+//   }
+
+//   function proccessSubtotal(){
+//     const quantityInput = document.querySelector('#quantity');
+//     quantityInput.addEventListener('input', function(event) {
+//         const quantity = event.target.value;
+//     });
+
+//     subtotal = price * quantity;
+// }
+
+//   function displaySubtotal(){
+//     const p1 = document.createElement('p');
+//     p1.textContent = 'Subtotal:'
+//     const p2 = document.createElement('p');
+//     p2.textContent = 'One Lost Soul'
+//     const p3 = document.createElement('p');
+//     p3.textContent = '30 QAR'
+
+//     const addElement = document.getElementById('#purchase')
+//     addElement.appendChild(p1)
+//     addElement.appendChild(p2)
+//     addElement.appendChild(p3)
+
+// };
 
 
 
