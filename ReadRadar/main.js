@@ -1,4 +1,8 @@
 
+let price;
+let balance;
+let title;
+let subtotal;
 
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#addItemLink').addEventListener('click', function(event) {
@@ -46,11 +50,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     const proceedButton = document.querySelector('#proceed');
     proceedButton.addEventListener('click', function(event) {
-      event.preventDefault();
+      
       document.querySelector('#checkoutForm').style.display = 'block';
     });
-});
 
+    //Checkout button needs modification
+    const checkoutButton=document.querySelector('#checkout');
+    checkoutButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        purchaseItem(subtotal);
+        alert("Checkout successful");
+    });
+
+
+
+    
+  });
 
     
 
@@ -78,13 +93,6 @@ function createBookCard(coverImageUrl, title, author, price, description, genre)
 
 
 
-
-
-
-let price;
-let balance;
-let title;
-let subtotal;
 
 // Fetch book data from JSON file
 //Needs Modification when Adding books is finished 
@@ -125,65 +133,6 @@ document.addEventListener('DOMContentLoaded', processBookData);
 
 
 
-// //Purchase Item process 
-// //UNDER MODIFICATION//
-
-
-
-// let price; 
-// let balance;
-// let title;
-// let subtotal; 
-
-
-
-// // The Following 4 function will be called when the user Select a book to be purchased using the buy button on each book 
-
-// //Here will be the function of showing the selected book in the Cart Aside
-// function displaySelected(){
-
-// }
-
-// function proccessBookData() {
-//     fetch('items.json') 
-//       .then(res => res.json())
-//       .then(data => {
-//         data.forEach(book => {
-//           title=book.title;
-//           price=book.price
-//         });
-//       })
-//       .catch(error => {
-//         console.error('Error fetching book data:', error);
-//       });
-//   }
-
-//   function proccessSubtotal(){
-//     const quantityInput = document.querySelector('#quantity');
-//     quantityInput.addEventListener('input', function(event) {
-//         const quantity = event.target.value;
-//     });
-
-//     subtotal = price * quantity;
-// }
-
-//   function displaySubtotal(){
-//     const p1 = document.createElement('p');
-//     p1.textContent = 'Subtotal:'
-//     const p2 = document.createElement('p');
-//     p2.textContent = 'One Lost Soul'
-//     const p3 = document.createElement('p');
-//     p3.textContent = '30 QAR'
-
-//     const addElement = document.getElementById('#purchase')
-//     addElement.appendChild(p1)
-//     addElement.appendChild(p2)
-//     addElement.appendChild(p3)
-
-// };
-
-
-
 //function to proccess customer balance
 
 //These Function will be called after the customer proceeds into Checkout 
@@ -201,12 +150,12 @@ function proccessCustBalance() {
       });
   }
 
-function purchaseItem(title, subtotal) {
+function purchaseItem(subtotal) {
     if (balance >= subtotal) {
         balance -= subtotal;
-        console.log(`Successfully purchased ${title}. Remaining balance: ${balance}`);
     } else {
-        console.log("Insufficient balance to purchase", title);
-    }
+        alert("Insuffiecient Balance...CheckOut failed")
+    }   
 }
+
 
