@@ -6,7 +6,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelector('#addItemLink').addEventListener('click', function(event) {
         event.preventDefault();
-        document.querySelector('#popupForm').style.display = 'block';
+        
+        // Retrieve the user role from localStorage
+        const userRole = localStorage.getItem('userRole');
+        
+        // Get the popup form element
+        const popupForm = document.querySelector('#popupForm');
+
+        // Check if the user role is "Seller"
+        if (userRole === 'Seller') {
+            // Toggle the display based on current visibility
+            if (popupForm.style.display === 'block') {
+                popupForm.style.display = 'none';
+            } else {
+                popupForm.style.display = 'block';
+            }
+        } else {
+            alert('You are not authorized to add items. Only sellers can add items.');
+        }
     });
 
     document.querySelector('#uploadItemForm').addEventListener('submit', function(event) {

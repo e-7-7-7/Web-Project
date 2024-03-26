@@ -35,6 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
       const user = users.find(user => user.username === username && user.password === password);
       
       if(user) {
+        // Store user role and authentication state in localStorage
+        localStorage.setItem('isAuthenticated', 'true');
+         localStorage.setItem('userRole', user.role);
           window.location.href = '../index.html';
       } else {
           alert('Login failed. Incorrect username or password.');
