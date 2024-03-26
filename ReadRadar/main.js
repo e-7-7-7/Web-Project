@@ -1,6 +1,7 @@
-
-
 document.addEventListener('DOMContentLoaded', function() {
+    // Display books from localStorage on page load
+    displayBooksFromLocalStorage();
+
     document.querySelector('#addItemLink').addEventListener('click', function(event) {
         event.preventDefault();
         document.querySelector('#popupForm').style.display = 'block';
@@ -16,64 +17,57 @@ document.addEventListener('DOMContentLoaded', function() {
         const description = document.querySelector('#description').value;
         const cover = document.querySelector('#cover').files[0];
         
-        // Use FileReader to read the selected file (cover image)
         if (cover) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                createBookCard(e.target.result, title, author, price, description, genre);
+                // Process and save the new book after reading the cover image
+                processAndSaveBook(e.target.result, title, author, price, description, genre);
             };
-            reader.readAsDataURL(cover); // Converts the file into a data URL
+            reader.readAsDataURL(cover); 
         } else {
-            createBookCard('', title, author, price, description, genre); // No cover image provided
+            // Process and save the new book even if there's no cover image
+            processAndSaveBook('', title, author, price, description, genre);
         }
 
-        // Close the form
         document.querySelector('#popupForm').style.display = 'none';
-    });
-
-
-    
-
-
-
-
-  });
-  
-  document.addEventListener('DOMContentLoaded', function() {
-    const cancelButton = document.querySelector('#cancel');
-    cancelButton.addEventListener('click', function(event) {
-        document.querySelector('#purchContent').remove();
-    });
-    const proceedButton = document.querySelector('#proceed');
-    proceedButton.addEventListener('click', function(event) {
-      event.preventDefault();
-      document.querySelector('#checkoutForm').style.display = 'block';
     });
 });
 
+function processAndSaveBook(coverImageUrl, title, author, price, description, genre) {
+    const newBook = { coverImageUrl, title, author, price, description, genre };
+    saveBookToLocalStorage(newBook);
+    displayBooksFromLocalStorage(); // Refresh the book display
+}
 
-    
+function saveBookToLocalStorage(book) {
+    let addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
+    const uniqueId = Date.now() + "-" + Math.random().toString(36).substr(2, 9); // Generate a unique ID for the book
+    const bookWithId = { ...book, id: uniqueId }; // Add the unique ID to the book object
+    addedBooks.push(bookWithId); // Add the new book to the array
+    localStorage.setItem('addedBooks', JSON.stringify(addedBooks)); // Save the updated array back to localStorage
+}
 
-    
-
+function displayBooksFromLocalStorage() {
+    const section = document.querySelector('#Books-2024'); // Ensure this targets your book display area correctly
+    section.innerHTML = ''; // Clear existing content before displaying the updated book list
+    const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
+    addedBooks.forEach(book => {
+        createBookCard(book.coverImageUrl, book.title, book.author, book.price, book.description, book.genre);
+    });
+}
 
 function createBookCard(coverImageUrl, title, author, price, description, genre) {
     const card = document.createElement('div');
     card.className = 'inner-card';
-    
     card.innerHTML = `
         <img src="${coverImageUrl || 'default-cover-image-path.jpg'}" alt="${title}">
         <p>Title: ${title}</p>
         <p>Author: ${author}</p>
         <p>Price: $${price}</p>
         <p>Description: ${description}</p>
-        <button id="Add">Add</button>
-    `;
-
-    // Assume the genre translates to an ID - customize this as needed
+    `; // Note: Removed the Add button for simplicity
     const section = document.querySelector(`#${genre.replace(/\s+/g, '-')}`) || document.querySelector('#2024-Books');
     section.appendChild(card);
-
 }
 
 
@@ -81,6 +75,8 @@ function createBookCard(coverImageUrl, title, author, price, description, genre)
 
 
 
+
+//=========================
 let price;
 let balance;
 let title;
