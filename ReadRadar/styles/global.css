@@ -382,6 +382,24 @@ button#closePopup {
   .inner-card p {
     padding: 0.4rem;
   }
+
+  #book-picked img {
+    padding: 0.4rem;
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+    max-width: 70%; /* Ensures images don't exceed their container's width */
+    height: auto; /* Maintains aspect ratio */
+    padding-bottom: 2rem;
+
+
+  }
+  
+  #book-picked {
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ 
+  }
   
   .inner-card button {
     margin: 1rem;

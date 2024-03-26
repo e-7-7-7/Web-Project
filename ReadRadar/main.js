@@ -70,7 +70,7 @@ function displayBooksFromLocalStorage() {
     section.innerHTML = ''; // Clear existing content before displaying the updated book list
     const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
     addedBooks.forEach(book => {
-        createBookCard(book.coverImageUrl, book.title, book.author, book.price, book.description, book.genre);
+        createBookCard(book.coverImageUrl, book.title, book.author, book.price, book.description, book.genre,book.id);
     });
 }
 // function addingToCart() {
