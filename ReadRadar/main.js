@@ -1,5 +1,4 @@
 
-
 document.addEventListener('DOMContentLoaded', function() {
     // Display books from localStorage on page load
     displayBooksFromLocalStorage();
@@ -74,23 +73,52 @@ function displayBooksFromLocalStorage() {
         createBookCard(book.coverImageUrl, book.title, book.author, book.price, book.description, book.genre);
     });
 }
-
-
+// function addingToCart() {
+//     const section = document.querySelector('#book-picked'); // Ensure this targets your book display area correctly
+//     section.innerHTML = ''; // Clear existing content before displaying the updated book list
+//     const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
+//     addedBooks.forEach(book => {
+//         if (addedBooks.some(selectedID => book.uniqueId === selectedID)) {
+//             displaySelectedBook(book.coverImageUrl, book.title, book.price)
+//         }
+//     });
     
+document.addEventListener('DOMContentLoaded', function() {
+    addingToCart(); 
+});
 
-    
 
 
-function createBookCard(coverImageUrl, title, author, price, description, genre) {
+function addingToCart() {
+    const bookElements = document.querySelectorAll('.inner-card');
+    bookElements.forEach(bookElement => {
+        bookElement.addEventListener('click', function() {
+            const bookId = this.dataset.bookId;
+            const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
+            const selectedBook = addedBooks.find(book => book.id === bookId); // Use 'id' property here
+            if (selectedBook) {
+                displaySelectedBook(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price);
+            }
+        });
+    });
+}
+
+
+
+
+function createBookCard(coverImageUrl, title, author, price, description, genre, id) {
     const card = document.createElement('div');
-    card.className = 'inner-card';
+    card.className = 'inner-card'; // Added 'book' class
+    card.setAttribute('data-book-id', id); // Set data-book-id attribute
+
     card.innerHTML = `
         <img src="${coverImageUrl || 'default-cover-image-path.jpg'}" alt="${title}">
         <p>Title: ${title}</p>
         <p>Author: ${author}</p>
         <p>Price: $${price}</p>
         <p>Description: ${description}</p>
-    `; // Note: Removed the Add button for simplicity
+    `;
+
     const section = document.querySelector(`#${genre.replace(/\s+/g, '-')}`) || document.querySelector('#2024-Books');
     section.appendChild(card);
 }
@@ -100,37 +128,19 @@ function createBookCard(coverImageUrl, title, author, price, description, genre)
 
 
 
-let price;
-let balance;
-let title;
-let subtotal;
 
-// Fetch book data from JSON file
-//Needs Modification when Adding books is finished 
-function processBookData() {
-    fetch('items.json') 
-        .then(res => res.json())
-        .then(data => {
-            const book = data[0]; // Assuming the first book in the array
-            title = book.title;
-            price = book.price;
-            displaySelectedBook();
-        })
-        .catch(error => {
-            console.error('Error fetching book data:', error);
-        });
-}
-
-function displaySelectedBook() {
+function displaySelectedBook(coverImage, title, price) {
     const cartSection = document.querySelector('#book-picked');
-    cartSection.innerHTML = `<p>${title}</p><p>Price: $${price}</p>`;
+    cartSection.innerHTML = `<img src="${coverImage || 'default-cover-image-path.jpg'}" alt="${title}">
+                            <p>${title}</p>
+                            <p>Price: $${price}</p>`;
 
     const quantityInput = document.getquerySelector('#quantity');
 
     quantityInput.addEventListener('input', calculateSubtotal);
 }
 
-function calculateSubtotal(event) {
+function calculateSubtotal(event,price) {
     const quantity = parseInt(event.target.value) || 0;
     subtotal = price * quantity;
 
@@ -140,7 +150,7 @@ function calculateSubtotal(event) {
 }
 
 // Call function to fetch book data when the page loads
-document.addEventListener('DOMContentLoaded', processBookData);
+
 
 
 
