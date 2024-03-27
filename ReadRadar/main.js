@@ -242,6 +242,40 @@ function purchaseItem(subtotal) {
 
 
 
+let users = JSON.parse(localStorage.getItem('users'));
+// If not found, initialize with default users and save to localStorage
+if (!users) {
+  users = [
+      { username: "customer1", password: "password123", role: "Customer", account_Balance: 200 },
+      { username: "seller1", password: "password123", role: "Seller", account_Balance: 0 },
+      { username: "admin1", password: "password123", role: "Admin", account_Balance: 0 },
+  ];
+  localStorage.setItem('users', JSON.stringify(users));
+}
+
+
+// purchase Item needs modifications
+function purchaseItem(subtotal,username){
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const customer =users.find(user => user.username === username && user.role === 'Customer')
+    let balance=0;
+    if(customer){
+         balance  = parseFloat(customer.account_Balance);
+    }
+    else{
+        alert('you are not a customer. Please sign in as a customer and try again')
+    }
+    if (balance >= subtotal) {
+        balance -= subtotal;
+    } else {
+        alert("Insuffiecient Balance...CheckOut failed")
+    }  
+        
+}
+
+
+
+
 
 
 
