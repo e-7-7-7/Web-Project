@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/styles/search.css">
     <title>ReadRadar</title>
     <link  rel="icon" href="media/icons/radar -white.svg" type="image/x-icon">
+    
 </head>
 <body>
 
@@ -21,8 +23,9 @@
             </form>
         </div>
         <section class="profile">
-                <!-- A window get opened when user clicks on the icon of profile -->
-                <img src="media/icons/circle-user.svg" alt="">
+            <!-- A window get opened when user clicks on the icon of profile -->
+            <img src="media/icons/circle-user.svg" alt="">
+            <p id="headerUsername"></p> <!--to be filled with the username of the user via JS-->
         </section>
    
     </header>
@@ -33,12 +36,13 @@
                     <li><img src="media/icons/home.svg" alt=""><a href="index.html">Home</a></li>
                     <li><img src="media/icons/trophy.svg" alt=""><a href="#bestBooks">2023 Best books</a></li>
                     <li><img src="media/icons/book-marked.svg" alt=""><a href="#Genres">Genres</a></li>
-                    <li><img src="media/icons/shopping-cart.svg" alt=""><a href="purchaseHist.html">Purchase History</a></li>
+                    <li><img src="media/icons/shopping-cart.svg" alt=""><a href="/Purchase History/purchaseHist.html">Purchase History</a></li>
                 </ul>
 
                 <ul>
                     <li><img src="media/icons/headset.svg" alt=""><a href="#contact">Contact Us</a></li>
                     <li><a href="#Add item" id="addItemLink">Add Item</a></li>
+                    <li><a href="/View Sales/View_Sales.html" id="viewSalesLink">View Sales</a></li>
                 </ul>
 
                 <!-- Pop-up Form -->
@@ -81,32 +85,18 @@
     
 
     <main>
-        <div class="purchaseHist">
-            <h2>Purchase History</h2>
-        </div>
-            
+        <div class="searchTitle" id="searchTitle"></div><!--the search value will be added here--> 
+        <div class="searchResults" id="searchResults"></div><!--search results will appear here-->
+
     </main>
-    <aside>
-        <section class="aside-title">
-            <img id = "shopping-cart" src="media/icons/shopping-cart.svg" alt=""><h2> Your Cart</h3>
-        </section>
-        <section id="book-picked">
 
-        </section>
-        <section id="purchase">
-
-        </section>
-
-
-        <!-- It will show the selected book by the user 
-            and it will let him pick the qunatity and show 
-            the total and send him to check out -->
-
-            <!-- MOST WORK WILL BE HERE -->
-    </aside>
 
     <footer>
-        <div class="socials"></div>
+        <div class="socials">
+            <img src="media/socials/facebook.svg" alt="">
+            <img src="media/socials/instagram.svg" alt="">
+            <img src="media/socials/x-twitter.svg" alt="">
+        </div>
         <section id="contact">
             <p id="phoneNo">+974 66118811</p>
             <p id="email">readradar.cont@book.qa</p>
@@ -114,23 +104,7 @@
         <section> <p>2024 © ReadRadar</p></section>
     </footer>
 
-    <script src="../main.js"></script>
-    <script>
-        
-    const searchForm= document.querySelector("#searchForm");
-    const searchBar = document.querySelector("#searchInput");
-
-    searchForm.addEventListener("submit",handleSearch);
-
-    function handleSearch(form){
-        form.preventDefault();
-
-        if(searchBar.value !=""){
-            localStorage.searchValue = searchBar.value ;
-            window.location.href ="../Search/search.html";
-        }
-    }
-    </script>
+    <script src="searchPage.js"></script>
 
 </body>
 </html>
