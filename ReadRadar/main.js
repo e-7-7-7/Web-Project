@@ -1,4 +1,6 @@
 delete localStorage.searchValue // empty the search value
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Display books from localStorage on page load
     displayBooksFromLocalStorage();
@@ -72,102 +74,6 @@ function displayBooksFromLocalStorage() {
     addedBooks.forEach(book => {
         createBookCard(book.coverImageUrl, book.title, book.author, book.price, book.description, book.genre,book.id);
     });
-}
-
-
-
-
-
-
-// search Related variables and functions
-
-const searchBar = document.querySelector("#searchInput");
-const bookArea = document.querySelector("#bookListingArea");
-
-searchBar.addEventListener("keyup",handleSearch);
-
-
-
-function handleSearch(){
-    if(searchBar.value ==""){
-        displayBooksFromLocalStorage();// show books normally
-        return;
-    }
-    const searchWord =  new RegExp (searchBar.value,"i"); // creates a value to work with the search function
-    const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
-    const wantedBooks = addedBooks.filter(book => book.title.toLowerCase().search(searchWord) >=0 || book.author.toLowerCase().search(searchWord) >=0);
-    displaySearchResults(wantedBooks);
-}
-
-function displaySearchResults(booksArray){
-    if(booksArray.length == 0){
-        bookArea.innerHTML=`<h2 style="text-align:center;">There is no Books with this title / author</h2>`
-        return;
-    }
-
-    bookArea.innerHTML = booksArray.map(book => createSearchBookCard(book)).join(" ")
-    
-}
-
-function createSearchBookCard(book){
-    const coverImageUrl = book.coverImageUrl;
-    const title = book.title;
-    const author = book.author;
-    const price = book.price;
-    const description = book.description;
-    const genre= book.genre ;
-
-   return `
-    <div class="inner-card" id="${book.id}">
-        <img src="${coverImageUrl || 'default-cover-image-path.jpg'}" alt="${title}">
-        <p>Title: ${title}</p>
-        <p>Author: ${author}</p>
-        <p>Price: $${price}</p>
-        <p>Description: ${description}</p>
-        <p>Genre: ${genre}</p>
-    </div>
-    `;
-    
-}
-
-function setBookArea(){ //resets the books listing area
-    bookArea.innerHTML=
-    ` <h4>2024 Books</h4>
-    <section id="Books-2024">
-
-        
-    </section>
-    <h4>2023 Best Books</h4>
-    <section id="bestBooks">
-        
-         <!-- Books be added here -->
-    </section>
-    <h4>Action</h4>
-    <section id="Action">
-       
-         <!-- Books be added here -->
-    </section>
-    <h4>Mystery</h4>
-    <section id="Mystery">
-        
-         <!-- Books be added here -->
-    </section>
-    <h4>Fiction</h4>
-    <section id="Fiction">
-       
-         <!-- Books be added here -->
-    </section>
-    <h4>Self Devlopment</h4>
-    <section id="Self-Devlopment">
-        
-         <!-- Books be added here -->
-    </section>
-    <h4>Arabic</h4>
-    <section id="Arabic">
-        
-         <!-- Books be added here -->
-    </section>
-    `
 }
 
 
