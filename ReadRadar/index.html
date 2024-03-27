@@ -41,12 +41,12 @@
 
                 <ul>
                     <li><img src="media/icons/headset.svg" alt=""><a href="#contact">Contact Us</a></li>
-                    <li><a href="#Add item" id="addItemLink">Add Item</a></li>
-                    <li><a href="/View Sales/View_Sales.html" id="viewSalesLink">View Sales</a></li>
+                    <li class="hidden" id="addListItem"><a href="#Add item" id="addItemLink">Add Item</a></li>
+                    <li class="hidden" id="viewSalesListItem"><a href="/View Sales/View_Sales.html" id="viewSalesLink">View Sales</a></li>
                 </ul>
 
                 <!-- Pop-up Form -->
-                <div id="popupForm" class="popup-form-hidden">
+                <div id="popupForm" class="hidden">
                     <form id="uploadItemForm">
                         <label for="title">Title:</label>
                         <input type="text" id="title" name="title" required>
@@ -149,7 +149,7 @@
             <button type="submit" id="proceed">Proceed</button>
         </section>
 
-        <div id="checkoutForm" class="popup-form-hidden">
+        <div id="checkoutForm" class="hidden">
 
             <section id="checkout">
                 <h2> <img src="media/icons/shopping-basket.svg" alt="">Checkout</h2>

@@ -4,11 +4,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let users = JSON.parse(localStorage.getItem('users'));
     // If not found, initialize with default users and save to localStorage
     if (!users) {
-      users = [
-          { username: "customer1", password: "password123", role: "Customer", account_Balance: 200 },
-          { username: "seller1", password: "password123", role: "Seller", account_Balance: 0 },
-          { username: "admin1", password: "password123", role: "Admin", account_Balance: 0 },
-      ];
+      getUsers()
+    }
+
+    async function getUsers(){
+      const data = await fetch("../data/users.json");
+      users = await data.json();
       localStorage.setItem('users', JSON.stringify(users));
     }
   
@@ -25,10 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('login').addEventListener('click', function(event) {
       event.preventDefault(); // Prevent the default form submit action
-      
-      // Retrieve users from localStorage
-      const users = JSON.parse(localStorage.getItem('users')) || [];
-      
+
+
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
       
@@ -38,6 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Store user role and authentication state in localStorage
         localStorage.setItem('isAuthenticated', 'true');
          localStorage.setItem('userRole', user.role);
+         localStorage.setItem('currentUserID', user.id);
+
           window.location.href = '../index.html';
       } else {
           alert('Login failed. Incorrect username or password.');

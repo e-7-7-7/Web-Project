@@ -1,0 +1,32 @@
+[
+  {
+    "id": 9,
+    "title": "A Court of Thorns and Roses",
+    "author": "Sarah J. Maas",
+    "genre": "Fiction",
+    "price": 11.99,
+    "cover": "../media/books/A-court-of-thrones.svg",
+    "description": "A young adult fantasy novel following the journey of Feyre Archeron in a world of faerie courts and ancient magic.",
+    "seller_id": 5
+  },
+  {
+    "id": 10,
+    "title": "Housemaid",
+    "author": "N. Scott Momaday",
+    "genre": "Fiction",
+    "price": 13.99,
+    "cover": "../media/books/Housemaid.svg",
+    "description": "Housemaid description",
+    "seller_id": 2
+  },
+  {
+    "id": 11,
+    "title": "The 48 Laws of Power",
+    "author": "Robert Greene",
+    "genre": "Self Devlopment",
+    "price": 18.99,
+    "cover": "../media/books/the-5am-club.svg",
+    "description": "The 5 AM Club ",
+    "seller_id": 5
+  }
+]

@@ -35,12 +35,15 @@ The data of all the users the website
 
     "username"
     "password"
-    "type" admin or customer or seller
+    "role" admin or customer or seller
     "id" unique id for all users 
     "name" can be customer name or store name of seller or name of the admin
     "balance"
 
 - 
+
+
+
 
 
 
