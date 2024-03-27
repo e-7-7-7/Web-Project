@@ -1,23 +1,4 @@
 
-
-
-:root {
-  --primary-color: #d885a3;
-  --secondary-color: #c0dbea;
-  --text-dark: #020617;
-  --text-light: #94a3b8;
-  --white: #ffffff;
-  /* --max-width: 1200px; */
-  font-family: serif;
-}
-
-
-
-body, h1, p {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
   
   body {
     display: grid;
@@ -31,140 +12,10 @@ body, h1, p {
     height: 100vh;
   
   }
-
-  .name{
-    display: flex;
-    align-items: center;
-    padding-bottom: 1rem;
-  }
-  
-  .name h1{
-    color: var(--white);
-  }
-  .name img, .profile img{
-    filter: invert(100%);
-    padding-right: 0.3rem;
-    width: 2rem;
-  }
-  
   
   header {
-    grid-area: header;
-    position: relative;
-    background-color: #08519C; /* Your chosen header color */
-    padding: 1em;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    justify-content: space-between;
 }
-
-.profile {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 1rem; 
-    margin:1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: white;
-    gap: 0.3rem;
-
-}
-
-
-  /*search related*/
-
-
-  .search img{
-    padding-right:1rem ;
-    padding-left:0.7rem;
-  }
-  .search{
-    display: flex;
-    align-items: space-between;
-    border: 10px none;
-    background-color: white;
-    width: 20rem;
-    height: 2rem;
-    border-radius: 2rem;
-    padding-right: 1rem;
-  }
-
-
-
-  #searchInput {
-    padding: 0.2em;
-    font-size: 1em;
-    border: 0.4px none;
-    border-radius: 10px;
-    margin-right: 0.5em;
-    width: 12rem;
-  }
-  #searchInput :focus {
-    border: 1px none; 
-  }
-  #searchForm button {
-    
-    border: 1px none;
-    cursor: pointer;
-  }
-  
-  #searchForm button:hover {
-    background-color: #dedfe7;
-  }
-
-  /*naviagtion related*/
-  
-  nav {
-    grid-area: navbar;
-    background-color: #2B8CBE;
-    padding: 1rem;
-  }
-
-  .nav{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-
-  
-  nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0; 
-    padding: 0; 
-  }
-  
-  nav li {
-    
-    display: flex; 
-    align-items: center;
-    text-wrap: nowrap;
-    font-size:  13px;
-    
-  }
-  
-  nav img {
-    width: 1.3rem;
-    filter: invert(100%);
-    padding-right: 0.3rem;
-  }
-  
-   
-
-    a {
-      text-decoration: none;
-      color: var(--white);
-      margin-right: 1.3rem; 
-    }
-
-
 
 
 /*section related*/
@@ -213,7 +64,7 @@ body, h1, p {
 
 .book_list_area {
   display: grid;
-  width: 100%;
+  width: 90%;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 1rem;
 
@@ -326,9 +177,6 @@ body, h1, p {
 }
 
 
-
-
-
 #update {
   transition: 0.4s;
   cursor: pointer;
@@ -363,20 +211,6 @@ body, h1, p {
   background-color: #ff5656;
 }
 
-
-
-
-  
-  footer {
-    grid-area: footer;
-    background-color: #020617; /* Your chosen footer color */
-    color: white;
-    margin-top: 100px;
-    padding: 0.4em;
-    text-align: center;
-  }
-
-
   
   /*handlig diffrent screen sizes here*/
   @media screen and (min-width: 800px) {
@@ -399,14 +233,5 @@ body, h1, p {
       width: 50rem;
       height: 2.5rem;
     }
-    #searchInput {
-      border-radius: 10px;
-      margin-right: 0.5em;
-      width: 40rem;
-    }
-    nav li {
-      font-size:  15px;
-      
-    }
-
+ 
   }

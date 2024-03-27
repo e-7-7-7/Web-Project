@@ -1,7 +1,18 @@
 
+body{
+    display: grid;
+    grid-template-areas: 
+    "header"
+    "navbar"
+    "main"
+    "footer";
+    grid-template-rows: auto auto 1fr auto; /* Adjust row sizes as needed */
+}
+
 .searchTitle{
     text-align: center;
 }
+
 
 .searchResults{
     display: grid;
@@ -11,6 +22,3 @@
 
 
 
-footer{
-    background-color: #d885a3;
-}
