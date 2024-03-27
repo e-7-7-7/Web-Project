@@ -361,27 +361,6 @@ button#closePopup {
 
 }
   
-  .inner-card {
-    
-    
-    padding: 3rem;
-    margin: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    max-width: 8rem; /* Ensures images don't exceed their container's width */
-    height: auto; /* Maintains aspect ratio */
-    position: relative;
-  }
-  
-  .inner-card img {
-    padding: 0.4rem;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    max-width: 100%; /* Ensures images don't exceed their container's width */
-    height: auto; /* Maintains aspect ratio */
-  }
-  
-  .inner-card p {
-    padding: 0.4rem;
-  }
 
   #book-picked img {
     padding: 0.4rem;
@@ -401,16 +380,79 @@ button#closePopup {
  
   }
   
-  .inner-card button {
-    margin: 1rem;
-    width: 100%;
-    justify-content: center; /* Updated from justify-items for proper CSS */
-    background-color: #2B8CBE;
-    color: white;
-    display: flex; /* To apply justify-content */
-    align-items: center; /* To vertically center the text */
-    text-align: center; /* Ensures text is centered */
-  }
+  
+.inner-card {
+    
+    
+  padding: 3rem;
+  margin: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 200px;
+  height: 250px;
+  position: relative;
+}
+
+.inner-card img {
+  padding: 0.1rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  max-width: 100%; /* Ensures images don't exceed their container's width */
+  height: auto; /* Maintains aspect ratio */
+}
+
+.inner-card p {
+  padding: 0.5rem;
+  font-weight: bold;
+}
+
+.inner-card button {
+  padding: 0.3rem;
+  margin: 1rem;
+  width: 100%;
+  justify-content: center; /* Updated from justify-items for proper CSS */
+  background-color: #2B8CBE;
+  color: white;
+  display: flex; /* To apply justify-content */
+  align-items: center; /* To vertically center the text */
+  text-align: center; /* Ensures text is centered */
+}
+
+.inner-card button:hover{
+  cursor: pointer;
+}
+
+.flip-inner-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.inner-card:hover .flip-inner-card {
+  transform: rotateY(180deg);
+}
+
+.flip-front-card, .flip-back-card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; 
+  backface-visibility: hidden;
+}
+
+.flip-front-card {
+  
+  color: black;
+}
+
+.flip-back-card {
+ 
+  margin: 1rem;
+  
+  color: black;
+  transform: rotateY(180deg);
+}
 
 
 

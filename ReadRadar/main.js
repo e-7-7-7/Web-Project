@@ -218,11 +218,19 @@ function createBookCard(coverImageUrl, title, author, price, description, genre,
     card.setAttribute('data-book-id', id); // Set data-book-id attribute
 
     card.innerHTML = `
+    <div class="flip-inner-card">
+    <div class="flip-front-card">
         <img src="${coverImageUrl || 'default-cover-image-path.jpg'}" alt="${title}">
-        <p>Title: ${title}</p>
+        <p> ${title}</p>
+    </div>
+    <div class="flip-back-card">
         <p>Author: ${author}</p>
-        <p>Price: $${price}</p>
+        <p>Price: ${price} QR</p>
         <p>Description: ${description}</p>
+        <button id="add">Add to cart</button>
+    </div>
+    </div>
+    
     `;
 
     const section = document.querySelector(`#${genre.replace(/\s+/g, '-')}`) || document.querySelector('#2024-Books');
