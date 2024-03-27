@@ -181,8 +181,10 @@ body, h1, p {
   }
   
 
+
+
   
-  /*footer related*/
+  
   footer {
     grid-area: footer;
     background-color: #BDD7E7; /* Your chosen footer color */

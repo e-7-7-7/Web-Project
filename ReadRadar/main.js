@@ -75,21 +75,117 @@ function displayBooksFromLocalStorage() {
 }
 
 
-// function addingToCart() {
-//     const section = document.querySelector('#book-picked'); // Ensure this targets your book display area correctly
-//     section.innerHTML = ''; // Clear existing content before displaying the updated book list
-//     const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
-//     addedBooks.forEach(book => {
-//         if (addedBooks.some(selectedID => book.uniqueId === selectedID)) {
-//             displaySelectedBook(book.coverImageUrl, book.title, book.price)
-//         }
-//     });
+
+
+
+
+// search Related variables and functions
+
+const searchBar = document.querySelector("#searchInput");
+const bookArea = document.querySelector("#bookListingArea");
+
+searchBar.addEventListener("keyup",handleSearch);
+
+
+
+function handleSearch(){
+    if(searchBar.value ==""){
+        displayBooksFromLocalStorage();// show books normally
+        return;
+    }
+    const searchWord =  new RegExp (searchBar.value,"i"); // creates a value to work with the search function
+    const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
+    const wantedBooks = addedBooks.filter(book => book.title.toLowerCase().search(searchWord) >=0 || book.author.toLowerCase().search(searchWord) >=0);
+    displaySearchResults(wantedBooks);
+}
+
+function displaySearchResults(booksArray){
+    if(booksArray.length == 0){
+        bookArea.innerHTML=`<h2 style="text-align:center;">There is no Books with this title / author</h2>`
+        return;
+    }
+
+    bookArea.innerHTML = booksArray.map(book => createSearchBookCard(book)).join(" ")
+    
+}
+
+function createSearchBookCard(book){
+    const coverImageUrl = book.coverImageUrl;
+    const title = book.title;
+    const author = book.author;
+    const price = book.price;
+    const description = book.description;
+    const genre= book.genre ;
+
+   return `
+    <div class="inner-card" id="${book.id}">
+        <img src="${coverImageUrl || 'default-cover-image-path.jpg'}" alt="${title}">
+        <p>Title: ${title}</p>
+        <p>Author: ${author}</p>
+        <p>Price: $${price}</p>
+        <p>Description: ${description}</p>
+        <p>Genre: ${genre}</p>
+    </div>
+    `;
+    
+}
+
+function setBookArea(){ //resets the books listing area
+    bookArea.innerHTML=
+    ` <h4>2024 Books</h4>
+    <section id="Books-2024">
+
+        
+    </section>
+    <h4>2023 Best Books</h4>
+    <section id="bestBooks">
+        
+         <!-- Books be added here -->
+    </section>
+    <h4>Action</h4>
+    <section id="Action">
+       
+         <!-- Books be added here -->
+    </section>
+    <h4>Mystery</h4>
+    <section id="Mystery">
+        
+         <!-- Books be added here -->
+    </section>
+    <h4>Fiction</h4>
+    <section id="Fiction">
+       
+         <!-- Books be added here -->
+    </section>
+    <h4>Self Devlopment</h4>
+    <section id="Self-Devlopment">
+        
+         <!-- Books be added here -->
+    </section>
+    <h4>Arabic</h4>
+    <section id="Arabic">
+        
+         <!-- Books be added here -->
+    </section>
+    `
+}
+
+
     
 document.addEventListener('DOMContentLoaded', function() {
     addingToCart(); 
+        const cancelButton = document.querySelector('#cancel');
+        const cartContent = document.querySelector('#book-picked');
+        cancelButton.addEventListener('click', function(event) {
+            cartContent.textContent="";
+        });
+        const proceedButton = document.querySelector('#proceed');
+        proceedButton.addEventListener('click', function(event) {
+          event.preventDefault();
+          document.querySelector('#checkoutForm').style.display = 'block';
+        
 });
-
-
+});
 
 function addingToCart() {
     const bookElements = document.querySelectorAll('.inner-card');
@@ -97,12 +193,91 @@ function addingToCart() {
         bookElement.addEventListener('click', function() {
             const bookId = this.dataset.bookId;
             const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
-            const selectedBook = addedBooks.find(book => book.id === bookId); // Use 'id' property here
+            const selectedBook = addedBooks.find(book => book.id === bookId);
             if (selectedBook) {
+                
                 displaySelectedBook(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price);
+                displayOnCheckout(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price)
             }
         });
     });
+};
+
+function displaySelectedBook(coverImage, title, price) {
+    const cartSection = document.querySelector('#book-picked');
+    cartSection.innerHTML = `<img src="${coverImage || 'default-cover-image-path.jpg'}" alt="${title}">
+                            <p>${title}</p>
+                            <p>Price: $${price}</p>`;
+
+  const quantityInput = document.querySelector('#quantity');
+quantityInput.addEventListener('input', function(event) {
+ // Recalculate and update subtotal based on the new quantity
+    updateSubtotal(price);
+  });
+                            
+updateSubtotal(price);
+  
+}
+
+// Function to calculate and update subtotal
+function updateSubtotal(price) {
+    const quantityInput = document.querySelector('#quantity');
+    const subtotalDisplay = document.querySelector('#book-picked');
+    const quantity = parseInt(quantityInput.value) || 0;
+    const subtotal = price * quantity;
+    
+    let subtotalP = document.querySelector('#purchase');
+
+    // If the subtotal paragraph doesn't exist, create a new one
+    if (!subtotalP) {
+        subtotalP = document.createElement('p');
+        subtotalP.id = 'purchase';
+        subtotalDisplay.appendChild(subtotalP);
+    }
+
+    // Update the content of the subtotal paragraph
+    subtotalP.textContent = `Subtotal: $${subtotal}`;
+    
+}
+
+function displayOnCheckout(coverImage, title, price) {
+    const cartSection = document.querySelector('#transaction');
+    cartSection.innerHTML = `<img src="${coverImage || 'default-cover-image-path.jpg'}" alt="${title}">
+                            <p>${title}</p>
+                            <p>Price: $${price}</p>`;
+
+    let quantity = 1; // Set initial quantity to 1
+
+    const quantityInput = document.querySelector('#quantity');
+    quantityInput.addEventListener('input', function(event) {
+        quantity = parseInt(quantityInput.value) || 0;
+        updateCheckout(price, quantity); 
+    });
+
+    let totalP = document.querySelector('#trans');
+    let totalP2 = document.querySelector('#quant');
+    if (!totalP || !totalP2) {
+        totalP = document.createElement('p');
+        totalP2 = document.createElement('p');
+        totalP.id = 'trans';
+        totalP2.id = 'quant';
+        cartSection.appendChild(totalP2);
+        cartSection.appendChild(totalP); 
+    
+    }
+
+    // Initial update of total and quantity
+    updateCheckout(price, quantity);
+}
+
+function updateCheckout(price, quantity) {
+    const totalP = document.querySelector('#trans');
+    const totalP2 = document.querySelector('#quant');
+
+    // Update the content of the total and quantity paragraphs
+    totalP2.textContent = `Quantity: x${quantity}`;
+    totalP.textContent = `Total: $${price * quantity}`;
+   
 }
 
 
@@ -132,36 +307,6 @@ function createBookCard(coverImageUrl, title, author, price, description, genre,
     const section = document.querySelector(`#${genre.replace(/\s+/g, '-')}`) || document.querySelector('#2024-Books');
     section.appendChild(card);
 }
-
-
-
-
-
-
-
-function displaySelectedBook(coverImage, title, price) {
-    const cartSection = document.querySelector('#book-picked');
-    cartSection.innerHTML = `<img src="${coverImage || 'default-cover-image-path.jpg'}" alt="${title}">
-                            <p>${title}</p>
-                            <p>Price: $${price}</p>`;
-
-    const quantityInput = document.getquerySelector('#quantity');
-
-    quantityInput.addEventListener('input', calculateSubtotal);
-}
-
-function calculateSubtotal(event,price) {
-    const quantity = parseInt(event.target.value) || 0;
-    subtotal = price * quantity;
-
-    // Display subtotal
-    const subtotalDisplay = document.querySelector('#subtotal');
-    subtotalDisplay.textContent = `Subtotal: $${subtotal}`;
-}
-
-// Call function to fetch book data when the page loads
-
-
 
 
 //function to proccess customer balance
