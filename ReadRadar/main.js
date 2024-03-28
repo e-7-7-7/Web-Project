@@ -94,9 +94,17 @@ function showTabs(){
 
 function loadUser(){
     const usernameArea = document.querySelector("#headerUsername");
-    if (localStorage.currentUser) {
-        user = JSON.parse(localStorage.currentUser);
-        usernameArea.innerHTML = user.username;
+    const usersData = JSON.parse(localStorage.getItem('users')) || [];
+    const currentUserID = localStorage.getItem('currentUserID');
+
+    if (localStorage.currentUserID) {
+        user = usersData.find(u => u.id ===currentUserID)
+        if (user) {
+            usernameArea.innerHTML = user.username; 
+        }
+        else{
+            usernameArea.innerHTML = "Guest";
+        }
     }
     else{
         usernameArea.innerHTML = "Guest";
@@ -155,7 +163,7 @@ function profileLogout(){
     const response = confirm("Are you sure you want to logout?")
     if (response){
         delete localStorage.isAuthenticated;
-        delete localStorage.currentUser;
+        delete localStorage.currentUserID;
         delete localStorage.userRole;
         window.location.href="./index.html";
     }
@@ -367,6 +375,7 @@ function purchaseItem(subtotal) {
             alert('You are not authenticated. Please sign in and try again.');
             document.querySelector('#checkoutForm').style.display = 'none';
         }
+        loadUser();
     } catch (error) {
         console.error('Error during purchase:', error);
         alert('An error occurred during the purchase process. Please try again later.');
