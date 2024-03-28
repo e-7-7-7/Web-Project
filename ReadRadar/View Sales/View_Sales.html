@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/global.css">
-    <link rel="stylesheet" href="/styles/View_sales.css">
+    <link rel="stylesheet" href="../styles/View_sales.css">
 
     <title>Sales</title>
     <link  rel="icon" href="media/icons/radar -white.svg" type="image/x-icon">
@@ -25,9 +25,14 @@
             </form>
         </div>
         <section class="profile">
-                <!-- A window get opened when user clicks on the icon of profile -->
-                <img src="/media/icons/circle-user.svg" alt="">
-                <p id="headerUsername"></p> <!--to be filled with the username of the user via JS-->
+            <!-- A window get opened when user clicks on the icon of profile -->
+            <input id="profileImageInput" type="image" src="media/icons/circle-user.svg" alt="Profile">
+            <p id="headerUsername"></p> <!--to be filled with the username of the user via JS-->
+
+            <div id="profilePopup" class="hidden">
+            </div>
+
+
         </section>
    
     </header>
@@ -104,6 +109,7 @@
         <section> <p>2024 © ReadRadar</p></section>
     </footer>
 
+   <script src="../profile.js"></script>
    <script src="sales.js"></script>
    <script>
         

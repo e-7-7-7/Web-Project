@@ -24,8 +24,13 @@
         </div>
         <section class="profile">
             <!-- A window get opened when user clicks on the icon of profile -->
-            <img src="media/icons/circle-user.svg" alt="">
+            <input id="profileImageInput" type="image" src="media/icons/circle-user.svg" alt="Profile">
             <p id="headerUsername"></p> <!--to be filled with the username of the user via JS-->
+
+            <div id="profilePopup" class="hidden">
+            </div>
+
+
         </section>
    
     </header>
@@ -104,6 +109,7 @@
         <section> <p>2024 © ReadRadar</p></section>
     </footer>
 
+    <script src="../profile.js"></script>
     <script src="searchPage.js"></script>
 
 </body>

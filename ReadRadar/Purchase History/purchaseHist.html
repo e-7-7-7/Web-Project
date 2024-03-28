@@ -22,8 +22,14 @@
             </form>
         </div>
         <section class="profile">
-                <!-- A window get opened when user clicks on the icon of profile -->
-                <img src="media/icons/circle-user.svg" alt="">
+            <!-- A window get opened when user clicks on the icon of profile -->
+            <input id="profileImageInput" type="image" src="media/icons/circle-user.svg" alt="Profile">
+            <p id="headerUsername"></p> <!--to be filled with the username of the user via JS-->
+
+            <div id="profilePopup" class="hidden">
+            </div>
+
+
         </section>
    
     </header>
@@ -43,7 +49,7 @@
                 </ul>
 
                 <!-- Pop-up Form -->
-                <div id="popupForm" class="popup-form-hidden">
+                <div id="popupForm" class="hidden">
                     <form id="uploadItemForm">
                         <label for="title">Title:</label>
                         <input type="text" id="title" name="title" required>
@@ -115,6 +121,7 @@
         <section> <p>2024 © ReadRadar</p></section>
     </footer>
 
+    <script src="../profile.js"></script>
     <script src="../main.js"></script>
     <script>
         
