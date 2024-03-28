@@ -1,30 +1,27 @@
 delete localStorage.searchValue // empty the search value
+let user;
+const profileImage = document.querySelector("#profileImageInput");
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    loadUser();
     // Display books from localStorage on page load
     displayBooksFromLocalStorage();
+    showTabs();
 
     document.querySelector('#addItemLink').addEventListener('click', function(event) { // adding an item
         event.preventDefault();
-        
-        // Retrieve the user role from localStorage
-        const userRole = localStorage.getItem('userRole');
-        
         // Get the popup form element
         const popupForm = document.querySelector('#popupForm');
 
-        // Check if the user role is "Seller"
-        if (userRole === 'Seller') {
-            // Toggle the display based on current visibility
             if (popupForm.style.display === 'block') {
                 popupForm.style.display = 'none';
             } else {
                 popupForm.style.display = 'block';
             }
-        } else {
-            alert('You are not authorized to add items. Only sellers can add items.');
-        }
+       
     });
 
     document.querySelector('#uploadItemForm').addEventListener('submit', function(event) { // submitting the add item form
@@ -51,6 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.querySelector('#popupForm').style.display = 'none';
     });
+
+
+    profileImage.addEventListener("click",profile)
+
 });
 
 function processAndSaveBook(coverImageUrl, title, author, price, description, genre) {
@@ -74,6 +75,94 @@ function displayBooksFromLocalStorage() {
     addedBooks.forEach(book => {
         createBookCard(book.coverImageUrl, book.title, book.author, book.price, book.description, book.genre,book.id);
     });
+}
+
+function showTabs(){
+     // Retrieve the user role from localStorage
+     const userRole = localStorage.getItem('userRole');
+     const addButton = document.querySelector('#addListItem');
+     const viewSalesButton = document.querySelector("#viewSalesListItem");
+
+     // Check if the user role is "Seller"
+     if (userRole === 'Seller') {
+        addButton.classList.remove("hidden")
+     }
+     if (userRole ==="Seller" || userRole ==="Admin") {
+        viewSalesButton.classList.remove("hidden")
+     }
+}
+
+function loadUser(){
+    const usernameArea = document.querySelector("#headerUsername");
+    if (localStorage.currentUser) {
+        user = JSON.parse(localStorage.currentUser);
+        usernameArea.innerHTML = user.username;
+    }
+    else{
+        usernameArea.innerHTML = "Guest";
+    }
+}
+
+function profile(){
+    const popup = document.querySelector("#profilePopup")
+    popup.classList.remove("hidden")
+
+    if (user) { // if signed in
+        popup.innerHTML= profileDetails();
+    }
+    else{ // if not signed in
+        popup.innerHTML= `
+        <div class="profileDetailsTitle">
+            <h2>User Details</h2>
+        </div>
+        <div class="profileInfo">
+            <p>you are currently not logged in to the website</p>
+        </div>
+        <div class="profileButtons">
+            <button type="button" id="logoutButton" onclick="profileLogin()">Login</button>
+            <button type="button" id="goBack" onclick="profileGoBack()">Go Back</button>
+        </div>
+        `
+    }
+
+}
+
+function profileDetails() {
+    return `
+    <div class="profileInfo">
+        <label for="">Username:</label>
+        <p>${user.username}</p>
+        <label for="">Name:</label>
+        <p>${user.name}</p>
+        <label for="">User ID:</label>
+        <p>${user.id}</p>
+        <label for="">Balance:</label>
+        <p>${user.account_Balance} QR</p>
+    </div>
+    <div class="profileButtons">
+        <button type="button" id="logoutButton" onclick="profileLogout()">Logout</button>
+        <button type="button" id="goBack" onclick="profileGoBack()">Go Back</button>
+    </div>
+    `   
+}
+
+function profileGoBack(){
+    const popup = document.querySelector("#profilePopup")
+    popup.classList.add("hidden")
+}
+
+function profileLogout(){
+    const response = confirm("Are you sure you want to logout?")
+    if (response){
+        delete localStorage.isAuthenticated;
+        delete localStorage.currentUser;
+        delete localStorage.userRole;
+        window.location.href="./index.html";
+    }
+}
+
+function profileLogin(){
+    window.location.href="./login/login.html";
 }
 
 
@@ -233,6 +322,7 @@ async function getUsers(){
   users = await data.json();
   localStorage.setItem('users', JSON.stringify(users));
 }
+
 function purchaseItem(subtotal){
     let users = JSON.parse(localStorage.getItem('users')) || [];
     if (!users) {

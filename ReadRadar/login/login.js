@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Store user role and authentication state in localStorage
          localStorage.setItem('isAuthenticated', 'true');
          localStorage.setItem('userRole', user.role);
-         localStorage.setItem('currentUserID', user.id);
+         localStorage.setItem('currentUser', JSON.stringify(user));
 
           window.location.href = '../index.html';
       } else {
