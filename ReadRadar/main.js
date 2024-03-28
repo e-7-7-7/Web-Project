@@ -278,12 +278,11 @@ function updateCheckout(price, quantity) {
     totalP2.textContent = `Quantity: x${quantity}`;
     totalP.textContent = `Total: $${price * quantity}`;
 
-    const checkoutButton = document.querySelector('#checkout');
-        checkoutButton.addEventListener('click', function(event) {
-          event.preventDefault();
-          purchaseItem((price*quantity));
-        });
-   
+    const checkoutButton = document.querySelector('#checkoutButton');
+    checkoutButton.addEventListener('click', function(event) {
+        event.preventDefault(); 
+        purchaseItem(price * quantity); 
+    });
 }
 
 
@@ -317,39 +316,50 @@ function createBookCard(coverImageUrl, title, author, price, description, genre,
 
 
 
-async function getUsers(){
-  const data = await fetch("data/users.json");
-  users = await data.json();
-  localStorage.setItem('users', JSON.stringify(users));
+
+// async function getUsers(){
+//   const data = await fetch("data/users.json");
+//   users = await data.json();
+//   localStorage.setItem('users', JSON.stringify(users));
+// }
+function purchaseItem(subtotal) {
+    try {
+        const usersData = JSON.parse(localStorage.getItem('users')) || [];
+        
+        const currentUserID = localStorage.getItem('currentUserID');
+        const isAuthenticated = localStorage.getItem('isAuthenticated');
+        
+        
+        const currentUser = usersData.find(user => user.id === currentUserID);
+        
+        // Check if the user is authenticated
+        if (isAuthenticated === 'true') {
+            // Ensure the current user is a customer
+            if (currentUser && currentUser.role === 'Customer') {
+                let balance = parseFloat(currentUser.account_Balance);
+                if (balance >= subtotal) {
+                    balance -= subtotal;
+                    alert("Checkout Successful !!");
+                    // Update user's balance
+                    currentUser.account_Balance = balance;
+                    // Update localStorage
+                    localStorage.setItem('users', JSON.stringify(usersData));
+                } else {
+                    alert("Insufficient Balance...CheckOut failed");
+                }
+            } else {
+                alert('You are not a customer. Please sign in as a customer and try again.');
+            }
+        } else {
+            alert('You are not authenticated. Please sign in and try again.');
+        }
+    } catch (error) {
+        console.error('Error during purchase:', error);
+        alert('An error occurred during the purchase process. Please try again later.');
+
+    }
 }
 
-function purchaseItem(subtotal){
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-    if (!users) {
-        getUsers()
-    }
-    const customer =users.find(users => users.username === username && users.role === 'Customer')
-    let balance=0;
-    if(users.isAuthenticated){
-        if(customer){
-            balance  = parseFloat(customer.account_Balance);
-            if (balance >= subtotal) {
-               balance -= subtotal;
-               alert("Checkout Sucessful !!")
-               customer.account_Balance = balance;
-               localStorage.setItem('account_Balance',customer.account_Balance)
-           } else {
-               alert("Insuffiecient Balance...CheckOut failed")
-           }  
-             
-       }
-       else{
-           alert('you are not a customer. Please sign in as a customer and try again')
-       }
-     
-    }
-
-}
 
 
 
