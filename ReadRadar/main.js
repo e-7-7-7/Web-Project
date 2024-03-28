@@ -196,9 +196,11 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         document.querySelector('#checkoutForm').style.display = 'none';
         
+
 });
 });
 });
+
 
 function addingToCart() {
     const bookElements = document.querySelectorAll('.inner-card');
@@ -288,6 +290,7 @@ function displayOnCheckout(coverImage, title, price) {
 
 }
 
+
 function updateCheckout(price, quantity) {
     const totalP = document.querySelector('#trans');
     const totalP2 = document.querySelector('#quant');
@@ -296,12 +299,17 @@ function updateCheckout(price, quantity) {
     totalP2.textContent = `Quantity: x${quantity}`;
     totalP.textContent = `Total: $${price * quantity}`;
 
-    const checkoutButton = document.querySelector('#checkoutButton');
-    checkoutButton.addEventListener('click', function(event) {
-        event.preventDefault(); 
-        purchaseItem(price * quantity); 
-    });
-}
+        // Check if event listener has already been attached
+        const checkoutButton = document.querySelector('#checkoutButton');
+        if (!checkoutButton.hasEventListener) {
+            checkoutButton.addEventListener('click', function(event) {
+                event.preventDefault(); 
+                purchaseItem(price * quantity); 
+            });
+            checkoutButton.hasEventListener = true;
+        }
+    }
+
 
 
 
