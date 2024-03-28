@@ -104,6 +104,10 @@ function addingToCart() {
                 
                 displaySelectedBook(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price);
                 displayOnCheckout(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price)
+
+                document.querySelector('#cartForm').style.display = 'block';
+                document.querySelector('.purchase-buttons').style.display = 'block';
+                
             }
         });
     });
@@ -174,6 +178,7 @@ function displayOnCheckout(coverImage, title, price) {
 
     // Initial update of total and quantity
     updateCheckout(price, quantity);
+
 }
 
 function updateCheckout(price, quantity) {
@@ -183,6 +188,12 @@ function updateCheckout(price, quantity) {
     // Update the content of the total and quantity paragraphs
     totalP2.textContent = `Quantity: x${quantity}`;
     totalP.textContent = `Total: $${price * quantity}`;
+
+    const checkoutButton = document.querySelector('#checkout');
+        checkoutButton.addEventListener('click', function(event) {
+          event.preventDefault();
+          purchaseItem((price*quantity));
+        });
    
 }
 
@@ -215,62 +226,39 @@ function createBookCard(coverImageUrl, title, author, price, description, genre,
 }
 
 
-//function to proccess customer balance
-
-//These Function will be called after the customer proceeds into Checkout 
-
-function proccessCustBalance() {
-    fetch('data/customer.json') 
-      .then(res => res.json())
-      .then(data => {
-        data.forEach(acc => {
-          balance = acc.balance;
-        });
-      })
-      .catch(error => {
-        console.error('Error fetching book data:', error);
-      });
-  }
-
-function purchaseItem(subtotal) {
-    if (balance >= subtotal) {
-        balance -= subtotal;
-    } else {
-        alert("Insuffiecient Balance...CheckOut failed")
-    }   
-}
 
 
-
-let users = JSON.parse(localStorage.getItem('users'));
-// If not found, initialize with default users and save to localStorage
-if (!users) {
-  users = [
-      { username: "customer1", password: "password123", role: "Customer", account_Balance: 200 },
-      { username: "seller1", password: "password123", role: "Seller", account_Balance: 0 },
-      { username: "admin1", password: "password123", role: "Admin", account_Balance: 0 },
-  ];
+async function getUsers(){
+  const data = await fetch("data/users.json");
+  users = await data.json();
   localStorage.setItem('users', JSON.stringify(users));
 }
-
-
-// purchase Item needs modifications
-function purchaseItem(subtotal,username){
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const customer =users.find(user => user.username === username && user.role === 'Customer')
+function purchaseItem(subtotal){
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    if (!users) {
+        getUsers()
+    }
+    const customer =users.find(users => users.username === username && users.role === 'Customer')
     let balance=0;
-    if(customer){
-         balance  = parseFloat(customer.account_Balance);
+    if(users.isAuthenticated){
+        if(customer){
+            balance  = parseFloat(customer.account_Balance);
+            if (balance >= subtotal) {
+               balance -= subtotal;
+               alert("Checkout Sucessful !!")
+               customer.account_Balance = balance;
+               localStorage.setItem('account_Balance',customer.account_Balance)
+           } else {
+               alert("Insuffiecient Balance...CheckOut failed")
+           }  
+             
+       }
+       else{
+           alert('you are not a customer. Please sign in as a customer and try again')
+       }
+     
     }
-    else{
-        alert('you are not a customer. Please sign in as a customer and try again')
-    }
-    if (balance >= subtotal) {
-        balance -= subtotal;
-    } else {
-        alert("Insuffiecient Balance...CheckOut failed")
-    }  
-        
+
 }
 
 

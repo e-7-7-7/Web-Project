@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       if(user) {
         // Store user role and authentication state in localStorage
-        localStorage.setItem('isAuthenticated', 'true');
+         localStorage.setItem('isAuthenticated', 'true');
          localStorage.setItem('userRole', user.role);
          localStorage.setItem('currentUserID', user.id);
 

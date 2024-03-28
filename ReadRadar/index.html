@@ -72,7 +72,7 @@
                         <label for="cover">Cover Image:</label>
                         <input type="file" id="cover" name="cover" accept="image/*">
 
-                        <button type="submit" id="submit">Add Item</button>
+                        <button type="submit" id="addButton">Add Item</button>
                     </form>
                     
                 </div>
@@ -138,9 +138,10 @@
 
  
         </div>
-        
-        <form>
-            <label for="qunatity">Qunatity:</label>
+    
+
+        <form id="cartForm">
+            <label id="quantLabel" for="quantity">Qunatity:</label>
             <input type="number" id="quantity" name="qunatity" min="1" value="1">
         </form>
     
