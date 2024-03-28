@@ -170,15 +170,25 @@ function profileLogin(){
 document.addEventListener('DOMContentLoaded', function() {
     addingToCart(); 
         const cancelButton = document.querySelector('#cancel');
+        
         const cartContent = document.querySelector('#book-picked');
         cancelButton.addEventListener('click', function(event) {
             cartContent.textContent="";
+            document.querySelector('#cartForm').style.display = 'none';
+            document.querySelector('.purchase-buttons').style.display='none';
+            document.querySelector('#checkoutForm').style.display = 'none';
         });
         const proceedButton = document.querySelector('#proceed');
         proceedButton.addEventListener('click', function(event) {
           event.preventDefault();
           document.querySelector('#checkoutForm').style.display = 'block';
+
+        const checkoutCancel = document.querySelector('#cancelCheckout');
+        checkoutCancel.addEventListener('click', function(event) {
+        event.preventDefault();
+        document.querySelector('#checkoutForm').style.display = 'none';
         
+});
 });
 });
 
@@ -344,18 +354,23 @@ function purchaseItem(subtotal) {
                     currentUser.account_Balance = balance;
                     // Update localStorage
                     localStorage.setItem('users', JSON.stringify(usersData));
+                    document.querySelector('#checkoutForm').style.display = 'none';
                 } else {
                     alert("Insufficient Balance...CheckOut failed");
+                    document.querySelector('#checkoutForm').style.display = 'none';
                 }
             } else {
                 alert('You are not a customer. Please sign in as a customer and try again.');
+                document.querySelector('#checkoutForm').style.display = 'none';
             }
         } else {
             alert('You are not authenticated. Please sign in and try again.');
+            document.querySelector('#checkoutForm').style.display = 'none';
         }
     } catch (error) {
         console.error('Error during purchase:', error);
         alert('An error occurred during the purchase process. Please try again later.');
+        document.querySelector('#checkoutForm').style.display = 'none';
 
     }
 }

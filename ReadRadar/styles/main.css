@@ -154,26 +154,26 @@ button#closePopup {
 }
 
 
-.purchase-buttons #cancel{
+.purchase-buttons #cancel, #purchaseForm #cancelCheckout {
   border: 1px none;
   border-radius: 2rem;
   padding: 0 1rem;
   font-weight: bolder;
   height: 2rem;
 }
-.purchase-buttons #proceed{
+.purchase-buttons #proceed,#purchaseForm #checkoutButton{
   border: 1px none;
   border-radius: 2rem;
   padding: 0 1rem;
   font-weight: bolder;
   height: 2rem;
 }
-.purchase-buttons #cancel:hover{
+.purchase-buttons #cancel:hover,#purchaseForm #cancelCheckout:hover {
   cursor: pointer;
   background-color: red;
   color: var(--white);
 }
-.purchase-buttons #proceed:hover{
+.purchase-buttons #proceed:hover,#purchaseForm #checkoutButton:hover{
   cursor: pointer;
   background-color: lime;
   color: var(--text-dark);

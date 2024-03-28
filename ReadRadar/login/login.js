@@ -1,6 +1,7 @@
 
 
 document.addEventListener('DOMContentLoaded', function() {
+    localStorage.setItem('isAuthenticated', 'false');
     let users = JSON.parse(localStorage.getItem('users'));
     // If not found, initialize with default users and save to localStorage
     if (!users) {
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
           window.location.href = '../index.html';
       } else {
+        
           alert('Login failed. Incorrect username or password.');
       }
   });
