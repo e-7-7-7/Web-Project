@@ -14,16 +14,15 @@ function displayPurchaseHistory() {
         // Ensure the current user is a customer
         const currentUser = usersData.find(user => user.id === currentUserID);
         if (currentUser && currentUser.role === 'Customer') {
-            // Filter transactions for the current customer
+            
             const customerTransactions = transactions.filter(transaction => transaction.custId === currentUserID);
 
-            // Select the purchaseHist element
+           
             const purchaseHistDiv = document.querySelector('.purchaseHist');
 
-            // Clear the existing content
             purchaseHistDiv.innerHTML = '';
 
-            // Create a table to display the purchase history
+            
             const table = document.createElement('table');
             table.innerHTML = `
                 <thead>
@@ -49,11 +48,9 @@ function displayPurchaseHistory() {
             `;
             purchaseHistDiv.appendChild(table);
         } else {
-            // Handle error: Current user is not a customer
             alert('You do not have permission to view purchase history.');
         }
     } else {
-        // Handle error: User is not authenticated
         alert('Please log in to view purchase history.');
     }
 }

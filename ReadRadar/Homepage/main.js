@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const author = document.querySelector('#author').value;
         const genre = document.querySelector('#genre').value;
         const price = document.querySelector('#price').value;
-        const quantity = document.querySelector("#quantity").value;
+        const quantity = document.querySelector("#bookQuantity").value;
         const description = document.querySelector('#description').value;
         const cover = document.querySelector('#cover').files[0];
         const sellerId = currentUserID;
@@ -167,7 +167,7 @@ function addingToCart() {
             if (selectedBook) {
                 
                 displaySelectedBook(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price);
-                displayOnCheckout(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price,selectedBook.bookId,selectedBook.sellerId)
+                displayOnCheckout(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price,selectedBook.bookId,selectedBook.sellerId,selectedBook.quantity)
 
                 document.querySelector('#cartForm').style.display = 'block';
                 document.querySelector('.purchase-buttons').style.display = 'block';
@@ -216,7 +216,7 @@ function updateSubtotal(price) {
     
 }
 
-function displayOnCheckout(coverImage, title, price,bookId,sellerId) {
+function displayOnCheckout(coverImage, title, price,bookId,sellerId,intialQuant) {
     const cartSection = document.querySelector('#transaction');
     cartSection.innerHTML = `<img src="${coverImage || 'default-cover-image-path.jpg'}" alt="${title}">
                             <p>${title}</p>
@@ -235,7 +235,15 @@ function displayOnCheckout(coverImage, title, price,bookId,sellerId) {
     if (!checkoutButton.hasEventListener) {
         checkoutButton.addEventListener('click', function(event) {
             event.preventDefault(); 
-            purchaseItem(price,quantity,bookId,sellerId,title); 
+            if(quantity<=intialQuant){
+                purchaseItem(price,quantity,bookId,sellerId,title); 
+            }
+            else if (intialQuant==0){
+                alert('item out of stock')
+            }
+            else{
+                alert(`Stock available ${intialQuant}, Select a lower quantity`)
+            }
         });
         checkoutButton.hasEventListener = true;
     }
@@ -321,28 +329,37 @@ function updateCheckout(price, quantity) {
     }
     
 
-function purchaseItem(price,quantity,bookId,sellerId,title) {
+function purchaseItem(price,selectedQuantity,bookId,sellerId,title) {
     try {
         const usersData = JSON.parse(localStorage.getItem('users')) || [];
         
         const currentUserID = localStorage.getItem('currentUserID');
         const isAuthenticated = localStorage.getItem('isAuthenticated');
-        
-        
+
+        const booksData = JSON.parse(localStorage.getItem('addedBooks')) || [];
+        const bookQuantity = booksData.find(book=> book.id === bookId );
+          
         const currentUser = usersData.find(user => user.id === currentUserID);
-        
+        const seller = usersData.find(user=> user.id === sellerId)
         // Check if the user is authenticated
         if (isAuthenticated === 'true') {
             // Ensure the current user is a customer
             if (currentUser && currentUser.role === 'Customer') {
+                let quant = parseInt(bookQuantity.quantity);
                 let balance = parseFloat(currentUser.account_Balance);
-                    const subtotal = price * quantity;
+                let sellerBalance = parseFloat(seller.account_Balance);
+                    const subtotal = price * selectedQuantity;
                 if (balance >= subtotal) {
                     balance -= subtotal;
+                    sellerBalance+=subtotal;
+                    quant-=selectedQuantity;
                     alert("Checkout Successful !!");
                     // Update user's balance
+                    bookQuantity.quantity = quant;
+                    seller.account_Balance = sellerBalance;
                     currentUser.account_Balance = balance;
                     // Update localStorage
+                    localStorage.setItem('addedBooks', JSON.stringify(booksData));
                     localStorage.setItem('users', JSON.stringify(usersData));
                     purchaseHistory(bookId, subtotal, quantity,sellerId,title);
                     document.querySelector('#checkoutForm').style.display = 'none';
