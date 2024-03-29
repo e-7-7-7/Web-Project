@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function getUsers(){
       const data = await fetch("../data/users.json");
       users = await data.json();
+      console.log(users);
       localStorage.setItem('users', JSON.stringify(users));
     }
   

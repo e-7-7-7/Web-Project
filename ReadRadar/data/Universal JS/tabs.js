@@ -17,7 +17,7 @@ function showTabs(){
     
 
     // Check if the user role is "Seller"
-    if (page !== "View_Sales.html") {
+    if (page !== "View_Sales.html" || page !== "purchaseHist.html" || page !== "search.html") {
       if (userRole === 'Seller') {
          addButton.classList.remove("hidden")
       }
