@@ -16,19 +16,19 @@ function showTabs(){
 
     
 
-    // Check if the user role is "Seller"
-    if (page !== "View_Sales.html" || page !== "purchaseHist.html" || page !== "search.html") {
-      if (userRole === 'Seller') {
+
+    if (page === "index.html") { //
+      if (userRole === 'Seller') {      // Check if the user role is "Seller"
          addButton.classList.remove("hidden")
       }
       
     }
    
-    if (userRole ==="Seller" || userRole ==="Admin") {
+    if (userRole ==="Seller" || userRole ==="Admin") { // Check if the user role is "Seller" or "Admin"
        viewSalesButton.classList.remove("hidden")
     }
 
-    if (userRole ==="Customer") {
+    if (userRole ==="Customer") {// Check if the user role is "Customer"
        purchaseHistButton.classList.remove("hidden")
     }
 }
