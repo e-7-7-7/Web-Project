@@ -373,7 +373,7 @@ function purchaseHistory(bookId, total, quantity,sellerId,title) {
         bookTitle:title,
         total: total,
         quantity: quantity,
-        Date: new Date().toISOString() ,
+        date: new Date().toISOString() ,
         transactionId: Date.now()+ Math.random().toString(36).substr(2, 9)
     };
 
@@ -384,6 +384,7 @@ function purchaseHistory(bookId, total, quantity,sellerId,title) {
 
     //Displaying in purchaseHistory page:
 
+
 }
 
 async function getTransaction(){
@@ -393,15 +394,6 @@ async function getTransaction(){
     localStorage.setItem('users', JSON.stringify(transactions));
   }
 
-
-function displayPurchaseHistory(bookId, total, quantity,sellerId,title){
-    
-}
-
-
-
-
-
-
+  
 
 
