@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const author = document.querySelector('#author').value;
         const genre = document.querySelector('#genre').value;
         const price = document.querySelector('#price').value;
+        const quantity = document.querySelector("#quantity").value;
         const description = document.querySelector('#description').value;
         const cover = document.querySelector('#cover').files[0];
         
@@ -35,12 +36,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const reader = new FileReader();
             reader.onload = function(e) {
                 // Process and save the new book after reading the cover image
-                processAndSaveBook(e.target.result, title, author, price, description, genre);
+                processAndSaveBook(e.target.result, title, author, price, description, genre,quantity);
             };
             reader.readAsDataURL(cover); 
         } else {
             // Process and save the new book even if there's no cover image
-            processAndSaveBook('', title, author, price, description, genre);
+            processAndSaveBook('', title, author, price, description, genre,quantity);
         }
 
         document.querySelector('#popupForm').style.display = 'none';
@@ -48,8 +49,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-function processAndSaveBook(coverImageUrl, title, author, price, description, genre) {
-    const newBook = { coverImageUrl, title, author, price, description, genre, isApproved: false };
+function processAndSaveBook(coverImageUrl, title, author, price, description, genre,quantity) {
+    const newBook = { coverImageUrl, title, author, price, description, genre,quantity, isApproved: false };
     saveBookToLocalStorage(newBook);
    displayBooksFromLocalStorage();
 }
@@ -113,7 +114,7 @@ function displayBooksFromLocalStorage() {
         const genreSection = document.querySelector(genreSectionId);
 
         if (genreSection) {
-            const card = createBookCard(book.coverImageUrl, book.title, book.author, book.price, book.description, book.genre, book.id, book.isApproved);
+            const card = createBookCard(book.coverImageUrl, book.title, book.author, book.price, book.description, book.genre,book.quantity, book.id, book.isApproved);
             genreSection.appendChild(card);
         } else {
             console.error(`No section found for genre: ${book.genre}. Ensure your HTML has a matching section.`);
@@ -269,7 +270,7 @@ function updateCheckout(price, quantity) {
 
 
 
-    function createBookCard(coverImageUrl, title, author, price, description, genre, id, isApproved) {
+    function createBookCard(coverImageUrl, title, author, price, description, genre,quantity, id, isApproved) {
         const userRole = localStorage.getItem('userRole'); // Assuming you store the user role in localStorage
         const card = document.createElement('div');
         card.className = 'inner-card';
@@ -286,6 +287,7 @@ function updateCheckout(price, quantity) {
                     <p>Author: ${author}</p>
                     <p>Price: ${price} QR</p>
                     <p>Description: ${description}</p>
+                    <p>Available Quantity: ${quantity}</p>
                     ${isApproved ? '<button id="add-${id}" class="icon-button">Add to cart</button>' : ''}
         `;
     
