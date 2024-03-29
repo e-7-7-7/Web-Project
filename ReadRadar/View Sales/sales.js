@@ -1,6 +1,7 @@
 
 
-let books =[];  // we store on sale books here for a specific seller
+let filteredBooks =[];  // we store on sale books here for a specific seller
+let pendingBooks=[]; // all pending Books for all sellers 
 let transactions=[]; // we store sold books here
 let Allbooks=[] //  we store on sale books here for all sellers
 
@@ -17,8 +18,10 @@ const bookListArea = document.querySelector("#book_list_area");
 const soldButton = document.querySelector("#soldButton");
 const onsaleButton = document.querySelector("#onsaleButton");
 const allButton = document.querySelector("#allButton");
+const pendingButton = document.querySelector("#pendingButton");
 const popupArea = document.querySelector("#popupArea");
-const popupForm = document.querySelector("#updateBookForm")
+const popupForm = document.querySelector("#updateBookForm");
+
 
 // pop-up refrences for updating
 const popupTitle = document.querySelector("#title");
@@ -37,6 +40,7 @@ const popupID = document.querySelector("#id");
 soldButton.addEventListener("click",showSoldBooks);
 onsaleButton.addEventListener("click",showOnSaleBooks);
 allButton.addEventListener("click",showAllBooks);
+pendingButton.addEventListener("click",showPendingBooks);
 popupCancelButton.addEventListener("click",handleCancel);
 popupForm.addEventListener("submit",handleSubmit);
 
@@ -46,38 +50,51 @@ popupForm.addEventListener("submit",handleSubmit);
 
 async function loadFiles(){ // loading the file using fetch
     if(!localStorage.onSaleBooks){
-        const data =  await fetch('./Onsale.json')
+        const data =  await fetch('../data/onSaleBooks.json')
         Allbooks = await data.json();
         localStorage.onSaleBooks = JSON.stringify(Allbooks);
-        books = Allbooks;
+        filteredBooks = Allbooks;
     }
     else{
         Allbooks = JSON.parse(localStorage.onSaleBooks);
-        books = Allbooks;
+        filteredBooks = Allbooks;
     }
     
-    console.log(books);
+    console.log(filteredBooks);
     if(!localStorage.transactions){
-        const data2 =  await fetch('./transactions.json')
+        const data2 =  await fetch('../data/transactions.json')
         transactions = await data2.json();
         localStorage.transactions = JSON.stringify(transactions);
     }
     else{
         transactions = JSON.parse(localStorage.transactions);
     }
-    
+
     console.log(transactions);
-    filterBooks(1); // (putting 1 for testing )will need updating when merging all files/localStorage formats 
+
+    if(!localStorage.pendingBooks){
+        const data3 =  await fetch('../data/pendingBooks.json')
+        pendingBooks = await data3.json();
+        localStorage.pendingBooks = JSON.stringify(pendingBooks);
+
+    }
+    
+    if (localStorage.userRole === "Seller"){
+        const id = localStorage.currentUserID;
+        filterBooks(id);  // filter the books if the role is seller
+    }
+    
 }
 
 
 
 
 function filterBooks(id) { // filters the books after the fetch of the files
-    books = books.filter(b=> b.seller_id == id);
+    filteredBooks = filteredBooks.filter(b=> b.seller_id == id);
+    transactions = transactions.filter(t=>t.seller_id == id);
+    pendingBooks = pendingBooks.filter(p=>p.seller_id == id);
     console.log("books length for id " + id + " is : " + books.length );
-    transactions = transactions.filter(t=>t.seller_id == id)
-    console.log("transactions length for id " + id + " is : " + transactions.length );
+    console.log("transactions length for id " + id + " is : " + transactions.length ); 
  }
 
 
@@ -88,6 +105,7 @@ function showSoldBooks(){
     soldButton.classList="selected" // setting the background color only to the selected tab
     allButton.classList=""
     onsaleButton.classList=""
+    pendingButton.classList=""
 
     bookListArea.innerHTML=""; // reset the page
     bookAreaTitle.innerHTML="<h1>Sold Books</h1>"
@@ -107,15 +125,16 @@ function showAllBooks(){
     soldButton.classList="" // setting the background color only to the selected tab
     allButton.classList="selected"
     onsaleButton.classList=""
+    pendingButton.classList=""
 
     bookListArea.innerHTML=""; // reset the page
     console.log("All Books button is clicked");
     bookAreaTitle.innerHTML="<h1>All Books</h1>"
-    if(transactions.length===0 && books.length===0){
+    if(transactions.length===0 && filteredBooks.length===0){
         bookAreaTitle.innerHTML=bookAreaTitle.innerHTML +"<h2>There is no Books to be displayed</h2>"
     }
     else{
-        bookListArea.innerHTML=books.map(b=> onsaleBookToHTML(b)).join(" ") + transactions.map(transaction=> transactionToHTML(transaction)).join(" ");
+        bookListArea.innerHTML=filteredBooks.map(b=> onsaleBookToHTML(b)).join(" ") + transactions.map(transaction=> transactionToHTML(transaction)).join(" ");
     }
 }
 
@@ -125,23 +144,37 @@ function showOnSaleBooks(){
     soldButton.classList="" // setting the background color only to the selected tab
     allButton.classList=""
     onsaleButton.classList="selected"
+    pendingButton.classList=""
 
     bookListArea.innerHTML=""; // reset the page
     bookAreaTitle.innerHTML="<h1>On Sale Books</h1>"
-    if(books.length === 0){
+    if(filteredBooks.length === 0){
         bookAreaTitle.innerHTML=  bookAreaTitle.innerHTML + `<h2>There is no books currently on sale</h2>` 
     }
     else{
-        bookListArea.innerHTML=books.map(b=> onsaleBookToHTML(b)).join(" ")
+        bookListArea.innerHTML=filteredBooks.map(b=> onsaleBookToHTML(b)).join(" ")
     }
+}
+
+function showPendingBooks(){
+    localStorage.selectedTab = "pending";
+
+    soldButton.classList="" // setting the background color only to the selected tab
+    allButton.classList=""
+    onsaleButton.classList=""
+    pendingButton.classList="selected"
+    bookListArea.innerHTML=""; // reset the page
+    bookAreaTitle.innerHTML="<h1>Pending Approval Books</h1>"
 }
 
 
 
+
+
 function onsaleBookToHTML(book){
-    const title =book.title;
-    console.log(title);
-    return `<div class="card">
+   if (localStorage.userRole) {
+    if (localStorage.userRole ==="Seller") {
+        return `<div class="card">
                 <img src="${book.cover}" alt="${book.title}">
 
                 <label for="">Title:</label>
@@ -165,6 +198,35 @@ function onsaleBookToHTML(book){
                     <button class ="bookButton" type="button" id="deleteButton" onclick="deleteBook(${book.id})">Delete</button>
                 </div>
             </div>` ;
+        
+    } else {
+        return `<div class="card">
+                <img src="${book.cover}" alt="${book.title}">
+
+                <label for="">Title:</label>
+                <p name="bookTitle" id = "">${book.title}</p>
+
+                
+                <label for="">Author(s):</label>
+                <p>${book.author}</p>
+
+                <label for="">Genre:</label>
+                <p>${book.genre}</p>
+                
+
+                <label for="">Price: </label>
+                <p>${book.price} Qr</p>
+
+                <label for="">Book ID: </label>
+                <p>${book.id}</p>
+                <div class="bookButtons">
+                    <button class ="bookButton" type="button" id="deleteButton" onclick="deleteBook(${book.id})">Delete</button>
+                </div>
+            </div>` ;
+        
+    }
+
+   }
 
 }
 function transactionToHTML(transaction){ // converts a transcation to html
@@ -182,6 +244,7 @@ function transactionToHTML(transaction){ // converts a transcation to html
     else{
         time="AM"
     }
+
     return transaction.books.map(book=> 
         `<div class="card">
             <img src="${book.cover}" alt="${book.title}">
@@ -213,15 +276,15 @@ function transactionToHTML(transaction){ // converts a transcation to html
 function deleteBook(id){
     const index = Allbooks.findIndex(b=> b.id == id)
     const book = Allbooks[index];
-    let result = confirm(`Do you really want to delete\nBook: ${book.title}\nPrice: ${book.price}  \nBook ID: ${book.id}`);
+    let result = confirm(`Are you sure about deleting\nBook: ${book.title}\nPrice: ${book.price}  \nBook ID: ${book.id}`);
     if(result){
         Allbooks.splice(index,1);
-        books = Allbooks.filter(b => b.seller_id == book.seller_id);
+        filteredBooks = Allbooks;
+        filterBooks();
         localStorage.onSaleBooks = JSON.stringify(Allbooks);
         alert(`The book with the id ${book.id} has been deleted successfully`);
         showSelectedTab();
     }
-
    
 }
 
@@ -300,6 +363,9 @@ function showSelectedTab(){
         }
         else if(localStorage.selectedTab =="sold"){
             showSoldBooks();
+        }
+        else if(localStorage.selectedTab =="pending"){
+            showPendingBooks();
         }
         else{
             showOnSaleBooks();
