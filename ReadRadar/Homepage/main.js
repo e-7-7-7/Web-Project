@@ -164,11 +164,12 @@ function addingToCart() {
             const bookId = this.dataset.bookId;
             const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
             const selectedBook = addedBooks.find(book => book.id === bookId);
+            
             if (selectedBook) {
                 
                 displaySelectedBook(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price);
-                displayOnCheckout(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price,selectedBook.bookId,selectedBook.sellerId,selectedBook.quantity)
-
+                displayOnCheckout(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price,selectedBook.id,selectedBook.sellerId,selectedBook.quantity)
+                
                 document.querySelector('#cartForm').style.display = 'block';
                 document.querySelector('.purchase-buttons').style.display = 'block';
                 
@@ -236,7 +237,8 @@ function displayOnCheckout(coverImage, title, price,bookId,sellerId,intialQuant)
         checkoutButton.addEventListener('click', function(event) {
             event.preventDefault(); 
             if(quantity<=intialQuant){
-                purchaseItem(price,quantity,intialQuant,bookId,sellerId,title); 
+                purchaseItem(price,title,bookId,sellerId,quantity); 
+                
             }
             else if (intialQuant==0){
                 alert('item out of stock')
@@ -329,17 +331,14 @@ function updateCheckout(price, quantity) {
     }
     
 
-function purchaseItem(price,selectedQuantity,bookId,sellerId,title) {
+function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
     try {
         const usersData = JSON.parse(localStorage.getItem('users')) || [];
         
         const currentUserID = JSON.parse(localStorage.getItem('currentUserID'));
         const isAuthenticated = localStorage.getItem('isAuthenticated');
 
-        const booksData = JSON.parse(localStorage.getItem('addedBooks')) || [];
-        console.log(booksData); 
-        console.log(bookId);
-        console.log(typeof bookId);     
+        const booksData = JSON.parse(localStorage.getItem('addedBooks')) || [];    
         const bookQuantity = booksData.find(book=> book.id === bookId );  
         const currentUser = usersData.find(user => user.id === currentUserID);
         const seller = usersData.find(user=> user.id === sellerId)
@@ -354,20 +353,16 @@ function purchaseItem(price,selectedQuantity,bookId,sellerId,title) {
                     if (balance >= subtotal) {
                         balance -= subtotal;
                         sellerBalance += subtotal;
-                        bookQuant -= selectedQuantity;
+                        quant -= selectedQuantity;
                         alert("Checkout Successful !!");
                         // Update user's balance
                         seller.account_Balance = sellerBalance;
                         currentUser.account_Balance = balance;
-    
-                        // Update quantity in addedBooks
-                        const bookIndex = addedBooks.findIndex(book => book.id === bookId);
-                        if (bookIndex !== -1) {
-                            addedBooks[bookIndex].quantity = bookQuant;
-                            // Save the updated array back to localStorage
-                            localStorage.setItem('addedBooks', JSON.stringify(addedBooks));
-                
-                        }
+                        bookQuantity.quantity=quant
+
+
+
+                        localStorage.setItem('addedBooks', JSON.stringify(booksData));//ss
                         localStorage.setItem('users', JSON.stringify(usersData));
     
                         purchaseHistory(bookId, subtotal, quantity, sellerId, title);
