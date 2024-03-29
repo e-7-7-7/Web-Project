@@ -30,11 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const title = document.querySelector('#title').value;
         const author = document.querySelector('#author').value;
         const genre = document.querySelector('#genre').value;
-        const price = document.querySelector('#price').value;
-        const quantity = document.querySelector("#bookQuantity").value;
+        const price = parseFloat(document.querySelector('#price').value);
+        const quantity = parseInt(document.querySelector("#bookQuantity").value);
         const description = document.querySelector('#description').value;
         const cover = document.querySelector('#cover').files[0];
-        const sellerId = currentUserID;
+        const sellerId = parseInt(currentUserID);
         
         if (cover) {
             const reader = new FileReader();
@@ -329,22 +329,27 @@ function updateCheckout(price, quantity) {
     }
     
 
-    function purchaseItem(price, selectedQuantity, bookQuant, bookId, sellerId, title) {
-        try {
-            const usersData = JSON.parse(localStorage.getItem('users')) || [];
-            let addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
-    
-            const currentUserID = localStorage.getItem('currentUserID');
-            const isAuthenticated = localStorage.getItem('isAuthenticated');
-    
-            const currentUser = usersData.find(user => user.id === currentUserID);
-            const seller = usersData.find(user => user.id === sellerId);
-            // Check if the user is authenticated
-            if (isAuthenticated === 'true') {
-                // Ensure the current user is a customer
-                if (currentUser && currentUser.role === 'Customer') {
-                    let balance = parseFloat(currentUser.account_Balance);
-                    let sellerBalance = parseFloat(seller.account_Balance);
+function purchaseItem(price,selectedQuantity,bookId,sellerId,title) {
+    try {
+        const usersData = JSON.parse(localStorage.getItem('users')) || [];
+        
+        const currentUserID = JSON.parse(localStorage.getItem('currentUserID'));
+        const isAuthenticated = localStorage.getItem('isAuthenticated');
+
+        const booksData = JSON.parse(localStorage.getItem('addedBooks')) || [];
+        console.log(booksData); 
+        console.log(bookId);
+        console.log(typeof bookId);     
+        const bookQuantity = booksData.find(book=> book.id === bookId );  
+        const currentUser = usersData.find(user => user.id === currentUserID);
+        const seller = usersData.find(user=> user.id === sellerId)
+        // Check if the user is authenticated
+        if (isAuthenticated === 'true') {
+            // Ensure the current user is a customer
+            if (currentUser && currentUser.role === 'Customer') {
+                let quant = parseInt(bookQuantity.quantity);
+                let balance = parseFloat(currentUser.account_Balance);
+                let sellerBalance = parseFloat(seller.account_Balance);
                     const subtotal = price * selectedQuantity;
                     if (balance >= subtotal) {
                         balance -= subtotal;
