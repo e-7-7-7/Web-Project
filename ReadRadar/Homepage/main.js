@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelector('#uploadItemForm').addEventListener('submit', function(event) { // submitting the add item form
         event.preventDefault();
+  
+        
+        const currentUserID = localStorage.getItem('currentUserID');
         
         const title = document.querySelector('#title').value;
         const author = document.querySelector('#author').value;
@@ -30,17 +33,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const price = document.querySelector('#price').value;
         const description = document.querySelector('#description').value;
         const cover = document.querySelector('#cover').files[0];
+        const sellerId = currentUserID;
         
         if (cover) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 // Process and save the new book after reading the cover image
-                processAndSaveBook(e.target.result, title, author, price, description, genre);
+                processAndSaveBook(e.target.result, title, author, price, description, genre,sellerId);
             };
             reader.readAsDataURL(cover); 
         } else {
             // Process and save the new book even if there's no cover image
-            processAndSaveBook('', title, author, price, description, genre);
+            processAndSaveBook('', title, author, price, description, genre,sellerId);
         }
 
         document.querySelector('#popupForm').style.display = 'none';
@@ -48,8 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-function processAndSaveBook(coverImageUrl, title, author, price, description, genre) {
-    const newBook = { coverImageUrl, title, author, price, description, genre, isApproved: false };
+function processAndSaveBook(coverImageUrl, title, author, price, description, genre,sellerId) {
+    const newBook = { coverImageUrl, title, author, price, description, genre,sellerId, isApproved: false };
     saveBookToLocalStorage(newBook);
    displayBooksFromLocalStorage();
 }
@@ -162,7 +166,7 @@ function addingToCart() {
             if (selectedBook) {
                 
                 displaySelectedBook(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price);
-                displayOnCheckout(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price)
+                displayOnCheckout(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price,selectedBook.bookId,selectedBook.sellerId)
 
                 document.querySelector('#cartForm').style.display = 'block';
                 document.querySelector('.purchase-buttons').style.display = 'block';
@@ -211,7 +215,7 @@ function updateSubtotal(price) {
     
 }
 
-function displayOnCheckout(coverImage, title, price) {
+function displayOnCheckout(coverImage, title, price,bookId,sellerId) {
     const cartSection = document.querySelector('#transaction');
     cartSection.innerHTML = `<img src="${coverImage || 'default-cover-image-path.jpg'}" alt="${title}">
                             <p>${title}</p>
@@ -230,7 +234,7 @@ function displayOnCheckout(coverImage, title, price) {
     if (!checkoutButton.hasEventListener) {
         checkoutButton.addEventListener('click', function(event) {
             event.preventDefault(); 
-            purchaseItem(price * quantity); 
+            purchaseItem(price,quantity,bookId,sellerId,title); 
         });
         checkoutButton.hasEventListener = true;
     }
@@ -262,8 +266,6 @@ function updateCheckout(price, quantity) {
     totalP2.textContent = `Quantity: x${quantity}`;
     totalP.textContent = `Total: $${price * quantity}`;
 
-        // Check if event listener has already been attached
-       
     }
 
 
@@ -314,15 +316,7 @@ function updateCheckout(price, quantity) {
     }
     
 
-
-
-
-// async function getUsers(){
-//   const data = await fetch("data/users.json");
-//   users = await data.json();
-//   localStorage.setItem('users', JSON.stringify(users));
-// }
-function purchaseItem(subtotal) {
+function purchaseItem(price,quantity,bookId,sellerId,title) {
     try {
         const usersData = JSON.parse(localStorage.getItem('users')) || [];
         
@@ -337,6 +331,7 @@ function purchaseItem(subtotal) {
             // Ensure the current user is a customer
             if (currentUser && currentUser.role === 'Customer') {
                 let balance = parseFloat(currentUser.account_Balance);
+                    const subtotal = price * quantity;
                 if (balance >= subtotal) {
                     balance -= subtotal;
                     alert("Checkout Successful !!");
@@ -344,6 +339,7 @@ function purchaseItem(subtotal) {
                     currentUser.account_Balance = balance;
                     // Update localStorage
                     localStorage.setItem('users', JSON.stringify(usersData));
+                    purchaseHistory(bookId, subtotal, quantity,sellerId,title);
                     document.querySelector('#checkoutForm').style.display = 'none';
                 } else {
                     alert("Insufficient Balance...CheckOut failed");
@@ -364,6 +360,42 @@ function purchaseItem(subtotal) {
         document.querySelector('#checkoutForm').style.display = 'none';
 
     }
+}
+
+function purchaseHistory(bookId, total, quantity,sellerId,title) {
+    let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    
+    const custId = localStorage.getItem('currentUserID');
+    const newTransaction = {
+        custId: custId,
+        sellerId: sellerId,
+        bookId: bookId,
+        bookTitle:title,
+        total: total,
+        quantity: quantity,
+        Date: new Date().toISOString() ,
+        transactionId: Date.now()+ Math.random().toString(36).substr(2, 9)
+    };
+
+    transactions.push(newTransaction);
+
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+
+
+    //Displaying in purchaseHistory page:
+
+}
+
+async function getTransaction(){
+    const data = await fetch("../data/transactions.json");
+    transactions = await data.json();
+    console.log(transactions);
+    localStorage.setItem('users', JSON.stringify(transactions));
+  }
+
+
+function displayPurchaseHistory(bookId, total, quantity,sellerId,title){
+    
 }
 
 
