@@ -133,9 +133,10 @@ function displaySelectedBook(coverImage, title, price) {
 quantityInput.addEventListener('input', function(event) {
  // Recalculate and update subtotal based on the new quantity
     updateSubtotal(price);
+    
   });
                             
-updateSubtotal(price);
+// updateSubtotal(price);
   
 }
 
@@ -157,6 +158,7 @@ function updateSubtotal(price) {
 
     // Update the content of the subtotal paragraph
     subtotalP.textContent = `Subtotal: $${subtotal}`;
+
     
 }
 
@@ -172,6 +174,17 @@ function displayOnCheckout(coverImage, title, price) {
     quantityInput.addEventListener('input', function(event) {
         quantity = parseInt(quantityInput.value) || 0;
         updateCheckout(price, quantity); 
+
+            
+    const checkoutButton = document.querySelector('#checkoutButton');
+
+    if (!checkoutButton.hasEventListener) {
+        checkoutButton.addEventListener('click', function(event) {
+            event.preventDefault(); 
+            purchaseItem(price * quantity); 
+        });
+        checkoutButton.hasEventListener = true;
+    }
     });
 
     let totalP = document.querySelector('#trans');
@@ -201,14 +214,7 @@ function updateCheckout(price, quantity) {
     totalP.textContent = `Total: $${price * quantity}`;
 
         // Check if event listener has already been attached
-        const checkoutButton = document.querySelector('#checkoutButton');
-        if (!checkoutButton.hasEventListener) {
-            checkoutButton.addEventListener('click', function(event) {
-                event.preventDefault(); 
-                purchaseItem(price * quantity); 
-            });
-            checkoutButton.hasEventListener = true;
-        }
+       
     }
 
 
