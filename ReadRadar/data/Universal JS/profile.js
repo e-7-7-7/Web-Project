@@ -80,11 +80,11 @@ function profileLogout(){
         delete localStorage.isAuthenticated;
         delete localStorage.currentUserID;
         delete localStorage.userRole;
-        window.location.href="./index.html";
+        location.reload();
     }
 }
 
 function profileLogin(){
-    window.location.href="./login/login.html";
+    window.location.href="../../login/login.html";
 }
 

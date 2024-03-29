@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Display books from localStorage on page load
     displayBooksFromLocalStorage();
-    showTabs();
 
     document.querySelector('#addItemLink').addEventListener('click', function(event) { // adding an item
         event.preventDefault();
@@ -72,20 +71,6 @@ function displayBooksFromLocalStorage() {
     });
 }
 
-function showTabs(){
-     // Retrieve the user role from localStorage
-     const userRole = localStorage.getItem('userRole');
-     const addButton = document.querySelector('#addListItem');
-     const viewSalesButton = document.querySelector("#viewSalesListItem");
-
-     // Check if the user role is "Seller"
-     if (userRole === 'Seller') {
-        addButton.classList.remove("hidden")
-     }
-     if (userRole ==="Seller" || userRole ==="Admin") {
-        viewSalesButton.classList.remove("hidden")
-     }
-}
 
 
 

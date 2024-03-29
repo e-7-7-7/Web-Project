@@ -13,6 +13,6 @@ function handleSearch(form){
     if(searchBar.value !=""){
         localStorage.searchValue = searchBar.value ;
         
-        window.location.href ="./Search/search.html";
+        window.location.href ="../../Search/search.html";
     }
 }

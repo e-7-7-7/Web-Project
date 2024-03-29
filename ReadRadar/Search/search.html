@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/global.css">
-    <link rel="stylesheet" href="/styles/search.css">
-    <title>ReadRadar</title>
-    <link  rel="icon" href="media/icons/radar -white.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="../styles/search.css">
+    <title>Search</title>
+    <link  rel="icon" href="../media/icons/radar -white.svg" type="image/x-icon">
     
 </head>
 <body>
 
     <header>
         <div class="name">
-            <img src="media/icons/radar.svg" alt=""><h1>ReadRadar</h1>
+            <img src="../media/icons/radar.svg" alt=""><h1>ReadRadar</h1>
         </div>
         <div class="search">
-            <img src="media/icons/search.svg" alt="">
+            <img src="../media/icons/search.svg" alt="">
             <form id="searchForm">
                 <input type="search" id="searchInput" name="search" placeholder="Search for books">
-                <button type="submit"><img src="media/icons/arrow-right.svg" alt=""></button>
+                <button type="submit"><img src="../media/icons/arrow-right.svg" alt=""></button>
             </form>
         </div>
         <section class="profile">
             <!-- A window get opened when user clicks on the icon of profile -->
-            <input id="profileImageInput" type="image" src="media/icons/circle-user.svg" alt="Profile">
+            <input id="profileImageInput" type="image" src="../media/icons/circle-user.svg" alt="Profile">
             <p id="headerUsername"></p> <!--to be filled with the username of the user via JS-->
 
             <div id="profilePopup" class="hidden">
@@ -38,16 +38,16 @@
         <nav class="navigation">
             <div class="nav">
                 <ul>
-                    <li><img src="media/icons/home.svg" alt=""><a href="index.html">Home</a></li>
-                    <li><img src="media/icons/trophy.svg" alt=""><a href="#bestBooks">2023 Best books</a></li>
-                    <li><img src="media/icons/book-marked.svg" alt=""><a href="#Genres">Genres</a></li>
-                    <li><img src="media/icons/shopping-cart.svg" alt=""><a href="/Purchase History/purchaseHist.html">Purchase History</a></li>
+                    <li><img src="../media/icons/home.svg" alt=""><a href="../Homepage/index.html">Home</a></li>
+                    <li><img src="../media/icons/trophy.svg" alt=""><a href="../Homepage/index.html#bestBooks">2023 Best books</a></li>
+                    <li><img src="../media/icons/book-marked.svg" alt=""><a href="../Homepage/index.html#Genres">Genres</a></li>
+                    <li class="hidden" id="purchaseHistListItem"><img src="../media/icons/shopping-cart.svg" alt=""><a href="../Purchase History/purchaseHist.html">Purchase History</a></li>
                 </ul>
 
                 <ul>
-                    <li><img src="media/icons/headset.svg" alt=""><a href="#contact">Contact Us</a></li>
-                    <li><a href="#Add item" id="addItemLink">Add Item</a></li>
-                    <li><a href="/View Sales/View_Sales.html" id="viewSalesLink">View Sales</a></li>
+                    <li><img src="../media/icons/headset.svg" alt=""><a href="#contact">Contact Us</a></li>
+                    <li class="hidden" id="addListItem"><a href="../Homepage/index.html#Add item" id="addItemLink">Add Item</a></li>
+                    <li class="hidden" id="viewSalesListItem"><a href="../View Sales/View_Sales.html" id="viewSalesLink">View Sales</a></li>
                 </ul>
 
                 <!-- Pop-up Form -->
@@ -98,9 +98,9 @@
 
     <footer>
         <div class="socials">
-            <img src="media/socials/facebook.svg" alt="">
-            <img src="media/socials/instagram.svg" alt="">
-            <img src="media/socials/x-twitter.svg" alt="">
+            <img src="../media/socials/facebook.svg" alt="">
+            <img src="../media/socials/instagram.svg" alt="">
+            <img src="../media/socials/x-twitter.svg" alt="">
         </div>
         <section id="contact">
             <p id="phoneNo">+974 66118811</p>
@@ -109,7 +109,8 @@
         <section> <p>2024 © ReadRadar</p></section>
     </footer>
 
-    <script src="../profile.js"></script>
+    <script src="../data/Universal JS/profile.js"></script>
+    <script src="../data/Universal JS/tabs.js"></script>
     <script src="searchPage.js"></script>
 
 </body>

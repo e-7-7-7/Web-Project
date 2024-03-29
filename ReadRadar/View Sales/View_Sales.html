@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../styles/View_sales.css">
 
     <title>Sales</title>
-    <link  rel="icon" href="media/icons/radar -white.svg" type="image/x-icon">
+    <link  rel="icon" href="../media/icons/radar -white.svg" type="image/x-icon">
 </head>
 
 
@@ -15,18 +15,18 @@
 
     <header>
         <div class="name">
-            <img src="/media/icons/radar.svg" alt=""><h1>ReadRadar</h1>
+            <img src="../media/icons/radar.svg" alt=""><h1>ReadRadar</h1>
         </div>
         <div class="search">
-            <img src="/media/icons/search.svg" alt="">
+            <img src="../media/icons/search.svg" alt="">
             <form id="searchForm">
                 <input type="search" id="searchInput" name="search" placeholder="Search for books">
-                <button type="submit"><img src="/media/icons/arrow-right.svg" alt=""></button>
+                <button type="submit"><img src="../media/icons/arrow-right.svg" alt=""></button>
             </form>
         </div>
         <section class="profile">
             <!-- A window get opened when user clicks on the icon of profile -->
-            <input id="profileImageInput" type="image" src="media/icons/circle-user.svg" alt="Profile">
+            <input id="profileImageInput" type="image" src="../media/icons/circle-user.svg" alt="Profile">
             <p id="headerUsername"></p> <!--to be filled with the username of the user via JS-->
 
             <div id="profilePopup" class="hidden">
@@ -40,15 +40,15 @@
         <nav class="navigation">
             <div class="nav">
                 <ul>
-                    <li><img src="/media/icons/home.svg" alt=""><a href="/index.html">Home</a></li>
-                    <li><img src="/media/icons/trophy.svg" alt=""><a href="/index.html#bestBooks">2023 Best books</a></li>
-                    <li><img src="/media/icons/book-marked.svg" alt=""><a href="/index.html#Genres">Genres</a></li>
-                    <li><img src="/media/icons/shopping-cart.svg" alt=""><a href="/Purchase History/purchaseHist.html">Purchase History</a></li>
+                    <li><img src="../media/icons/home.svg" alt=""><a href="../Homepage/index.html">Home</a></li>
+                    <li><img src="../media/icons/trophy.svg" alt=""><a href="../Homepage/index.html#bestBooks">2023 Best books</a></li>
+                    <li><img src="../media/icons/book-marked.svg" alt=""><a href="../Homepage/index.html#Genres">Genres</a></li>
+                    <li class="hidden" id="purchaseHistListItem"><img src="../media/icons/shopping-cart.svg" alt=""><a href="../Purchase History/purchaseHist.html">Purchase History</a></li>
                 </ul>
 
                 <ul>
-                    <li><img src="/media/icons/headset.svg" alt=""><a href="#contact">Contact Us</a></li>
-                    <li><a href="#View sales" id="viewSalesLink">View Sales</a></li>
+                    <li><img src="../media/icons/headset.svg" alt=""><a href="#contact">Contact Us</a></li>
+                    <li class="hidden" id="viewSalesListItem"><a href="../View Sales/View_Sales.html" id="viewSalesLink">View Sales</a></li>
                 </ul>
 
             </div>
@@ -101,7 +101,11 @@
        
     </main>
     <footer>
-        <div class="socials"></div>
+        <div class="socials">
+            <img src="../media/socials/facebook.svg" alt="">
+            <img src="../media/socials/instagram.svg" alt="">
+            <img src="../media/socials/x-twitter.svg" alt="">
+        </div>
         <section id="contact">
             <p id="phoneNo">+974 66118811</p>
             <p id="email">readradar.cont@book.qa</p>
@@ -109,24 +113,10 @@
         <section> <p>2024 © ReadRadar</p></section>
     </footer>
 
-   <script src="../profile.js"></script>
+   <script src="../data/Universal JS/profile.js"></script>
+   <script src="../data/Universal JS/tabs.js"></script>
    <script src="sales.js"></script>
-   <script>
-        
-    const searchForm= document.querySelector("#searchForm");
-    const searchBar = document.querySelector("#searchInput");
-
-    searchForm.addEventListener("submit",handleSearch);
-
-    function handleSearch(form){
-        form.preventDefault();
-
-        if(searchBar.value !=""){
-            localStorage.searchValue = searchBar.value ;
-            window.location.href ="../Search/search.html";
-        }
-    }
-    </script>
+   <script src="../data/Universal JS/search.js"></script>
 
 </body>
 </html>

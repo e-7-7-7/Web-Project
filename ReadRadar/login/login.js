@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
          localStorage.setItem('userRole', user.role);
          localStorage.setItem('currentUserID', user.id);
 
-          window.location.href = '../index.html';
+          window.location.href = '../Homepage/index.html';
       } else {
         
           alert('Login failed. Incorrect username or password.');
