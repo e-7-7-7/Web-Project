@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function displayPurchaseHistory() {
     const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
     const usersData = JSON.parse(localStorage.getItem('users')) || [];
-    const currentUserID = localStorage.getItem('currentUserID');
+    const currentUserID = parseInt(localStorage.getItem('currentUserID'));
     const isAuthenticated = localStorage.getItem('isAuthenticated');
     
     // Check if the user is authenticated

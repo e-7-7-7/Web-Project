@@ -11,7 +11,7 @@
             "street": "853",
             "house_number": "17"
         },
-        "id":"1",
+        "id":1,
         "role": "Customer", 
         "account_Balance": 200 
     },
@@ -20,7 +20,7 @@
         "username": "seller1", 
         "password": "password123",
         "name":"Book Seller 1", 
-        "id":"2", 
+        "id":2, 
         "role": "Seller", 
         "account_Balance": 0 
     },
@@ -29,7 +29,7 @@
         "username": "admin1", 
         "password": "password123",
         "name":"Admin 1", 
-        "id":"3", 
+        "id":3, 
         "role": "Admin", 
         "account_Balance": 0 
     },
@@ -46,7 +46,7 @@
             "street": "554",
             "house_number": "9"
         },
-        "id":"4", 
+        "id":4, 
         "role": "Customer", 
         "account_Balance": 50 
     },
@@ -55,7 +55,7 @@
         "username": "seller2", 
         "password": "password123",
         "name":"Book Seller 2", 
-        "id":"5", 
+        "id":5, 
         "role": "Seller", 
         "account_Balance": 100 
     },
@@ -64,7 +64,7 @@
         "username": "admin2", 
         "password": "password123",
         "name":"Admin 2", 
-        "id":"6", 
+        "id":6, 
         "role": "Admin", 
         "account_Balance": 1000 
     }

@@ -30,11 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const title = document.querySelector('#title').value;
         const author = document.querySelector('#author').value;
         const genre = document.querySelector('#genre').value;
-        const price = document.querySelector('#price').value;
-        const quantity = document.querySelector("#bookQuantity").value;
+        const price = parseFloat(document.querySelector('#price').value);
+        const quantity = parseInt(document.querySelector("#bookQuantity").value);
         const description = document.querySelector('#description').value;
         const cover = document.querySelector('#cover').files[0];
-        const sellerId = currentUserID;
+        const sellerId = parseInt(currentUserID);
         
         if (cover) {
             const reader = new FileReader();
@@ -333,12 +333,14 @@ function purchaseItem(price,selectedQuantity,bookId,sellerId,title) {
     try {
         const usersData = JSON.parse(localStorage.getItem('users')) || [];
         
-        const currentUserID = localStorage.getItem('currentUserID');
+        const currentUserID = JSON.parse(localStorage.getItem('currentUserID'));
         const isAuthenticated = localStorage.getItem('isAuthenticated');
 
         const booksData = JSON.parse(localStorage.getItem('addedBooks')) || [];
-        const bookQuantity = booksData.find(book=> book.id === bookId );
-          
+        console.log(booksData); 
+        console.log(bookId);
+        console.log(typeof bookId);     
+        const bookQuantity = booksData.find(book=> book.id === bookId );  
         const currentUser = usersData.find(user => user.id === currentUserID);
         const seller = usersData.find(user=> user.id === sellerId)
         // Check if the user is authenticated
