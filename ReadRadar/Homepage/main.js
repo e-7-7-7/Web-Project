@@ -49,10 +49,35 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function processAndSaveBook(coverImageUrl, title, author, price, description, genre) {
-    const newBook = { coverImageUrl, title, author, price, description, genre };
+    const newBook = { coverImageUrl, title, author, price, description, genre, isApproved: false };
     saveBookToLocalStorage(newBook);
-    displayBooksFromLocalStorage(); // Refresh the book display
+   displayBooksFromLocalStorage();
 }
+
+
+
+function approveBook(id) {
+    const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
+    const bookIndex = addedBooks.findIndex(book => book.id === id);
+    if (bookIndex !== -1) {
+        addedBooks[bookIndex].isApproved = true;
+        localStorage.setItem('addedBooks', JSON.stringify(addedBooks));
+        alert('Book added successfully');
+        displayBooksForAdmin(); // Refresh admin view
+        displayBooksFromLocalStorage(); // Optionally refresh customer view if admin is on the same page
+    }
+}
+
+function deleteBook(id) {
+    let addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
+    addedBooks = addedBooks.filter(book => book.id !== id);
+    localStorage.setItem('addedBooks', JSON.stringify(addedBooks));
+    alert('Book deleted successfully');
+    displayBooksForAdmin(); // Refresh admin view
+    displayBooksFromLocalStorage(); // Optionally refresh customer view if admin is on the same page
+}
+
+
 
 function saveBookToLocalStorage(book) {
     let addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
@@ -62,15 +87,39 @@ function saveBookToLocalStorage(book) {
     localStorage.setItem('addedBooks', JSON.stringify(addedBooks)); // Save the updated array back to localStorage
 }
 
+
 function displayBooksFromLocalStorage() {
-    const section = document.querySelector('#Books-2024'); // Ensure this targets your book display area correctly
-    section.innerHTML = ''; // Clear existing content before displaying the updated book list
+    const userRole = localStorage.getItem('userRole');
+    
+    // First, clear all sections to avoid duplication when re-displaying books
+    document.querySelectorAll('.books section').forEach(section => {
+        section.innerHTML = '';
+    });
+
     const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
-    addedBooks.forEach(book => {
-        createBookCard(book.coverImageUrl, book.title, book.author, book.price, book.description, book.genre,book.id);
+    let booksToDisplay = [];
+
+    // Filter books based on the user role
+    if (userRole === 'Admin') {
+        booksToDisplay = addedBooks;
+    } else {
+        booksToDisplay = addedBooks.filter(book => book.isApproved);
+    }
+
+    // Loop through each book and append it to the correct section based on its genre
+    booksToDisplay.forEach(book => {
+        // Convert the genre to a format matching the section ID (e.g., "Self Development" to "Self-Development")
+        const genreSectionId = `#${book.genre.replace(/\s+/g, '-')}`;
+        const genreSection = document.querySelector(genreSectionId);
+
+        if (genreSection) {
+            const card = createBookCard(book.coverImageUrl, book.title, book.author, book.price, book.description, book.genre, book.id, book.isApproved);
+            genreSection.appendChild(card);
+        } else {
+            console.error(`No section found for genre: ${book.genre}. Ensure your HTML has a matching section.`);
+        }
     });
 }
-
 
 
 
@@ -214,32 +263,50 @@ function updateCheckout(price, quantity) {
 
 
 
-
-function createBookCard(coverImageUrl, title, author, price, description, genre, id) {
-    const card = document.createElement('div');
-    card.className = 'inner-card'; // Added 'book' class
-    card.setAttribute('data-book-id', id); // Set data-book-id attribute
-
-    card.innerHTML = `
-    <div class="flip-inner-card">
-    <div class="flip-front-card">
-        <img src="${coverImageUrl || 'default-cover-image-path.jpg'}" alt="${title}">
-        <p> ${title}</p>
-    </div>
-    <div class="flip-back-card">
-        <p>Author: ${author}</p>
-        <p>Price: ${price} QR</p>
-        <p>Description: ${description}</p>
-        <button id="add">Add to cart</button>
-    </div>
-    </div>
+    function createBookCard(coverImageUrl, title, author, price, description, genre, id, isApproved) {
+        const userRole = localStorage.getItem('userRole'); // Assuming you store the user role in localStorage
+        const card = document.createElement('div');
+        card.className = 'inner-card';
+        card.setAttribute('data-book-id', id);
     
-    `;
+        // Define the basic card structure with flip effect
+        let cardContent = `
+            <div class="flip-inner-card">
+                <div class="flip-front-card">
+                    <img src="${coverImageUrl || 'default-cover-image-path.jpg'}" alt="${title}">
+                    <p>${title}</p>
+                </div>
+                <div class="flip-back-card">
+                    <p>Author: ${author}</p>
+                    <p>Price: ${price} QR</p>
+                    <p>Description: ${description}</p>
+                    ${isApproved ? '<button id="add-${id}" class="icon-button">Add to cart</button>' : ''}
+        `;
+    
+        // Add admin-specific buttons if the user is an admin and the book is not approved yet
+        if (userRole === 'Admin' && !isApproved) {
+            cardContent += `
+                <button onclick="approveBook('${id}')" class="icon-button"><i class="fa-solid fa-check"></i></button>
+                <button onclick="deleteBook('${id}')" class="icon-button"><i class="fa-solid fa-trash"></i></button>
+            `;
+        }
+    
+        // Close the flip-back-card and flip-inner-card divs
+        cardContent += `
+                </div>
+            </div>
+        `;
 
-    const section = document.querySelector(`#${genre.replace(/\s+/g, '-')}`) || document.querySelector('#2024-Books');
-    section.appendChild(card);
-}
+        
 
+        
+    
+        // Set the innerHTML of the card to the constructed content
+        card.innerHTML = cardContent;
+    
+        return card; // Return the card element for appending in the display function
+    }
+    
 
 
 
