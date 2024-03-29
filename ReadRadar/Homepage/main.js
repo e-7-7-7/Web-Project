@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelector('#uploadItemForm').addEventListener('submit', function(event) { // submitting the add item form
         event.preventDefault();
+  
+        
+        const currentUserID = localStorage.getItem('currentUserID');
         
         const title = document.querySelector('#title').value;
         const author = document.querySelector('#author').value;
@@ -31,17 +34,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const quantity = document.querySelector("#quantity").value;
         const description = document.querySelector('#description').value;
         const cover = document.querySelector('#cover').files[0];
+        const sellerId = currentUserID;
         
         if (cover) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 // Process and save the new book after reading the cover image
-                processAndSaveBook(e.target.result, title, author, price, description, genre,quantity);
+                processAndSaveBook(e.target.result, title, author, price, description, genre,quantity,sellerId);
             };
             reader.readAsDataURL(cover); 
         } else {
             // Process and save the new book even if there's no cover image
-            processAndSaveBook('', title, author, price, description, genre,quantity);
+            processAndSaveBook('', title, author, price, description, genre,quantity,sellerId);
         }
 
         document.querySelector('#popupForm').style.display = 'none';
@@ -49,8 +53,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-function processAndSaveBook(coverImageUrl, title, author, price, description, genre,quantity) {
-    const newBook = { coverImageUrl, title, author, price, description, genre,quantity, isApproved: false };
+function processAndSaveBook(coverImageUrl, title, author, price, description, genre,quantity,sellerId) {
+    const newBook = { coverImageUrl, title, author, price, description, genre,quantity,sellerId, isApproved: false };
     saveBookToLocalStorage(newBook);
    displayBooksFromLocalStorage();
 }
@@ -114,7 +118,7 @@ function displayBooksFromLocalStorage() {
         const genreSection = document.querySelector(genreSectionId);
 
         if (genreSection) {
-            const card = createBookCard(book.coverImageUrl, book.title, book.author, book.price, book.description, book.genre,book.quantity, book.id, book.isApproved);
+            const card = createBookCard(book.coverImageUrl, book.title, book.author, book.price, book.description, book.genre,book.quantity,book.sellerId, book.id, book.isApproved);
             genreSection.appendChild(card);
         } else {
             console.error(`No section found for genre: ${book.genre}. Ensure your HTML has a matching section.`);
@@ -163,7 +167,7 @@ function addingToCart() {
             if (selectedBook) {
                 
                 displaySelectedBook(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price);
-                displayOnCheckout(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price)
+                displayOnCheckout(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price,selectedBook.bookId,selectedBook.sellerId)
 
                 document.querySelector('#cartForm').style.display = 'block';
                 document.querySelector('.purchase-buttons').style.display = 'block';
@@ -212,7 +216,7 @@ function updateSubtotal(price) {
     
 }
 
-function displayOnCheckout(coverImage, title, price) {
+function displayOnCheckout(coverImage, title, price,bookId,sellerId) {
     const cartSection = document.querySelector('#transaction');
     cartSection.innerHTML = `<img src="${coverImage || 'default-cover-image-path.jpg'}" alt="${title}">
                             <p>${title}</p>
@@ -231,7 +235,7 @@ function displayOnCheckout(coverImage, title, price) {
     if (!checkoutButton.hasEventListener) {
         checkoutButton.addEventListener('click', function(event) {
             event.preventDefault(); 
-            purchaseItem(price * quantity); 
+            purchaseItem(price,quantity,bookId,sellerId,title); 
         });
         checkoutButton.hasEventListener = true;
     }
@@ -263,15 +267,15 @@ function updateCheckout(price, quantity) {
     totalP2.textContent = `Quantity: x${quantity}`;
     totalP.textContent = `Total: $${price * quantity}`;
 
-        // Check if event listener has already been attached
-       
     }
 
 
 
 
-    function createBookCard(coverImageUrl, title, author, price, description, genre,quantity, id, isApproved) {
+    function createBookCard(coverImageUrl, title, author, price, description, genre,quantity,sellerId, id, isApproved) {
         const userRole = localStorage.getItem('userRole'); // Assuming you store the user role in localStorage
+        const usersData =  JSON.parse(localStorage.getItem('users'))|| [];
+        const seller = usersData.find(u => u.id ===sellerId);
         const card = document.createElement('div');
         card.className = 'inner-card';
         card.setAttribute('data-book-id', id);
@@ -288,6 +292,7 @@ function updateCheckout(price, quantity) {
                     <p>Price: ${price} QR</p>
                     <p>Description: ${description}</p>
                     <p>Available Quantity: ${quantity}</p>
+                    <p>Seller: ${seller.name}</p>
                     ${isApproved ? '<button id="add-${id}" class="icon-button">Add to cart</button>' : ''}
         `;
     
@@ -316,15 +321,7 @@ function updateCheckout(price, quantity) {
     }
     
 
-
-
-
-// async function getUsers(){
-//   const data = await fetch("data/users.json");
-//   users = await data.json();
-//   localStorage.setItem('users', JSON.stringify(users));
-// }
-function purchaseItem(subtotal) {
+function purchaseItem(price,quantity,bookId,sellerId,title) {
     try {
         const usersData = JSON.parse(localStorage.getItem('users')) || [];
         
@@ -339,6 +336,7 @@ function purchaseItem(subtotal) {
             // Ensure the current user is a customer
             if (currentUser && currentUser.role === 'Customer') {
                 let balance = parseFloat(currentUser.account_Balance);
+                    const subtotal = price * quantity;
                 if (balance >= subtotal) {
                     balance -= subtotal;
                     alert("Checkout Successful !!");
@@ -346,6 +344,7 @@ function purchaseItem(subtotal) {
                     currentUser.account_Balance = balance;
                     // Update localStorage
                     localStorage.setItem('users', JSON.stringify(usersData));
+                    purchaseHistory(bookId, subtotal, quantity,sellerId,title);
                     document.querySelector('#checkoutForm').style.display = 'none';
                 } else {
                     alert("Insufficient Balance...CheckOut failed");
@@ -366,6 +365,42 @@ function purchaseItem(subtotal) {
         document.querySelector('#checkoutForm').style.display = 'none';
 
     }
+}
+
+function purchaseHistory(bookId, total, quantity,sellerId,title) {
+    let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    
+    const custId = localStorage.getItem('currentUserID');
+    const newTransaction = {
+        custId: custId,
+        sellerId: sellerId,
+        bookId: bookId,
+        bookTitle:title,
+        total: total,
+        quantity: quantity,
+        Date: new Date().toISOString() ,
+        transactionId: Date.now()+ Math.random().toString(36).substr(2, 9)
+    };
+
+    transactions.push(newTransaction);
+
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+
+
+    //Displaying in purchaseHistory page:
+
+}
+
+async function getTransaction(){
+    const data = await fetch("../data/transactions.json");
+    transactions = await data.json();
+    console.log(transactions);
+    localStorage.setItem('users', JSON.stringify(transactions));
+  }
+
+
+function displayPurchaseHistory(bookId, total, quantity,sellerId,title){
+    
 }
 
 
