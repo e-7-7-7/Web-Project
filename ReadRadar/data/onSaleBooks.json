@@ -5,9 +5,11 @@
     "author": "Sarah J. Maas",
     "genre": "Fiction",
     "price": 11.99,
-    "cover": "../media/books/A-court-of-thrones.svg",
+    "coverImageUrl": "../media/books/A-court-of-thrones.svg",
     "description": "A young adult fantasy novel following the journey of Feyre Archeron in a world of faerie courts and ancient magic.",
-    "seller_id": 5
+    "quantity":"2",
+    "seller_id": 5,
+    "isApproved":true
   },
   {
     "id": 10,
@@ -15,9 +17,11 @@
     "author": "N. Scott Momaday",
     "genre": "Fiction",
     "price": 13.99,
-    "cover": "../media/books/Housemaid.svg",
+    "coverImageUrl": "../media/books/Housemaid.svg",
     "description": "Housemaid description",
-    "seller_id": 2
+    "quantity":"1",
+    "seller_id": 2,
+    "isApproved":true
   },
   {
     "id": 11,
@@ -25,8 +29,10 @@
     "author": "Robert Greene",
     "genre": "Self Devlopment",
     "price": 18.99,
-    "cover": "../media/books/the-5am-club.svg",
+    "coverImageUrl": "../media/books/the-48-laws.svg",
     "description": "The 5 AM Club ",
-    "seller_id": 5
+    "quantity":"3",
+    "seller_id": 5,
+    "isApproved":true
   }
 ]

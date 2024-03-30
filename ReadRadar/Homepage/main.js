@@ -25,24 +25,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelector('#uploadItemForm').addEventListener('submit', function(event) { // submitting the add item form
         event.preventDefault();
+  
+        
+        const currentUserID = localStorage.getItem('currentUserID');
         
         const title = document.querySelector('#title').value;
         const author = document.querySelector('#author').value;
         const genre = document.querySelector('#genre').value;
-        const price = document.querySelector('#price').value;
+        const price = parseFloat(document.querySelector('#price').value);
+        const quantity = parseInt(document.querySelector("#bookQuantity").value);
         const description = document.querySelector('#description').value;
         const cover = document.querySelector('#cover').files[0];
+        const sellerId = parseInt(currentUserID);
         
         if (cover) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 // Process and save the new book after reading the cover image
-                processAndSaveBook(e.target.result, title, author, price, description, genre);
+                processAndSaveBook(e.target.result, title, author, price, description, genre,quantity,sellerId);
             };
             reader.readAsDataURL(cover); 
         } else {
             // Process and save the new book even if there's no cover image
-            processAndSaveBook('', title, author, price, description, genre);
+            processAndSaveBook('', title, author, price, description, genre,quantity,sellerId);
         }
 
         document.querySelector('#popupForm').style.display = 'none';
@@ -52,12 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-
-
-
-
-function processAndSaveBook(coverImageUrl, title, author, price, description, genre) {
-    const newBook = { coverImageUrl, title, author, price, description, genre, isApproved: false };
+function processAndSaveBook(coverImageUrl, title, author, price, description, genre,quantity,sellerId) {
+    const newBook = { coverImageUrl, title, author, price, description, genre,quantity,sellerId, isApproved: false };
     saveBookToLocalStorage(newBook);
    displayBooksFromLocalStorage();
 }
@@ -124,7 +125,7 @@ function displayBooksFromLocalStorage() {
         const genreSection = document.querySelector(genreSectionId);
 
         if (genreSection) {
-            const card = createBookCard(book.coverImageUrl, book.title, book.author, book.price, book.description, book.genre, book.id, book.isApproved);
+            const card = createBookCard(book.coverImageUrl, book.title, book.author, book.price, book.description, book.genre,book.quantity,book.sellerId, book.id, book.isApproved);
             genreSection.appendChild(card);
         } else {
             console.error(`No section found for genre: ${book.genre}. Ensure your HTML has a matching section.`);
@@ -175,11 +176,12 @@ function addingToCart() {
             const bookId = this.dataset.bookId;
             const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
             const selectedBook = addedBooks.find(book => book.id === bookId);
+            
             if (selectedBook) {
                 
                 displaySelectedBook(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price);
-                displayOnCheckout(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price)
-
+                displayOnCheckout(selectedBook.coverImageUrl, selectedBook.title, selectedBook.price,selectedBook.id,selectedBook.sellerId,selectedBook.quantity)
+                
                 document.querySelector('#cartForm').style.display = 'block';
                 document.querySelector('.purchase-buttons').style.display = 'block';
                 
@@ -227,7 +229,7 @@ function updateSubtotal(price) {
     
 }
 
-function displayOnCheckout(coverImage, title, price) {
+function displayOnCheckout(coverImage, title, price,bookId,sellerId,intialQuant) {
     const cartSection = document.querySelector('#transaction');
     cartSection.innerHTML = `<img src="${coverImage || 'default-cover-image-path.jpg'}" alt="${title}">
                             <p>${title}</p>
@@ -246,7 +248,16 @@ function displayOnCheckout(coverImage, title, price) {
     if (!checkoutButton.hasEventListener) {
         checkoutButton.addEventListener('click', function(event) {
             event.preventDefault(); 
-            purchaseItem(price * quantity); 
+            if(quantity<=intialQuant){
+                purchaseItem(price,title,bookId,sellerId,quantity); 
+                
+            }
+            else if (intialQuant==0){
+                alert('item out of stock')
+            }
+            else{
+                alert(`Stock available ${intialQuant}, Select a lower quantity`)
+            }
         });
         checkoutButton.hasEventListener = true;
     }
@@ -278,15 +289,15 @@ function updateCheckout(price, quantity) {
     totalP2.textContent = `Quantity: x${quantity}`;
     totalP.textContent = `Total: $${price * quantity}`;
 
-        // Check if event listener has already been attached
-       
     }
 
 
 
 
-    function createBookCard(coverImageUrl, title, author, price, description, genre, id, isApproved) {
-        const userRole = localStorage.getItem('userRole');  
+    function createBookCard(coverImageUrl, title, author, price, description, genre,quantity,sellerId, id, isApproved) {
+        const userRole = localStorage.getItem('userRole'); // Assuming you store the user role in localStorage
+        const usersData =  JSON.parse(localStorage.getItem('users'))|| [];
+        const seller = usersData.find(u => u.id ===sellerId);
         const card = document.createElement('div');
         card.className = 'inner-card';
         card.setAttribute('data-book-id', id);
@@ -302,6 +313,8 @@ function updateCheckout(price, quantity) {
                     <p>Author: ${author}</p>
                     <p>Price: ${price} QR</p>
                     <p>Description: ${description}</p>
+                    <p>Available Quantity: ${quantity}</p>
+                    <p>Seller: ${seller.name}</p>
                     ${isApproved ? '<button id="add-${id}" class="icon-button">Add to cart</button>' : ''}
         `;
     
@@ -330,62 +343,95 @@ function updateCheckout(price, quantity) {
     }
     
 
-
-
-
-// async function getUsers(){
-//   const data = await fetch("data/users.json");
-//   users = await data.json();
-//   localStorage.setItem('users', JSON.stringify(users));
-// }
-function purchaseItem(subtotal) {
+function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
     try {
         const usersData = JSON.parse(localStorage.getItem('users')) || [];
         
-        const currentUserID = localStorage.getItem('currentUserID');
+        const currentUserID = JSON.parse(localStorage.getItem('currentUserID'));
         const isAuthenticated = localStorage.getItem('isAuthenticated');
-        
-        
+
+        const booksData = JSON.parse(localStorage.getItem('addedBooks')) || [];    
+        const bookQuantity = booksData.find(book=> book.id === bookId );  
         const currentUser = usersData.find(user => user.id === currentUserID);
-        
+        const seller = usersData.find(user=> user.id === sellerId)
         // Check if the user is authenticated
         if (isAuthenticated === 'true') {
             // Ensure the current user is a customer
             if (currentUser && currentUser.role === 'Customer') {
+                let quant = parseInt(bookQuantity.quantity);
                 let balance = parseFloat(currentUser.account_Balance);
-                if (balance >= subtotal) {
-                    balance -= subtotal;
-                    alert("Checkout Successful !!");
-                    // Update user's balance
-                    currentUser.account_Balance = balance;
-                    // Update localStorage
-                    localStorage.setItem('users', JSON.stringify(usersData));
-                    document.querySelector('#checkoutForm').style.display = 'none';
+                let sellerBalance = parseFloat(seller.account_Balance);
+                    const subtotal = price * selectedQuantity;
+                    if (balance >= subtotal) {
+                        balance -= subtotal;
+                        sellerBalance += subtotal;
+                        quant -= selectedQuantity;
+                        alert("Checkout Successful !!");
+                        // Update user's balance
+                        seller.account_Balance = sellerBalance;
+                        currentUser.account_Balance = balance;
+                        bookQuantity.quantity=quant
+
+
+
+                        localStorage.setItem('addedBooks', JSON.stringify(booksData));//ss
+                        localStorage.setItem('users', JSON.stringify(usersData));
+    
+                        purchaseHistory(bookId, subtotal, quantity, sellerId, title);
+                        document.querySelector('#checkoutForm').style.display = 'none';
+                    } else {
+                        alert("Insufficient Balance...CheckOut failed");
+                        document.querySelector('#checkoutForm').style.display = 'none';
+                    }
                 } else {
-                    alert("Insufficient Balance...CheckOut failed");
+                    alert('You are not a customer. Please sign in as a customer and try again.');
                     document.querySelector('#checkoutForm').style.display = 'none';
                 }
             } else {
-                alert('You are not a customer. Please sign in as a customer and try again.');
+                alert('You are not authenticated. Please sign in and try again.');
                 document.querySelector('#checkoutForm').style.display = 'none';
             }
-        } else {
-            alert('You are not authenticated. Please sign in and try again.');
+        } catch (error) {
+            console.error('Error during purchase:', error);
+            alert('An error occurred during the purchase process. Please try again later.');
             document.querySelector('#checkoutForm').style.display = 'none';
+    
         }
-        loadUser();
-    } catch (error) {
-        console.error('Error during purchase:', error);
-        alert('An error occurred during the purchase process. Please try again later.');
-        document.querySelector('#checkoutForm').style.display = 'none';
-
     }
+    
+
+function purchaseHistory(bookId, total, quantity,sellerId,title) {
+    let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    
+    const custId = localStorage.getItem('currentUserID');
+    const newTransaction = {
+        custId: custId,
+        sellerId: sellerId,
+        bookId: bookId,
+        bookTitle:title,
+        total: total,
+        quantity: quantity,
+        date: new Date().toISOString() ,
+        transactionId: Date.now()+ Math.random().toString(36).substr(2, 9)
+    };
+
+    transactions.push(newTransaction);
+
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+
+
+    //Displaying in purchaseHistory page:
+
+
 }
 
+async function getTransaction(){
+    const data = await fetch("../data/transactions.json");
+    transactions = await data.json();
+    console.log(transactions);
+    localStorage.setItem('users', JSON.stringify(transactions));
+  }
 
-
-
-
-
+  
 
 

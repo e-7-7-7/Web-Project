@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function loadUser(){
     const usernameArea = document.querySelector("#headerUsername");
     const usersData = JSON.parse(localStorage.getItem('users')) || [];
-    const currentUserID = localStorage.getItem('currentUserID');
+    const currentUserID = JSON.parse(localStorage.getItem('currentUserID'));
     userRole = localStorage.getItem("userRole");
 
     if (currentUserID) {
