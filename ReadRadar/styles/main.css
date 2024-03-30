@@ -13,8 +13,6 @@
 
 
 
-/*aside related*/
-
   .books h4{
     font-size: 21px;
     padding-bottom: 0.5rem;
@@ -50,9 +48,6 @@
 }
 
 
-
-
-
 button#submit {
   cursor: pointer;
   padding: 10px 20px;
@@ -62,15 +57,9 @@ button#submit {
   border-radius: 5px;
 }
 
-
-
 button#closePopup {
   background-color: #dc3545;
 }
-
-
-  
-
 
   aside #shopping-cart {
     padding-right: 1rem;
@@ -118,14 +107,12 @@ button#closePopup {
  
 }
 
-
 #Action{
   
   display: flex;
   flex-direction: row;
  
 }
-
 
 #Mystery{
   
@@ -283,15 +270,8 @@ button#closePopup {
  
   margin: 0.02rem;
   width: 100px;
-  
-  
-  
- 
+
 }
-
-
-
-
 
 #transaction img{
   width:7rem 
@@ -311,14 +291,7 @@ button#closePopup {
     padding: 0.4em;
     text-align: center;
   }
-  .socials{
-    display: flex;
-    align-items: center;
-    align-content: center;
-    width: 2rem;
-  }
-  
- 
+
   /* Responsive design adjustments for smaller screens */
   @media (max-width: 768px) {
     
@@ -340,25 +313,12 @@ button#closePopup {
 
     }
 
-
-    
-   
-
-   
-
-
-  
     nav, aside {
       padding: 0.5em;
       
     }
 
-    
 
-    #searchInput{
-      width: 150px;
-     
-    }
     .aside-title h2{
       font-size: small;
     }
@@ -367,10 +327,6 @@ button#closePopup {
       height: 3rem;
     }
 
-    #search-button{
-      margin: 0.3rem;
-      width: 3.3rem;
-    }
 
   
 
