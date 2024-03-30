@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get the popup form element
         const popupForm = document.querySelector('#popupForm');
 
-            if (popupForm.style.display === 'block') {
+            if (popupForm.style.display == 'block') {
                 popupForm.style.display = 'none';
             } else {
                 popupForm.style.display = 'block';
@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function processAndSaveBook(coverImageUrl, title, author, price, description, genre,quantity,sellerId) {
     const newBook = { coverImageUrl, title, author, price, description, genre,quantity,sellerId, isApproved: false };
     saveBookToLocalStorage(newBook);
+    alert("the Book is submitted and pending approval from the website's adminstrators")
    displayBooksFromLocalStorage();
 }
 
@@ -70,12 +71,12 @@ function processAndSaveBook(coverImageUrl, title, author, price, description, ge
 
 function approveBook(id) {
     const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
-    const bookIndex = addedBooks.findIndex(book => book.id === id);
+    const bookIndex = addedBooks.findIndex(book => book.id == id);
     if (bookIndex !== -1) {
         addedBooks[bookIndex].isApproved = true;
         localStorage.setItem('addedBooks', JSON.stringify(addedBooks));
         alert('Book added successfully');
-        displayBooksFromLocalStorage(); // Optionally refresh customer view if admin is on the same page
+        displayBooksFromLocalStorage(); //  refresh customer view if admin is on the same page
     }
     
 }
@@ -86,16 +87,16 @@ function deleteBook(id) {
     localStorage.setItem('addedBooks', JSON.stringify(addedBooks));
     alert('Book deleted successfully');
     
-    displayBooksFromLocalStorage(); // Optionally refresh customer view if admin is on the same page
+    displayBooksFromLocalStorage(); // Orefresh customer view if admin is on the same page
 }
 
 
 
 function saveBookToLocalStorage(book) {
     let addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
-    const uniqueId = Date.now() + "-" + Math.random().toString(36).substr(2, 9); // Generate a unique ID for the book
+    const uniqueId = Date.now() // Generate a unique ID for the book
     const bookWithId = { ...book, id: uniqueId }; // Add the unique ID to the book object
-    addedBooks.push(bookWithId); // Add the new book to the array
+    addedBooks.unshift(bookWithId); // Add the new book to the array
     localStorage.setItem('addedBooks', JSON.stringify(addedBooks)); // Save the updated array back to localStorage
 }
 
@@ -112,7 +113,7 @@ function displayBooksFromLocalStorage() {
     let booksToDisplay = [];
 
     // Filter books based on the user role
-    if (userRole === 'Admin') {
+    if (userRole == 'Admin') {
         booksToDisplay = addedBooks;
     } else {
         booksToDisplay = addedBooks.filter(book => book.isApproved);
@@ -139,11 +140,7 @@ function displayBooksFromLocalStorage() {
 
     
 document.addEventListener('DOMContentLoaded', function() {
-
-   
-    if (userRole === 'Customer') {
         addingToCart(); 
-    }
 
         const cancelButton = document.querySelector('#cancel');
         
@@ -178,7 +175,7 @@ function addingToCart() {
         bookElement.addEventListener('click', function() {
             const bookId = this.dataset.bookId;
             const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
-            const selectedBook = addedBooks.find(book => book.id === bookId);
+            const selectedBook = addedBooks.find(book => book.id == bookId);
             
             if (selectedBook) {
                 
@@ -305,7 +302,7 @@ function updateCheckout(price, quantity) {
     function createBookCard(coverImageUrl, title, author, price, description, genre,quantity,sellerId, id, isApproved) {
         const userRole = localStorage.getItem('userRole'); // Assuming you store the user role in localStorage
         const usersData =  JSON.parse(localStorage.getItem('users'))|| [];
-        const seller = usersData.find(u => u.id ===sellerId);
+        const seller = usersData.find(u => u.id ==sellerId);
         const card = document.createElement('div');
         card.className = 'inner-card';
         card.setAttribute('data-book-id', id);
@@ -327,7 +324,7 @@ function updateCheckout(price, quantity) {
         `;
     
         // Add admin-specific buttons if the user is an admin and the book is not approved yet
-        if (userRole === 'Admin' && !isApproved) {
+        if (userRole == 'Admin' && !isApproved) {
             cardContent += `
                 <button onclick="approveBook('${id}')" class="icon-button"><i class="fa-solid fa-check"></i></button>
                 <button onclick="deleteBook('${id}')" class="icon-button"><i class="fa-solid fa-trash"></i></button>
@@ -359,13 +356,13 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
         const isAuthenticated = localStorage.getItem('isAuthenticated');
 
         const booksData = JSON.parse(localStorage.getItem('addedBooks')) || [];    
-        const bookQuantity = booksData.find(book=> book.id === bookId );  
-        const currentUser = usersData.find(user => user.id === currentUserID);
-        const seller = usersData.find(user=> user.id === sellerId)
+        const bookQuantity = booksData.find(book=> book.id == bookId );  
+        const currentUser = usersData.find(user => user.id == currentUserID);
+        const seller = usersData.find(user=> user.id == sellerId)
         // Check if the user is authenticated
-        if (isAuthenticated === 'true') {
+        if (isAuthenticated == 'true') {
             // Ensure the current user is a customer
-            if (currentUser && currentUser.role === 'Customer') {
+            if (currentUser && currentUser.role == 'Customer') {
                 let quant = parseInt(bookQuantity.quantity);
                 let balance = parseFloat(currentUser.account_Balance);
                 let sellerBalance = parseFloat(seller.account_Balance);
@@ -386,7 +383,7 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
                         localStorage.setItem('addedBooks', JSON.stringify(booksData));//ss
                         localStorage.setItem('users', JSON.stringify(usersData));
     
-                        purchaseHistory(bookId, subtotal, selectedQuantity, sellerId, title);
+                        purchaseHistory(bookQuantity, subtotal, selectedQuantity, sellerId, title);
                         document.querySelector('#checkoutForm').style.display = 'none';
                         window.location.reload(); 
                     } else {
@@ -411,16 +408,17 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
             window.location.reload(); 
     
         }
+        displayBooksFromLocalStorage();
     }
     
-    function purchaseHistory(bookId, total, quantity,sellerId,title) {
+    function purchaseHistory(book, total, quantity,sellerId,title) {
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
         
         const custId = localStorage.getItem('currentUserID');
         const newTransaction = {
             custId: custId,
             sellerId: sellerId,
-            bookId: bookId,
+            book: book,
             bookTitle:title,
             total: total,
             quantity: quantity,
@@ -428,21 +426,12 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
             transactionId: Date.now()+ Math.random().toString(36).substr(2, 9)
         };
     
-        transactions.push(newTransaction);
+        transactions.unshift(newTransaction);
     
         localStorage.setItem('transactions', JSON.stringify(transactions));
     
-    
-        //Displaying in purchaseHistory page:
-    
     }
 
-// async function getTransaction(){
-//     const data = await fetch("../data/transactions.json");
-//     transactions = await data.json();
-//     console.log(transactions);
-//     localStorage.setItem('users', JSON.stringify(transactions));
-//   }
 
 
     

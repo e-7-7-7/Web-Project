@@ -12,7 +12,7 @@ function displayPurchaseHistory() {
     // Check if the user is authenticated
     if (isAuthenticated === 'true') {
         // Ensure the current user is a customer
-        const currentUser = usersData.find(user => user.id === currentUserID);
+        const currentUser = usersData.find(user => user.id == currentUserID);
         if (currentUser && currentUser.role === 'Customer') {
             
             const customerTransactions = transactions.filter(transaction => transaction.custId == currentUserID);
@@ -20,7 +20,7 @@ function displayPurchaseHistory() {
            
             const purchaseHistDiv = document.querySelector('.purchaseHist');
 
-            // purchaseHistDiv.innerHTML = '';
+            purchaseHistDiv.innerHTML = '';
 
             
             const table = document.createElement('table');
@@ -38,7 +38,7 @@ function displayPurchaseHistory() {
                     ${customerTransactions.map(transaction => `
                         <tr>
                             <td>${transaction.transactionId}</td>
-                            <td>${transaction.bookTitle}</td>
+                            <td>${transaction.book.title}</td>
                             <td>${transaction.quantity}</td>
                             <td>$${transaction.total.toFixed(2)}</td>
                             <td>${transaction.date}</td>
