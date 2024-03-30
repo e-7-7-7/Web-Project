@@ -22,14 +22,12 @@ function handleSearch(form){
 }
 
 
-async function getBooks(){
-    if(!localStorage.onSaleBooks){
-        const data =  await fetch('../View Sales/Onsale.json')
-        books = await data.json();
-        localStorage.onSaleBooks = JSON.stringify(books);
+function getBooks(){
+    if(!localStorage.addedBooks){
+        localStorage.addedBooks = JSON.stringify(books);
     }
     else{
-        books = JSON.parse(localStorage.onSaleBooks);
+        books = JSON.parse(localStorage.addedBooks);
     }
     
 }
