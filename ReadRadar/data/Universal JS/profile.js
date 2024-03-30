@@ -209,7 +209,7 @@ function profileAddressUpdateSubmition(form){
     loadUser();
     alert("the Shipping Address has been updated successfully");
     addressUpdatePopup.classList.add("hidden");
-    profile();
+    location.reload(); // refresh the page
 }
 
 function addressUpdateCancel(){
