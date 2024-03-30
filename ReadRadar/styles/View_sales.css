@@ -8,7 +8,7 @@
       "section"
       "main"
       "footer";
-    grid-template-rows: auto auto auto 1fr auto; /* Adjust row sizes as needed */
+    grid-template-rows: auto auto auto 1fr auto; 
     height: 100vh;
   }
   
@@ -163,7 +163,7 @@
   padding: 20px;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Ensure it's above other content */
+  z-index: 1000; 
   border-radius: 8px;
   input,select, textarea {
     width: 100%;

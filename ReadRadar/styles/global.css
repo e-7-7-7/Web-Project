@@ -149,15 +149,15 @@ body, h1, p {
 
   .search {
     display: flex;
-    align-items: center; /* Center vertically */
+    align-items: center; 
     border: 10px none;
     background-color: white;
     height: 3rem;
-    width: 100%; /* Take full width */
-    max-width: 27rem; /* Limit maximum width */
+    width: 100%; 
+    max-width: 27rem; 
     border-radius: 2rem;
-    padding: 0 1rem; /* Add padding */
-    box-sizing: border-box; /* Include padding in width calculation */
+    padding: 0 1rem; 
+    box-sizing: border-box; 
 }
 
 .search img {
@@ -247,7 +247,7 @@ button[type="submit"] {
     padding: 20px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensure it's above other content */
+    z-index: 1000; 
     border-radius: 8px;
     input,select, textarea {
       width: 100%;
@@ -268,7 +268,7 @@ button[type="submit"] {
     padding: 20px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensure it's above other content */
+    z-index: 1000; 
     border-radius: 8px;
     input,select, textarea {
       width: 100%;
@@ -282,7 +282,7 @@ button[type="submit"] {
 
   footer {
     grid-area: footer;
-    background-color: #BDD7E7; /* Your chosen footer color */
+    background-color: #BDD7E7; 
     color: var(--text-dark);
     padding: 0.4em;
     text-align: center;
