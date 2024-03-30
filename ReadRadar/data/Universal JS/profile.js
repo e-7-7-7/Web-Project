@@ -77,26 +77,33 @@ function profileDetails() {
 
             <label for="">Fullname:</label> <!--name + surname-->
             <p>${user.name} ${user.surname}</p>
-
-            <label for="">Shipping Address:</label>
-            <label for="">Country:</label>
-            <p>${user.shipping_address.country}</p>
-            
-            <label for="">City:</label>
-            <p>${user.shipping_address.city}</p>
-            
-            <label for="">Street:</label>
-            <p>${user.shipping_address.street}</p>
-
-            <label for="">House Number:</label>
-            <p>${user.shipping_address.house_number}</p>
-
-            <label for="">User ID:</label>
-            <p>${user.id}</p>
-
-            <label for="">Balance:</label>
-            <p>${user.account_Balance} QR</p>
         </div>
+
+            <div class="profileDetailsTitle">
+                <h2>Shipping Address</h2>
+            </div>
+            
+            <div class="userShippingAddress">
+    
+                <label for="">Country:</label>
+                <p>${user.shipping_address.country}</p>
+                
+                <label for="">City:</label>
+                <p>${user.shipping_address.city}</p>
+                
+                <label for="">Street:</label>
+                <p>${user.shipping_address.street}</p>
+    
+                <label for="">House Number:</label>
+                <p>${user.shipping_address.house_number}</p>
+    
+                <label for="">User ID:</label>
+                <p>${user.id}</p>
+    
+                <label for="">Balance:</label>
+                <p>${user.account_Balance} QR</p>
+            </div>
+
         <div class="profileButtons">
             <button type="button" id="logoutButton" onclick="profileLogout()">Logout</button>
             <button type="button" id="updateAddressButton" onclick="profileAddressUpdate()">Update Shipping Address</button>

@@ -10,12 +10,12 @@
       "footer";
     grid-template-rows: auto auto auto 1fr auto; /* Adjust row sizes as needed */
     height: 100vh;
-  
   }
   
-  header {
-    justify-content: center;
-}
+
+
+
+
 
 
 /*section related*/
@@ -23,7 +23,7 @@
 .salesType{
   grid-area: section;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
   color: #ffffff;
   
@@ -64,8 +64,8 @@
 
 .book_list_area {
   display: grid;
-  width: 90%;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  width: 95%;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1rem;
 
   .card {
@@ -106,7 +106,6 @@
   
 }
 
-
 .bookButtons{
   display: flex;
   flex-direction: column;
@@ -121,26 +120,26 @@
   padding:0.5rem; 
 }
 
-#updateButton{
+#updateButton,#accept{
   transition: 0.4s;
   background-color: #08519C;
   
 }
 
-#updateButton:hover{
+#updateButton:hover,#accept:hover{
   transition: 0.4s;
   background-color: #007bff;
   cursor: pointer;
 
 }
 
-#deleteButton{
+#deleteButton,#reject{
   transition: 0.4s;
   background-color: #e42c2c;
   
 }
 
-#deleteButton:hover{
+#deleteButton:hover,#reject:hover{
   transition: 0.4s;
   background-color: #ff5656;
   cursor: pointer;
@@ -217,25 +216,15 @@ footer{
 
   
   /*handlig diffrent screen sizes here*/
-  @media screen and (min-width: 800px) {
-    header {
-      flex-direction: row;
-      justify-content: space-between;
-    }
-
-    .profile{
-      position: relative;
-    }
-
+  @media screen and (min-width: 600px) {
   
-    
-    nav {
-      justify-content: flex-start;
-      padding-left: 8rem;
+
+    .salesType{
+      flex-direction: row;
     }
-    .search{
-      width: 50rem;
-      height: 2.5rem;
-    }
+
+
+
+
  
   }

@@ -23,6 +23,7 @@ body, h1, p {
     display: flex;
     align-items: center;
     padding-bottom: 1rem;
+    font-size: clamp(8pt,10pt,12pt);
   }
   
   .name h1{
@@ -33,18 +34,100 @@ body, h1, p {
     padding-right: 0.3rem;
     width: 2rem;
   }
+
+  #profilePopup{
+    gap: 1rem;
+    font-size: clamp(12pt,14pt,20pt);
+    line-height: 1.5;
+    text-align: center;
+    .profileDetailsTitle{
+      text-align: center;
+      font-weight: bolder;
+      color: #08519C;
+    }
   
+    .profileInfo{
+     display:grid ;
+     grid-template-columns: auto auto;
+     label{
+        font-weight: bolder;
+     }
   
+    }
+  
+    .userShippingAddress{
+      display: grid;
+      grid-template-columns: auto auto;
+      label{
+        font-weight: bolder;
+     }
+     margin-bottom: 2rem;
+    }
+  
+    .profileButtons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+  
+      button{
+        transition: 0.4s;
+        background-color: #08519C;
+        color: white;
+        border: none;
+        border-radius: 15px;
+        padding: 0.5rem;
+  
+      }
+  
+      button:hover{
+        transition: 0.4s;
+        background-color: #007bff;
+        cursor: pointer;
+      }
+  
+    }
+  }
+
+#addressUpdatePopup{
+  font-size: clamp(12pt,15pt,20pt);
+
+  button{
+      transition: 0.4s;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      padding: 0.5rem;
+    }
+
+    button[type="submit"]{
+      background-color: #08519C;
+    }
+    button[type="submit"]:hover{
+      transition: 0.4s;
+      background-color: #007bff;
+      cursor: pointer;
+    }
+    button[type="reset"]:hover{
+      transition: 0.4s;
+      background-color: #ff5656;
+      cursor: pointer;
+    }
+    button[type="reset"]{
+      background-color: #e42c2c;
+    }
+
+}
   header {
     grid-area: header;
-    background-color: #08519C; /* Your chosen header color */
+    background-color: #08519C; 
     padding: 1em;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 1.2rem;
     
-    /* justify-content: space-between; Aligns the profile to the left and search to the right */
+
 }
 
 .profile {
@@ -52,12 +135,6 @@ body, h1, p {
   top: 0;
   right: 0;
   padding: 1rem; 
-  /* margin:1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: white;
-  gap: 0.3rem; */
 
 }
 
@@ -79,10 +156,10 @@ body, h1, p {
     align-items: space-between;
     border: 10px none;
     background-color: white;
-    width: 20rem;
     height: 2rem;
+    width: clamp(18rem,20rem,27rem);
     border-radius: 2rem;
-    padding-right: 1rem;
+
   }
 
 
@@ -93,15 +170,17 @@ body, h1, p {
     border: 0.4px none;
     border-radius: 10px;
     margin-right: 0.5em;
-    width: 12rem;
+    width: 80%;
   }
   #searchInput :focus {
     border: 1px none; 
   }
   #searchForm button {
-    
+    align-self: end;
     border: 1px none;
+    border-radius: 3px;
     cursor: pointer;
+    width: clamp(1rem,2rem,3rem);
   }
   
   #searchForm button:hover {
@@ -118,18 +197,19 @@ body, h1, p {
 
   .nav{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    gap:1rem;
   }
 
-
-  
   nav ul {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     list-style: none;
     margin: 0; 
     padding: 0; 
+    gap: 1rem;
   }
   
   nav li {
@@ -137,7 +217,7 @@ body, h1, p {
     display: flex; 
     align-items: center;
     text-wrap: nowrap;
-    font-size:  13px;
+    font-size:  18px;
     
   }
   
@@ -203,12 +283,6 @@ body, h1, p {
   
   }
 
-  
-
-
-
-  
-  
   footer {
     grid-area: footer;
     background-color: #BDD7E7; /* Your chosen footer color */
@@ -233,23 +307,34 @@ body, h1, p {
     .profile{
       position: relative;
     }
-    
-    nav {
-      justify-content: flex-start;
-      padding-left: 8rem;
+    .name{
+      font-size: clamp(12pt,13pt,15pt);
     }
+
     .search{
-      width: 50rem;
-      height: 2.5rem;
+      align-items: center;
+      width: clamp(37rem,38rem,40rem);
+   }
+  
+   #searchForm button {
+     width: clamp(1rem,2rem,3rem);
+   }
+
+     .nav{
+      flex-direction: row;
+      justify-content: space-between;
     }
-    #searchInput {
-      border-radius: 10px;
-      margin-right: 0.5em;
-      width: 40rem;
-    }
+    
     nav li {
       font-size:  15px;
     }
+
+    nav ul {
+      flex-direction: row;
+      align-items: center;
+      gap: 0;
+    }
+
   
   }
   
