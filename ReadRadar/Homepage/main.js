@@ -141,10 +141,8 @@ function displayBooksFromLocalStorage() {
     
 document.addEventListener('DOMContentLoaded', function() {
     
-    if (userRole === 'Customer') {
         addingToCart(); 
         
-    }
         const cancelButton = document.querySelector('#cancel');
         
         const cartContent = document.querySelector('#book-picked');
@@ -180,9 +178,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function addingToCart() {
+    
+         
+        
+    
     const bookElements = document.querySelectorAll('.inner-card');
     bookElements.forEach(bookElement => {
         bookElement.addEventListener('click', function() {
+            if (userRole === 'Customer') {
             const bookId = this.dataset.bookId;
             const addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
             const selectedBook = addedBooks.find(book => book.id == bookId);
@@ -196,7 +199,11 @@ function addingToCart() {
                 document.querySelector('.purchase-buttons').style.display = 'block';
                 
             }
+            }else{
+                alert("Please Sign in as a Customer and Try again!")
+            }
         });
+    
     });
 };
 
@@ -458,24 +465,6 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
     }
 
 
-    function getUserAddress() {
-        const custId = localStorage.getItem('currentUserID');
-        const usersData = JSON.parse(localStorage.getItem('users')) || [];
-        const users = usersData.find(user => user.id == custId);
-        
-        const checkoutAdd = document.querySelector('#checkoutAdd')
-
-        const checkoutP=checkoutAdd.createElement('section');
-        checkoutP.innerHTML=`
-                    <p>Country: ${users.shipping_address.country}</p>
-                    <p>City: ${users.shipping_address.city}</p>
-                    <p>Street: ${users.shipping_address.street}</p>
-                    <p>House No.: ${users.shipping_address.house_number}</p>
-
-        `
-        checkoutAdd.appendChild(checkoutP);
-    }
-    
     
 
   
