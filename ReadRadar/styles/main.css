@@ -219,7 +219,7 @@ button#closePopup {
   padding: 0.1rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   max-width: 100%; /* Ensures images don't exceed their container's width */
-  height: auto; /* Maintains aspect ratio */
+  height: 240px;
 }
 
 .inner-card p {

@@ -5,6 +5,8 @@ delete localStorage.searchValue // empty the search value
 
 document.addEventListener('DOMContentLoaded', function() {
 
+
+
     // Display books from localStorage on page load
     displayBooksFromLocalStorage();
 
@@ -46,13 +48,22 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('#popupForm').style.display = 'none';
     });
 
+
+
 });
+
+
+
+
 
 function processAndSaveBook(coverImageUrl, title, author, price, description, genre) {
     const newBook = { coverImageUrl, title, author, price, description, genre, isApproved: false };
     saveBookToLocalStorage(newBook);
    displayBooksFromLocalStorage();
 }
+
+
+
 
 
 
@@ -63,9 +74,9 @@ function approveBook(id) {
         addedBooks[bookIndex].isApproved = true;
         localStorage.setItem('addedBooks', JSON.stringify(addedBooks));
         alert('Book added successfully');
-        displayBooksForAdmin(); // Refresh admin view
         displayBooksFromLocalStorage(); // Optionally refresh customer view if admin is on the same page
     }
+    
 }
 
 function deleteBook(id) {
@@ -73,7 +84,7 @@ function deleteBook(id) {
     addedBooks = addedBooks.filter(book => book.id !== id);
     localStorage.setItem('addedBooks', JSON.stringify(addedBooks));
     alert('Book deleted successfully');
-    displayBooksForAdmin(); // Refresh admin view
+    
     displayBooksFromLocalStorage(); // Optionally refresh customer view if admin is on the same page
 }
 
@@ -124,9 +135,14 @@ function displayBooksFromLocalStorage() {
 
 
 
+
     
 document.addEventListener('DOMContentLoaded', function() {
-    addingToCart(); 
+
+   
+    if (userRole === 'Customer') {
+        addingToCart(); 
+    }
         const cancelButton = document.querySelector('#cancel');
         
         const cartContent = document.querySelector('#book-picked');
@@ -270,7 +286,7 @@ function updateCheckout(price, quantity) {
 
 
     function createBookCard(coverImageUrl, title, author, price, description, genre, id, isApproved) {
-        const userRole = localStorage.getItem('userRole'); // Assuming you store the user role in localStorage
+        const userRole = localStorage.getItem('userRole');  
         const card = document.createElement('div');
         card.className = 'inner-card';
         card.setAttribute('data-book-id', id);
