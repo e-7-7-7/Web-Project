@@ -7,8 +7,8 @@
       "navbar navbar"
       "aside main"
       "footer footer";
-    grid-template-columns: 0.5fr 3fr; /* 0.5fr for aside, 3fr for main */
-    grid-template-rows: auto auto 1fr auto; /* Adjust row sizes as needed */
+    grid-template-columns: 0.5fr 3fr; 
+    grid-template-rows: auto auto 1fr auto; 
   }
 
 
