@@ -140,8 +140,10 @@ function displayBooksFromLocalStorage() {
 
     
 document.addEventListener('DOMContentLoaded', function() {
+    
+    if (userRole === 'Customer') {
         addingToCart(); 
-
+    }
         const cancelButton = document.querySelector('#cancel');
         
         const cartContent = document.querySelector('#book-picked');
