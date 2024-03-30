@@ -27,7 +27,7 @@ function displayPurchaseHistory() {
             table.innerHTML = `
                 <thead>
                     <tr>
-                        <th>Customer ID</th>
+            
                         <th>Transaction ID</th>
                         <th>Book Title</th>
                         <th>Quantity</th>
@@ -40,7 +40,7 @@ function displayPurchaseHistory() {
                 <tbody>
                     ${customerTransactions.map(transaction => `
                         <tr>
-                            <td>${transaction.custId}</td>
+            
                             <td>${transaction.transactionId}</td>
                             <td>${transaction.book.title}</td>
                             <td>${transaction.quantity}</td>

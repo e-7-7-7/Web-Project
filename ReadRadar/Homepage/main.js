@@ -425,7 +425,7 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
             quantity: quantity,
             date: new Date().toISOString() ,
             transactionId: Date.now()+ Math.random().toString(36).substr(2, 9),
-            shipCity:city
+            
         };
     
         transactions.unshift(newTransaction);
