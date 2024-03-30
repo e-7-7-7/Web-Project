@@ -75,7 +75,7 @@ function approveBook(id) {
     if (bookIndex !== -1) {
         addedBooks[bookIndex].isApproved = true;
         localStorage.setItem('addedBooks', JSON.stringify(addedBooks));
-        alert('Book added successfully');
+        alert('Book Approved successfully');
         displayBooksFromLocalStorage(); //  refresh customer view if admin is on the same page
     }
     
@@ -85,9 +85,9 @@ function deleteBook(id) {
     let addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
     addedBooks = addedBooks.filter(book => book.id !== id);
     localStorage.setItem('addedBooks', JSON.stringify(addedBooks));
-    alert('Book deleted successfully');
+    alert('Book Rejected successfully');
     
-    displayBooksFromLocalStorage(); // Orefresh customer view if admin is on the same page
+    displayBooksFromLocalStorage(); // refresh customer view if admin is on the same page
 }
 
 
@@ -166,6 +166,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 });
+
+    const updateShipping = document.querySelector("#updateCheckout")
+    updateShipping.addEventListener("click",function (e) {
+        e.preventDefault();
+        document.querySelector('#checkoutForm').style.display = 'none';
+        profileAddressUpdate();
+    })
 
 });
 
