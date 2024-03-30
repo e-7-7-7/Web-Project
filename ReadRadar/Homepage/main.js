@@ -144,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (userRole === 'Customer') {
         addingToCart(); 
     }
+
         const cancelButton = document.querySelector('#cancel');
         
         const cartContent = document.querySelector('#book-picked');
@@ -166,7 +167,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 });
+
 });
+
 
 
 function addingToCart() {
@@ -235,7 +238,7 @@ function displayOnCheckout(coverImage, title, price,bookId,sellerId,intialQuant)
                             <p>${title}</p>
                             <p>Price: $${price}</p>`;
 
-    let quantity = 1; // Set initial quantity to 1
+    let quantity = 0; // Set initial quantity to 1
 
     const quantityInput = document.querySelector('#quantity');
     quantityInput.addEventListener('input', function(event) {
@@ -248,15 +251,20 @@ function displayOnCheckout(coverImage, title, price,bookId,sellerId,intialQuant)
     if (!checkoutButton.hasEventListener) {
         checkoutButton.addEventListener('click', function(event) {
             event.preventDefault(); 
-            if(quantity<=intialQuant){
-                purchaseItem(price,title,bookId,sellerId,quantity); 
-                
+            if(quantity <= intialQuant && quantity != 0){
+                purchaseItem(price, title, bookId, sellerId, quantity); 
             }
-            else if (intialQuant==0){
-                alert('item out of stock')
+            else if (intialQuant == 0){
+                alert('Item out of stock');
+                window.location.reload(); 
             }
-            else{
-                alert(`Stock available ${intialQuant}, Select a lower quantity`)
+            else if(quantity == 0 ){
+                alert("Select a valid quantity");
+                window.location.reload(); 
+            }
+            else {
+                alert(`Stock available ${intialQuant}, Select a lower quantity`);
+                window.location.reload(); 
             }
         });
         checkoutButton.hasEventListener = true;
@@ -362,7 +370,8 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
                 let balance = parseFloat(currentUser.account_Balance);
                 let sellerBalance = parseFloat(seller.account_Balance);
                     const subtotal = price * selectedQuantity;
-                    if (balance >= subtotal) {
+                    const response = confirm("Are you sure you want to Checkout")
+                    if (response && balance >= subtotal) {
                         balance -= subtotal;
                         sellerBalance += subtotal;
                         quant -= selectedQuantity;
@@ -379,22 +388,27 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
     
                         purchaseHistory(bookId, subtotal, selectedQuantity, sellerId, title);
                         document.querySelector('#checkoutForm').style.display = 'none';
+                        window.location.reload(); 
                     } else {
                         alert("Insufficient Balance...CheckOut failed");
                         document.querySelector('#checkoutForm').style.display = 'none';
+                        window.location.reload(); 
                     }
                 } else {
                     alert('You are not a customer. Please sign in as a customer and try again.');
                     document.querySelector('#checkoutForm').style.display = 'none';
+                    window.location.reload(); 
                 }
             } else {
                 alert('You are not authenticated. Please sign in and try again.');
                 document.querySelector('#checkoutForm').style.display = 'none';
+                window.location.reload(); 
             }
         } catch (error) {
             console.error('Error during purchase:', error);
             alert('An error occurred during the purchase process. Please try again later.');
             document.querySelector('#checkoutForm').style.display = 'none';
+            window.location.reload(); 
     
         }
     }
@@ -429,6 +443,9 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
 //     console.log(transactions);
 //     localStorage.setItem('users', JSON.stringify(transactions));
 //   }
+
+
+    
 
   
 
