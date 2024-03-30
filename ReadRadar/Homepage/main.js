@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Display books from localStorage on page load
     displayBooksFromLocalStorage();
-
+    
     document.querySelector('#addItemLink').addEventListener('click', function(event) { // adding an item
         event.preventDefault();
         // Get the popup form element
@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (userRole === 'Customer') {
         addingToCart(); 
+        
     }
         const cancelButton = document.querySelector('#cancel');
         
@@ -163,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         document.querySelector('#checkoutForm').style.display = 'none';
         
-
+        getUserAddress();
 });
 });
 
@@ -240,10 +241,22 @@ function updateSubtotal(price) {
 
 function displayOnCheckout(coverImage, title, price,bookId,sellerId,intialQuant) {
     const cartSection = document.querySelector('#transaction');
+    const checkoutAdd = document.querySelector('#address')
     cartSection.innerHTML = `<img src="${coverImage || 'default-cover-image-path.jpg'}" alt="${title}">
                             <p>${title}</p>
                             <p>Price: $${price}</p>`;
+                            const custId = localStorage.getItem('currentUserID');
+                            const usersData = JSON.parse(localStorage.getItem('users')) || [];
+                            const users = usersData.find(user => user.id == custId);
 
+                            checkoutAdd.innerHTML=`
+                                        <p>Country: ${users.shipping_address.country}</p>
+                                        <p>City: ${users.shipping_address.city}</p>
+                                        <p>Street: ${users.shipping_address.street}</p>
+                                        <p>House No.: ${users.shipping_address.house_number}</p>
+                    
+                            `;
+                           
     let quantity = 0; // Set initial quantity to 1
 
     const quantityInput = document.querySelector('#quantity');
@@ -276,9 +289,10 @@ function displayOnCheckout(coverImage, title, price,bookId,sellerId,intialQuant)
         checkoutButton.hasEventListener = true;
     }
     });
-
+    
     let totalP = document.querySelector('#trans');
     let totalP2 = document.querySelector('#quant');
+    
     if (!totalP || !totalP2) {
         totalP = document.createElement('p');
         totalP2 = document.createElement('p');
@@ -423,6 +437,8 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
     function purchaseHistory(book, total, quantity,sellerId,title) {
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
         const custId = localStorage.getItem('currentUserID');
+        const usersData = JSON.parse(localStorage.getItem('users')) || [];
+        const users = usersData.find(user => user.id == custId);
         const newTransaction = {
             custId: custId,
             sellerId: sellerId,
@@ -432,7 +448,7 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
             quantity: quantity,
             date: new Date().toISOString() ,
             transactionId: Date.now()+ Math.random().toString(36).substr(2, 9),
-            
+            shipCity:users.shipping_address.city
         };
     
         transactions.unshift(newTransaction);
@@ -442,7 +458,24 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
     }
 
 
+    function getUserAddress() {
+        const custId = localStorage.getItem('currentUserID');
+        const usersData = JSON.parse(localStorage.getItem('users')) || [];
+        const users = usersData.find(user => user.id == custId);
+        
+        const checkoutAdd = document.querySelector('#checkoutAdd')
 
+        const checkoutP=checkoutAdd.createElement('section');
+        checkoutP.innerHTML=`
+                    <p>Country: ${users.shipping_address.country}</p>
+                    <p>City: ${users.shipping_address.city}</p>
+                    <p>Street: ${users.shipping_address.street}</p>
+                    <p>House No.: ${users.shipping_address.house_number}</p>
+
+        `
+        checkoutAdd.appendChild(checkoutP);
+    }
+    
     
 
   
