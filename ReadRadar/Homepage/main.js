@@ -140,8 +140,10 @@ function displayBooksFromLocalStorage() {
 
     
 document.addEventListener('DOMContentLoaded', function() {
-    
-        addingToCart(); 
+        if (userRole !== 'Admin'){
+            addingToCart();
+        }
+         
         
         const cancelButton = document.querySelector('#cancel');
         
@@ -199,7 +201,7 @@ function addingToCart() {
                 document.querySelector('.purchase-buttons').style.display = 'block';
                 
             }
-            }else{
+            }else if(userRole === 'Seller'){
                 alert("Please Sign in as a Customer and Try again!")
             }
         });
