@@ -377,7 +377,7 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
                         localStorage.setItem('addedBooks', JSON.stringify(booksData));//ss
                         localStorage.setItem('users', JSON.stringify(usersData));
     
-                        purchaseHistory(bookId, subtotal, quantity, sellerId, title);
+                        purchaseHistory(bookId, subtotal, selectedQuantity, sellerId, title);
                         document.querySelector('#checkoutForm').style.display = 'none';
                     } else {
                         alert("Insufficient Balance...CheckOut failed");
@@ -399,38 +399,36 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
         }
     }
     
-
-function purchaseHistory(bookId, total, quantity,sellerId,title) {
-    let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    function purchaseHistory(bookId, total, quantity,sellerId,title) {
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        
+        const custId = localStorage.getItem('currentUserID');
+        const newTransaction = {
+            custId: custId,
+            sellerId: sellerId,
+            bookId: bookId,
+            bookTitle:title,
+            total: total,
+            quantity: quantity,
+            date: new Date().toISOString() ,
+            transactionId: Date.now()+ Math.random().toString(36).substr(2, 9)
+        };
     
-    const custId = localStorage.getItem('currentUserID');
-    const newTransaction = {
-        custId: custId,
-        sellerId: sellerId,
-        bookId: bookId,
-        bookTitle:title,
-        total: total,
-        quantity: quantity,
-        date: new Date().toISOString() ,
-        transactionId: Date.now()+ Math.random().toString(36).substr(2, 9)
-    };
+        transactions.push(newTransaction);
+    
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+    
+    
+        //Displaying in purchaseHistory page:
+    
+    }
 
-    transactions.push(newTransaction);
-
-    localStorage.setItem('transactions', JSON.stringify(transactions));
-
-
-    //Displaying in purchaseHistory page:
-
-
-}
-
-async function getTransaction(){
-    const data = await fetch("../data/transactions.json");
-    transactions = await data.json();
-    console.log(transactions);
-    localStorage.setItem('users', JSON.stringify(transactions));
-  }
+// async function getTransaction(){
+//     const data = await fetch("../data/transactions.json");
+//     transactions = await data.json();
+//     console.log(transactions);
+//     localStorage.setItem('users', JSON.stringify(transactions));
+//   }
 
   
 

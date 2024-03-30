@@ -15,12 +15,12 @@ function displayPurchaseHistory() {
         const currentUser = usersData.find(user => user.id === currentUserID);
         if (currentUser && currentUser.role === 'Customer') {
             
-            const customerTransactions = transactions.filter(transaction => transaction.custId === currentUserID);
+            const customerTransactions = transactions.filter(transaction => transaction.custId == currentUserID);
 
            
             const purchaseHistDiv = document.querySelector('.purchaseHist');
 
-            purchaseHistDiv.innerHTML = '';
+            // purchaseHistDiv.innerHTML = '';
 
             
             const table = document.createElement('table');
