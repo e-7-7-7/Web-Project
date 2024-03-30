@@ -17,7 +17,7 @@
 
   main {
     grid-area: main;
-    background-color: #ffffff; /* Your chosen main color */
+    background-color: #ffffff; 
     padding: 1em;
   }
 
