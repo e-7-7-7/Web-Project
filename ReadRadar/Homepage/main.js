@@ -201,9 +201,11 @@ function addingToCart() {
                 document.querySelector('.purchase-buttons').style.display = 'block';
                 
             }
-            }else if(userRole === 'Seller'){
+            }else if(userRole !== 'Customer'){
                 alert("Please Sign in as a Customer and Try again!")
             }
+
+            
         });
     
     });
