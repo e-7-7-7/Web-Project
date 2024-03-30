@@ -17,7 +17,7 @@
 
   main {
     grid-area: main;
-    background-color: #ffffff; /* Your chosen main color */
+    background-color: #ffffff; 
     padding: 1em;
   }
 
@@ -173,7 +173,7 @@ button#closePopup {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    background-color: #74A9CF; /* Your chosen aside color */
+    background-color: #74A9CF; 
     padding: 1em;
   }
 
@@ -181,7 +181,6 @@ button#closePopup {
 
   #book-picked img {
     padding: 0.4rem;
-    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
     max-width: 60%; /* Ensures images don't exceed their container's width */
     height: auto; /* Maintains aspect ratio */
     padding-bottom: 2rem;

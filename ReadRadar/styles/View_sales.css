@@ -9,13 +9,7 @@
       "main"
       "footer";
     grid-template-rows: auto auto auto 1fr auto; /* Adjust row sizes as needed */
-    height: 100vh;
   }
-  
-
-
-
-
 
 
 /*section related*/
@@ -217,14 +211,7 @@ footer{
   
   /*handlig diffrent screen sizes here*/
   @media screen and (min-width: 600px) {
-  
-
     .salesType{
       flex-direction: row;
     }
-
-
-
-
- 
   }
