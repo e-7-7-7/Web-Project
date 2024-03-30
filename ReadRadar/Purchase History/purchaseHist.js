@@ -27,21 +27,27 @@ function displayPurchaseHistory() {
             table.innerHTML = `
                 <thead>
                     <tr>
+                        <th>Customer ID</th>
                         <th>Transaction ID</th>
                         <th>Book Title</th>
                         <th>Quantity</th>
                         <th>Total</th>
+                        <th>Seller ID</th>
                         <th>Date</th>
+                        <th>Shipping to</th>
                     </tr>
                 </thead>
                 <tbody>
                     ${customerTransactions.map(transaction => `
                         <tr>
+                            <td>${transaction.custId}</td>
                             <td>${transaction.transactionId}</td>
                             <td>${transaction.book.title}</td>
                             <td>${transaction.quantity}</td>
                             <td>$${transaction.total.toFixed(2)}</td>
+                            <td>${transaction.sellerId}</td>
                             <td>${transaction.date}</td>
+                            <td>${transaction.shipCity}</td>
                         </tr>
                     `).join('')}
                 </tbody>

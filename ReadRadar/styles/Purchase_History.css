@@ -24,53 +24,6 @@
   }
 
 
-#checkoutForm {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  max-width: 600px;
-  padding: 20px;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Ensure it's above other content */
-  border-radius: 8px;
-  input,select, textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-
-   
-  }
-
-}
-
-
-
-
-
-button#submit {
-  cursor: pointer;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
-
-
-
-button#closePopup {
-  background-color: #dc3545;
-}
-
-
-  
-
-
   aside #shopping-cart {
     padding-right: 1rem;
     justify-content: center;
@@ -95,188 +48,37 @@ button#closePopup {
   }
 
 
-
-#Fiction{
-  
-  display: flex;
-  flex-direction: row;
- 
-}
-
-#year-books{
-  
-  display: flex;
-  flex-direction: row;
- 
-}
-
-#bestBooks{
-  
-  display: flex;
-  flex-direction: row;
- 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 
-#Action{
-  
-  display: flex;
-  flex-direction: row;
- 
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
 }
 
 
-#Mystery{
-  
-  display: flex;
-  flex-direction: row;
- 
-}
-
-#Self-Devlopment{
-  
-  display: flex;
-  flex-direction: row;
- 
+tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
 
-#Arabic{
-  
-  display: flex;
-  flex-direction: row;
- 
+td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
 }
 
 
-
-
-
-.purchase-buttons #cancel{
-  border: 1px none;
-  border-radius: 2rem;
-  padding: 0 1rem;
-  font-weight: bolder;
-  height: 2rem;
-}
-.purchase-buttons #proceed{
-  border: 1px none;
-  border-radius: 2rem;
-  padding: 0 1rem;
-  font-weight: bolder;
-  height: 2rem;
-}
-.purchase-buttons #cancel:hover{
-  cursor: pointer;
-  background-color: red;
-  color: var(--white);
-}
-.purchase-buttons #proceed:hover{
-  cursor: pointer;
-  background-color: lime;
-  color: var(--text-dark);
-}
-
-.purchase-buttons{
-  display: flex;
-  justify-content: space-evenly;
-
-}
-  
-
-  #book-picked img {
-    padding: 0.4rem;
-    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
-    max-width: 70%; /* Ensures images don't exceed their container's width */
-    height: auto; /* Maintains aspect ratio */
-    padding-bottom: 2rem;
-
-
-  }
-  
-  #book-picked {
-    padding-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
- 
-  }
-  
-  
-.inner-card {
-  padding: 3rem;
-  margin: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: 200px;
-  height: 250px;
-  position: relative;
-}
-
-.inner-card img {
-  padding: 0.1rem;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  max-width: 100%; /* Ensures images don't exceed their container's width */
-  height: auto; /* Maintains aspect ratio */
-}
-
-.inner-card p {
-  padding: 0.5rem;
+td:first-child {
   font-weight: bold;
 }
 
-.inner-card button {
-  padding: 0.3rem;
-  margin: 1rem;
-  width: 100%;
-  justify-content: center; /* Updated from justify-items for proper CSS */
-  background-color: #2B8CBE;
-  color: white;
-  display: flex; /* To apply justify-content */
-  align-items: center; /* To vertically center the text */
-  text-align: center; /* Ensures text is centered */
-}
-
-.inner-card button:hover{
-  cursor: pointer;
-}
-
-.flip-inner-card {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-.inner-card:hover .flip-inner-card {
-  transform: rotateY(180deg);
-}
-
-.flip-front-card, .flip-back-card {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden; 
-  backface-visibility: hidden;
-}
-
-.flip-front-card {
-  
-  color: black;
-}
-
-.flip-back-card {
- 
-  margin: 1rem;
-  
-  color: black;
-  transform: rotateY(180deg);
-}
-
-
-
-  
 
   
   

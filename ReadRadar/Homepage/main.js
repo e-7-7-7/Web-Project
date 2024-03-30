@@ -354,7 +354,7 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
         
         const currentUserID = JSON.parse(localStorage.getItem('currentUserID'));
         const isAuthenticated = localStorage.getItem('isAuthenticated');
-
+        
         const booksData = JSON.parse(localStorage.getItem('addedBooks')) || [];    
         const bookQuantity = booksData.find(book=> book.id == bookId );  
         const currentUser = usersData.find(user => user.id == currentUserID);
@@ -413,7 +413,6 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
     
     function purchaseHistory(book, total, quantity,sellerId,title) {
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-        
         const custId = localStorage.getItem('currentUserID');
         const newTransaction = {
             custId: custId,
@@ -423,7 +422,8 @@ function purchaseItem(price,title,bookId,sellerId,selectedQuantity) {
             total: total,
             quantity: quantity,
             date: new Date().toISOString() ,
-            transactionId: Date.now()+ Math.random().toString(36).substr(2, 9)
+            transactionId: Date.now()+ Math.random().toString(36).substr(2, 9),
+            shipCity:city
         };
     
         transactions.unshift(newTransaction);
