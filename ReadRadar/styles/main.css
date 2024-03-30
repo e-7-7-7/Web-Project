@@ -207,16 +207,19 @@ button#closePopup {
   
   
 .inner-card {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); 
   padding: 3rem;
   margin: 1rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  justify-content: center;
   width: 200px;
   height: 250px;
   position: relative;
 }
 
 .inner-card img {
-  padding: 0.1rem;
+  
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   max-width: 100%; /* Ensures images don't exceed their container's width */
   height: 240px;
@@ -228,15 +231,12 @@ button#closePopup {
 }
 
 .inner-card button {
-  padding: 0.3rem;
-  margin: 1rem;
-  width: 100%;
-  justify-content: center; /* Updated from justify-items for proper CSS */
+  margin: 0.4rem;
+  width: 40%;
+  
   background-color: #2B8CBE;
   color: white;
-  display: flex; /* To apply justify-content */
-  align-items: center; /* To vertically center the text */
-  text-align: center; /* Ensures text is centered */
+  /* Ensures text is centered */
 }
 
 .inner-card button:hover{
@@ -278,6 +278,20 @@ button#closePopup {
 }
 
 
+.flip-back-card button {
+ 
+  margin: 0.02rem;
+  width: 100px;
+  
+  
+  
+ 
+}
+
+
+
+
+
 
 #transaction img{
   width:7rem 
@@ -309,19 +323,62 @@ button#closePopup {
   @media (max-width: 768px) {
     
     body {
-      background-color: #007bff;
-      grid-template-areas:
-        "header"
-        "navbar"
-        "main"
-        "aside"
-        "footer";
       
-      grid-template-rows: auto auto 1fr auto auto; /* Adjust for screen size */
+     display: flex;
+     flex-direction: column;
+    
     }
+
+    header{
+      order: -2;
+    }
+
+    aside{
+      order: -1;
+      padding: 3rem;
+     
+
+    }
+
+
+    
+   
+
+   
+
+
   
     nav, aside {
       padding: 0.5em;
       
     }
+
+    
+
+    #searchInput{
+      width: 150px;
+     
+    }
+    .aside-title h2{
+      font-size: small;
+    }
+
+    .aside-title img{
+      height: 3rem;
+    }
+
+    #search-button{
+      margin: 0.3rem;
+      width: 3.3rem;
+    }
+
+  
+
+
+  
+ 
+
+   
+
+    
   }
