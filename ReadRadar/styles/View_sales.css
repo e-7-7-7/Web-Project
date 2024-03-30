@@ -211,6 +211,10 @@
   background-color: #ff5656;
 }
 
+footer{
+  margin-top: 2rem;
+}
+
   
   /*handlig diffrent screen sizes here*/
   @media screen and (min-width: 800px) {

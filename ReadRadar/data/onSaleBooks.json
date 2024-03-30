@@ -1,38 +1,38 @@
 [
   {
-    "id": 9,
+    "id": "9-wdhwih",
     "title": "A Court of Thorns and Roses",
     "author": "Sarah J. Maas",
     "genre": "Fiction",
     "price": 11.99,
     "coverImageUrl": "../media/books/A-court-of-thrones.svg",
     "description": "A young adult fantasy novel following the journey of Feyre Archeron in a world of faerie courts and ancient magic.",
-    "quantity":"2",
-    "seller_id": 5,
+    "quantity": 2,
+    "sellerId": 5,
     "isApproved":true
   },
   {
-    "id": 10,
+    "id": "10-sihd",
     "title": "Housemaid",
     "author": "N. Scott Momaday",
     "genre": "Fiction",
     "price": 13.99,
     "coverImageUrl": "../media/books/Housemaid.svg",
     "description": "Housemaid description",
-    "quantity":"1",
-    "seller_id": 2,
+    "quantity": 1,
+    "sellerId": 2,
     "isApproved":true
   },
   {
-    "id": 11,
+    "id": "11-dhwsdisw",
     "title": "The 48 Laws of Power",
     "author": "Robert Greene",
     "genre": "Self Devlopment",
     "price": 18.99,
     "coverImageUrl": "../media/books/the-48-laws.svg",
     "description": "The 5 AM Club ",
-    "quantity":"3",
-    "seller_id": 5,
+    "quantity": 3,
+    "sellerId": 5,
     "isApproved":true
   }
 ]
