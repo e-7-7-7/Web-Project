@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../styles/search.css">
     <title>Search</title>
     <link  rel="icon" href="../media/icons/radar -white.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     
 </head>
 <body>
@@ -116,6 +117,60 @@
     </main>
 
 
+    <aside>
+        <section class="aside-title">
+            <img id = "shopping-cart" src="../media/icons/shopping-cart.svg" alt=""><h2> Your Cart</h2>
+        </section>
+
+        <div id="purchContent">
+            <section id="book-picked">
+
+                <p id="purchase"></p>
+         
+            </section>
+
+ 
+        </div>
+    
+
+        <form id="cartForm">
+            <label id="quantLabel" for="quantity">Qunatity:</label>
+            <input type="number" id="quantity" name="qunatity" min="1" placeholder="Quantity" >
+            
+        </form>
+    
+        <section class="purchase-buttons">
+            <button type="submit" id="cancel">Cancel</button>
+            <button type="submit" id="proceed">Proceed</button>
+        </section>
+
+        <div id="checkoutForm" class="hidden">
+            <section id="checkout">
+                <h2> <img src="../media/icons/shopping-basket.svg" alt="">Checkout</h2>
+            </section>
+            <section id="transaction">
+                <section id="trans"></section>
+                <section id="quant"></section>
+            </section>
+
+
+
+            <form id="purchaseForm">
+                <button type="button" id="updateCheckout" >Update Shipping Address</button>
+                <button type="button" id="cancelCheckout">Cancel</button>
+                <button type="button" id="checkoutButton">Checkout</button>
+            </form>
+        </div>
+            
+        
+        <!-- It will show the selected book by the user 
+            and it will let him pick the qunatity and show 
+            the total and send him to check out -->
+
+            <!-- MOST WORK WILL BE HERE -->
+    </aside>
+
+
     <footer>
         <div class="socials">
             <img src="../media/socials/facebook.svg" alt="">
@@ -132,6 +187,7 @@
     <script src="../data/Universal JS/profile.js"></script>
     <script src="../data/Universal JS/tabs.js"></script>
     <script src="searchPage.js"></script>
+    <script src="cart.js"></script>
 
 </body>
 </html>

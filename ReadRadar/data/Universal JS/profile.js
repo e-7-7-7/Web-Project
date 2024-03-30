@@ -181,7 +181,7 @@ function profileLogout(){
         localStorage.isAuthenticated = false;
         delete localStorage.currentUserID;
         delete localStorage.userRole;
-        location.reload();
+        window.location.href="../../Homepage/index.html"
     }
 }
 
