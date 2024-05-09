@@ -10,58 +10,70 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Book {
-  id          Int           @id @default(autoincrement())
-  title       String
-  author      String?
-  genre       String
-  price       Float
-  cover       String?
-  description String?
-  Transaction Transaction[]
+model User {
+  id        String        @id @default(cuid())
+  username  String     @unique
+  password  String
+  firstname String
+  surname   String?
+  customers Customer[]
+  sellers   Seller[]
+  admins    Admin[]
+}
+
+model Admin {
+  id     Int  @id @default(autoincrement())
+  User   User @relation(fields: [userId], references: [id])
+  userId String  @unique
 }
 
 model Customer {
-  id              String          @id @default(cuid())// To be created as 'cust#'
-  firstname       String
-  surname         String
-  role            String
-  accountBalance  Float
-  shippingAddress ShippingAddress? @relation(fields: [shipId], references: [id])
-  shipId          Int?
-  Transaction     Transaction[]
+  id               Int                @id @default(autoincrement())
+  account_Balance  Float
+  User             User               @relation(fields: [userId], references: [id])
+  userId           String                @unique
+  shipping_address Shipping_Address[]
+  Transaction      Transaction[]
+}
+
+model Shipping_Address {
+  id           Int      @id @default(autoincrement())
+  country      String
+  city         String
+  street       String
+  house_number String
+  Customer     Customer @relation(fields: [customerId], references: [id])
+  customerId   Int      @unique
 }
 
 model Seller {
-  id             String        @id @default(cuid())// To be created as 'sell#' 
-  firstname      String
-  surname        String
-  accountBalance Float
-  Transaction    Transaction[]
+  id     Int    @id @default(autoincrement())
+  User   User   @relation(fields: [userId], references: [id])
+  userId String    @unique
+  books  Book[]
 }
 
-model ShippingAddress {
-  id          Int        @id @default(autoincrement())
-  country     String
-  city        String
-  street      String
-  houseNumber String
-  customer    Customer[]
+model Book {
+  id            Int           @id @default(autoincrement())
+  title         String
+  author        String
+  price         Float
+  description   String?
+  genre         String
+  quantity      Int
+  coverImageUrl String
+  isApproved    Boolean       @default(false)
+  Seller        Seller        @relation(fields: [sellerId], references: [id])
+  sellerId      Int
+  transactions   Transaction[]
 }
 
 model Transaction {
-  id       Int      @id @default(autoincrement())
-  book     Book     @relation(fields: [bookId], references: [id])
-  seller   Seller   @relation(fields: [sellerId], references: [id])
-  customer Customer @relation(fields: [custId], references: [id])
-  bookId   Int
-  sellerId String
-  custId   String
-  amount   Float
-  date     DateTime
-}
-
-model Login {
-  username String @id
-  password String
+  id         Int      @id @default(autoincrement())
+  amount     Int
+  date       DateTime
+  Customer   Customer @relation(fields: [customerId], references: [id])
+  customerId Int
+  Book       Book     @relation(fields: [bookId], references: [id])
+  bookId     Int
 }

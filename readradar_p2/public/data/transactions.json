@@ -1,0 +1,118 @@
+[
+  {
+    "id": 1,
+    "books": [
+      {
+        "id": 1,
+        "title": "السيرة النبوية الصحيحة",
+        "author": "أكرم ضياء العمري",
+        "genre": "Islamic",
+        "price": 12.99,
+        "cover": "ReadRadar/media/books/السيرة النبوية.jpg",
+        "description": "وصف كامل لحياة النبي محمد صلى الله عليه وسلم.",
+        "seller_id": 1
+      },
+      {
+        "id": 2,
+        "title": "لأنك الله: رحلة إلى السماء السابعة",
+        "author": "علي جابر الفيفي",
+        "genre": "Islamic",
+        "price": 14.99,
+        "cover": "ReadRadar/media/books/ لانك الله.jpg",
+        "description": "رحلة إيمانية في فهم أسماء الله الحسنى.",
+        "seller_id": 1
+      }
+    ],
+    "seller_id": 1,
+    "customer_id": 1,
+    "amount": 27.98,
+    "date": "2024-03-23T09:40:38.343Z"
+  },
+  {
+    "id": 2,
+    "books": [
+      {
+        "id": 3,
+        "title": "A Court of Thorns and Roses",
+        "author": "Sarah J. Maas",
+        "genre": "Fantasy",
+        "price": 11.99,
+        "cover": "ReadRadar/media/books/A-court-of-thrones.svg",
+        "description": "A young adult fantasy novel following the journey of Feyre Archeron in a world of faerie courts and ancient magic.",
+        "seller_id": 1
+      },
+      {
+        "id": 4,
+        "title": "Housemaid",
+        "author": "N. Scott Momaday",
+        "genre": "",
+        "price": 13.99,
+        "cover": "ReadRadar/media/books/A-court-of-thrones.svg",
+        "description": "",
+        "seller_id": 1
+      }
+    ],
+    "seller_id": 1,
+    "customer_id": 2,
+    "amount": 25.98,
+    "date": "2024-03-23T09:40:38.343Z"
+  },
+  {
+    "id": 3,
+    "books": [
+      {
+        "id": 5,
+        "title": "The 5 AM Club",
+        "author": "The 5 AM Club",
+        "genre": "The 5 AM Club",
+        "price": 15.99,
+        "cover": "The 5 AM Club",
+        "description": "A book that discusses the early morning routine to achieve extraordinary results.",
+        "seller_id": 2
+      },
+      {
+        "id": 6,
+        "title": "The 48 Laws of Power",
+        "author": "The 5 AM Club",
+        "genre": "The 5 AM Club",
+        "price": 18.99,
+        "cover": "The 5 AM Club",
+        "description": "The 5 AM Club",
+        "seller_id": 2
+      }
+    ],
+    "seller_id": 2,
+    "customer_id": 1,
+    "amount": 34.98,
+    "date": "2024-03-23T09:40:38.343Z"
+  },
+  {
+    "id": 4,
+    "books": [
+      {
+        "id": 7,
+        "title": "Yellowface",
+        "author": "The 5 AM Club",
+        "genre": "The 5 AM Club",
+        "price": 12.99,
+        "cover": "The 5 AM Club",
+        "description": "The 5 AM Club",
+        "seller_id": 3
+      },
+      {
+        "id": 8,
+        "title": "لأنك الله: رحلة إلى السماء السابعة",
+        "author": "علي جابر الفيفي",
+        "genre": "Islamic",
+        "price": 14.99,
+        "cover": "ReadRadar/media/books/ لانك الله.jpg",
+        "description": "رحلة إيمانية في فهم أسماء الله الحسنى.",
+        "seller_id": 3
+      }
+    ],
+    "seller_id": 3,
+    "customer_id": 2,
+    "amount": 27.98,
+    "date": "2024-03-23T11:40:38.343Z"
+  }
+]

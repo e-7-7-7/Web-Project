@@ -1,0 +1,330 @@
+:root {
+  --primary-color: #d885a3;
+  --secondary-color: #c0dbea;
+  --text-dark: #020617;
+  --text-light: #94a3b8;
+  --white: #ffffff;
+  font-family: serif;
+}
+
+
+
+body, h1, p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    height: 100vh;
+  }
+
+  .name{
+    display: flex;
+    align-items: center;
+    padding-bottom: 1rem;
+    font-size: clamp(8pt,10pt,12pt);
+  }
+  
+  .name h1{
+    color: var(--white);
+  }
+  .name img, .profile input[type="image"]{
+    filter: invert(100%);
+    padding-right: 0.3rem;
+    width: 2rem;
+  }
+
+  #profilePopup{
+    gap: 1rem;
+    font-size: clamp(12pt,14pt,20pt);
+    line-height: 1.5;
+    text-align: center;
+    .profileDetailsTitle{
+      text-align: center;
+      font-weight: bolder;
+      color: #08519C;
+    }
+  
+    .profileInfo{
+     display:grid ;
+     grid-template-columns: auto auto;
+     label{
+        font-weight: bolder;
+     }
+  
+    }
+  
+    .userShippingAddress{
+      display: grid;
+      grid-template-columns: auto auto;
+      label{
+        font-weight: bolder;
+     }
+     margin-bottom: 2rem;
+    }
+  
+    .profileButtons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+  
+      button{
+        transition: 0.4s;
+        background-color: #08519C;
+        color: white;
+        border: none;
+        border-radius: 15px;
+        padding: 0.5rem;
+  
+      }
+  
+      button:hover{
+        transition: 0.4s;
+        background-color: #007bff;
+        cursor: pointer;
+      }
+  
+    }
+  }
+
+#addressUpdatePopup{
+  font-size: clamp(12pt,15pt,20pt);
+
+  button{
+      transition: 0.4s;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      padding: 0.5rem;
+    }
+
+    button[type="submit"]{
+      background-color: #08519C;
+    }
+    button[type="submit"]:hover{
+      transition: 0.4s;
+      background-color: #007bff;
+      cursor: pointer;
+    }
+    button[type="reset"]:hover{
+      transition: 0.4s;
+      background-color: #ff5656;
+      cursor: pointer;
+    }
+    button[type="reset"]{
+      background-color: #e42c2c;
+    }
+
+}
+  header {
+    grid-area: header;
+    background-color: #08519C; 
+    padding: 1em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    
+
+}
+
+.profile {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1rem; 
+
+}
+
+#headerUsername{
+  color: white;
+}
+
+
+
+  /*search related*/
+
+
+  .search {
+    display: flex;
+    align-items: center; 
+    border: 10px none;
+    background-color: white;
+    height: 3rem;
+    width: 100%; 
+    max-width: 27rem; 
+    border-radius: 2rem;
+    padding: 0 1rem; 
+    box-sizing: border-box; 
+}
+
+.search img {
+    width: 1.5rem; 
+}
+
+#searchForm {
+    flex: 1;
+    display: flex;
+    align-items: center; 
+}
+
+#searchInput {
+    flex: 1; 
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+button[type="submit"] {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+
+  /*naviagtion related*/
+  
+  nav {
+    grid-area: navbar;
+    background-color: #2B8CBE;
+    padding: 1rem;
+  }
+
+  .nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:1rem;
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    margin: 0; 
+    padding: 0; 
+    gap: 1rem;
+  }
+  
+  nav li {
+    
+    display: flex; 
+    align-items: center;
+    text-wrap: nowrap;
+    font-size:  18px;
+    
+  }
+  
+  nav img {
+    width: 1.3rem;
+    filter: invert(100%);
+    padding-right: 0.3rem;
+  }
+  
+   
+
+ a {
+      text-decoration: none;
+      color: var(--white);
+      margin-right: 1.3rem; 
+  }
+
+/*add an item pop up form related*/
+  .hidden {
+    display: none;
+  }
+  
+  #popupForm, #profilePopup, #addressUpdatePopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000; 
+    border-radius: 8px;
+    input,select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+  
+  }
+
+  footer {
+    grid-area: footer;
+    background-color: #BDD7E7; 
+    color: var(--text-dark);
+    padding: 0.4em;
+    text-align: center;
+  }
+  .socials{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    width: 2rem;
+  }
+
+
+  @media screen and (min-width: 600px) {
+    header {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .search img {
+      padding-right: 1rem;
+  }
+  .search {
+    display: flex;
+    align-items: center; 
+    border: 10px none;
+    background-color: white;
+    height: 3rem;
+     
+    max-width: 100%; 
+    border-radius: 2rem;
+    padding: 0 1rem; 
+    box-sizing: border-box; 
+  }
+    .profile{
+      position: relative;
+    }
+    .name{
+      font-size: clamp(12pt,13pt,15pt);
+    }
+
+    .search{
+      align-items: center;
+      width: clamp(37rem,38rem,40rem);
+   }
+  
+   #searchForm button {
+     width: clamp(1rem,2rem,3rem);
+   }
+
+     .nav{
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    
+    nav li {
+      font-size:  15px;
+    }
+
+    nav ul {
+      flex-direction: row;
+      align-items: center;
+      gap: 0;
+    }
+
+  
+  }
+  
+  

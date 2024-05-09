@@ -1,0 +1,341 @@
+
+  
+  body {
+    display: grid;
+    grid-template-areas:
+      "header header"
+      "navbar navbar"
+      "aside main"
+      "footer footer";
+    grid-template-columns: 0.5fr 3fr; 
+    grid-template-rows: auto auto 1fr auto; 
+  }
+
+
+
+  .books h4{
+    font-size: 21px;
+    padding-bottom: 0.5rem;
+    border-bottom: 4px solid black;
+    width: fit-content; 
+    margin-left: 4rem;
+  }
+
+
+#checkoutForm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000; 
+  border-radius: 8px;
+  
+  input,select, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+
+   
+  }
+
+}
+
+
+button#submit {
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+button#closePopup {
+  background-color: #dc3545;
+}
+
+  aside #shopping-cart {
+    padding-right: 1rem;
+    justify-content: center;
+    width: 3rem;
+  }
+  .aside-title{
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+  }
+  aside {
+    grid-area: aside;
+    background-color: #74A9CF; 
+    padding: 1em;
+  }
+
+  
+  main {
+    grid-area: main;
+    background-color: #ffffff; 
+    padding: 1em;
+  }
+
+
+
+#Fiction{
+  
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+#year-books{
+  
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+#bestBooks{
+  
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+#Action{
+  
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+#Mystery{
+  
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+#Self-Devlopment{
+  
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+
+#Arabic{
+  
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+
+#cartForm{
+  display: none;
+}
+
+
+.purchase-buttons #cancel, #purchaseForm #cancelCheckout {
+  border: 1px none;
+  border-radius: 2rem;
+  padding: 0 1rem;
+  font-weight: bolder;
+  height: 2rem;
+}
+.purchase-buttons #proceed,#purchaseForm #checkoutButton{
+  border: 1px none;
+  border-radius: 2rem;
+  padding: 0 1rem;
+  font-weight: bolder;
+  height: 2rem;
+}
+.purchase-buttons #cancel:hover,#purchaseForm #cancelCheckout:hover {
+  cursor: pointer;
+  background-color: red;
+  color: var(--white);
+}
+.purchase-buttons #proceed:hover,#purchaseForm #checkoutButton:hover{
+  cursor: pointer;
+  background-color: lime;
+  color: var(--text-dark);
+}
+
+.purchase-buttons{
+  display: flex;
+  justify-content: space-evenly;
+  display: none;
+
+}
+  
+
+  #book-picked img {
+    padding: 0.4rem;
+    
+    max-width: 70%; 
+    height: auto; 
+    padding-bottom: 2rem;
+
+
+  }
+  
+  #book-picked {
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ 
+  }
+  
+  
+.inner-card {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); 
+  padding: 3rem;
+  margin: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  justify-content: center;
+  width: 200px;
+  height: 250px;
+  position: relative;
+}
+
+.inner-card img {
+  
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  max-width: 100%; 
+  height: 240px;
+}
+
+.inner-card p {
+  padding: 0.5rem;
+  font-weight: bold;
+}
+
+.inner-card button {
+  margin: 0.4rem;
+  width: 40%;
+  
+  background-color: #2B8CBE;
+  color: white;
+ 
+}
+
+.inner-card button:hover{
+  cursor: pointer;
+}
+
+.flip-inner-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.inner-card:hover .flip-inner-card {
+  transform: rotateY(180deg);
+}
+
+.flip-front-card, .flip-back-card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; 
+  backface-visibility: hidden;
+}
+
+.flip-front-card {
+  
+  color: black;
+}
+
+.flip-back-card {
+ 
+  margin: 1rem;
+  
+  color: black;
+  transform: rotateY(180deg);
+}
+
+
+.flip-back-card button {
+ 
+  margin: 0.02rem;
+  width: 100px;
+
+}
+
+#transaction img{
+  width:7rem 
+}
+#transaction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+
+
+  
+  footer {
+    background-color: #BDD7E7; 
+    color: var(--text-dark);
+    padding: 0.4em;
+    text-align: center;
+  }
+
+  /* Responsive design adjustments for smaller screens */
+  @media (max-width: 768px) {
+    
+    body {
+      
+     display: flex;
+     flex-direction: column;
+    
+    }
+
+    header{
+      order: -2;
+    }
+
+    aside{
+      order: -1;
+      padding: 3rem;
+     
+
+    }
+
+    nav, aside {
+      padding: 0.5em;
+      
+    }
+
+
+    .aside-title h2{
+      font-size: small;
+    }
+
+    .aside-title img{
+      height: 3rem;
+    }
+
+
+  
+
+
+  
+ 
+
+   
+    
+  }

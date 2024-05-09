@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="../styles/View_sales.css">
+
+    <title>Sales</title>
+    <link  rel="icon" href="../media/icons/radar -white.svg" type="image/x-icon">
+</head>
+
+
+<body>
+
+    <header>
+        <div class="name">
+            <img src="../media/icons/radar.svg" alt=""><h1>ReadRadar</h1>
+        </div>
+        <div class="search">
+            <img src="../media/icons/search.svg" alt="">
+            <form id="searchForm">
+                <input type="search" id="searchInput" name="search" placeholder="Search for books">
+                <button type="submit"><img id="searchArrow" src="../media/icons/arrow-right.svg" alt=""></button>
+            </form>
+        </div>
+        <section class="profile">
+            <!-- A window get opened when user clicks on the icon of profile -->
+            <input id="profileImageInput" type="image" src="../media/icons/circle-user.svg" alt="Profile">
+            <p id="headerUsername"></p> <!--to be filled with the username of the user via JS-->
+
+            <div id="profilePopup" class="hidden">
+            </div>
+
+            <div id ="addressUpdatePopup" class="hidden">
+                <h2>Update Shipping Address</h2>
+                <form id="addressUpdateForm">
+                    <label for="country">Country:</label>
+                    <input type="text" id="country" name="country" required>
+
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" required>
+
+                    <label for="street">Street:</label>
+                    <input type="text" id="street" name="street" required>
+
+                    <label for="house_number">House Number:</label>
+                    <input type="number" id="house_number" name="house_number" min="1"  required>
+
+                    <button type="submit">Update</button>
+                    <button type="reset" id="cancelUpdateAddress">Cancel</button>
+                </form>
+            </div>
+
+
+        </section>
+   
+    </header>
+
+        <nav class="navigation">
+            <div class="nav">
+                <ul id="homeTabs">
+                    <li><img src="../media/icons/home.svg" alt=""><a href="../Homepage/index.html">Home</a></li>
+                    <li><img src="../media/icons/trophy.svg" alt=""><a href="../Homepage/index.html#bestBooks">2023 Best books</a></li>
+                    <li><img src="../media/icons/book-marked.svg" alt=""><a href="../Homepage/index.html#Genres">Genres</a></li>
+                    <li class="hidden" id="purchaseHistListItem"><img src="../media/icons/shopping-cart.svg" alt=""><a href="../Purchase History/purchaseHist.html">Purchase History</a></li>
+                </ul>
+
+                <ul id="userTabs">
+                    <li><img src="../media/icons/headset.svg" alt=""><a href="#contact">Contact Us</a></li>
+                    <li class="hidden" id="viewSalesListItem"><a href="../View Sales/View_Sales.html" id="viewSalesLink">View Sales</a></li>
+                </ul>
+
+            </div>
+
+        </nav>
+
+    <section name="salesType" id="salesType" class="salesType">
+        <button type="button" id="onsaleButton" class="selected">On Sale Books</button>
+        <button type="button" id="allButton" class="selected">All Books</button>
+        <button type="button" id="soldButton" class="selected">Sold Books (Transactions)</button>  
+        <button type="button" id="pendingButton" class="selected">Pending approval Books</button>  
+    </section>
+
+    <main id="book_list" class="book_list">
+        <div id="popupArea"  class="hidden">
+            <form id="updateBookForm" >
+
+                <input type="text" id="id" name="id" hidden>
+
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author">
+
+                <label for="genre">Genre:</label>
+                <select id="genre" name="genre">
+                    <option value="Fiction">Fiction</option>
+                    <option value="Action">Action</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Self Devlopment">Self-Development</option>
+                    <option value="Arabic">Arabic</option>
+                        <!-- Add more options as needed -->
+                    </select>
+
+                    <label for="price">Price:</label>
+                    <input type="number" id="price" name="price" required step="0.01">
+
+                    <label for="bookQuantity">Quantity:</label>
+                    <input type="number" id="bookQuantity" name="bookQuantity" required step="1" min="1">
+
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description"></textarea>
+                    
+                        
+                    <label for="coverImageUrl">Cover Image:</label>
+                    <input type="text" id="coverImageUrl" name="coverImageUrl" accept="image/*">
+
+                    <button type="submit" id="update">Update</button>
+                    <button type="button" id="cancel">Cancel</button>
+                    </form>
+                </div>
+        </div>
+        
+
+        <div name="list_title" id="list_title" class="list_title"></div>
+        <div id="book_list_area" class="book_list_area"></div>
+       
+    </main>
+    <footer>
+        <div class="socials">
+            <img src="../media/socials/facebook.svg" alt="">
+            <img src="../media/socials/instagram.svg" alt="">
+            <img src="../media/socials/x-twitter.svg" alt="">
+        </div>
+        <section id="contact">
+            <p id="phoneNo">+974 66118811</p>
+            <p id="email">readradar.cont@book.qa</p>
+        </section>
+        <section> <p>2024 © ReadRadar</p></section>
+    </footer>
+
+   <script src="../data/Universal JS/profile.js"></script>
+   <script src="../data/Universal JS/tabs.js"></script>
+   <script src="sales.js"></script>
+   <script src="../data/Universal JS/search.js"></script>
+
+</body>
+</html>
