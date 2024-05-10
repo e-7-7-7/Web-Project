@@ -152,12 +152,12 @@ class readRadarRepo {
           bookId: bookId,
         },
       });
-      readRadarRepo.UpdateBook({
+      await readRadarRepo.UpdateBook({
         id: bookId,
         quantity: book.quantity - +amount,
       });
-      readRadarRepo.UpdateCustomer({
-        id: bookId,
+      await readRadarRepo.UpdateCustomer({
+        id: user.customerId,
         account_Balance: user.account_Balance - totalPrice,
       });
       return transaction;
@@ -200,7 +200,7 @@ class readRadarRepo {
 
   static async getTopBooksBySales() {
     //--
-    const result = await this.prisma.transaction.groupBy({
+    const result = await prisma.transaction.groupBy({
       by: ["bookId"],
       orderBy: {
         _sum: {
@@ -216,7 +216,7 @@ class readRadarRepo {
   }
 
   static async getAverageQuantitySoldPerBook() {
-    const result = await this.prisma.transaction.groupBy({
+    const result = await prisma.transaction.groupBy({
       by: ["bookId"],
       _avg: {
         amount: true,
@@ -225,8 +225,8 @@ class readRadarRepo {
     return result;
   }
 
-  async getAveragePurchaseAmountPerBuyer() {
-    const result = await this.prisma.transaction.groupBy({
+  static async getAveragePurchaseAmountPerBuyer() {
+    const result = await prisma.transaction.groupBy({
       by: ["customerId"],
       _avg: {
         amount: true,
@@ -266,7 +266,7 @@ class readRadarRepo {
     return result;
   }
 
-  async getTotalRevenuePerMonth(year) {
+  static async getTotalRevenuePerMonth(year) {
     const result = await prisma.transaction.groupBy({
       by: ["date"],
       _sum: {
