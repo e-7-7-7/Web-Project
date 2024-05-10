@@ -124,7 +124,7 @@ async function displayBooksFromLocalStorage() {
   });
   let booksToDisplay = [];
   try {
-    const response = await fetch(`/api/books?currentUserID=${currentUserID}`);
+    const response = await fetch(`/api/books`);
     if (response.ok) {
       booksToDisplay = (await response.json()).data;
     } else {
@@ -133,6 +133,7 @@ async function displayBooksFromLocalStorage() {
   } catch (error) {
     alert(error.message);
   }
+
 
   // Loop through each book and append it to the correct section based on its genre
   booksToDisplay.forEach(async (book) => {

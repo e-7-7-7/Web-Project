@@ -10,6 +10,7 @@ function showTabs(){
     const addButton = document.querySelector('#addListItem');
     const viewSalesButton = document.querySelector("#viewSalesListItem");
     const purchaseHistButton = document.querySelector("#purchaseHistListItem");
+    const statButton = document.querySelector("#stat")
 
     var path = window.location.pathname;//to get html file name
     var page = path.split("/").pop();
@@ -31,4 +32,9 @@ function showTabs(){
     if (userRole ==="Customer") {// Check if the user role is "Customer"
        purchaseHistButton.classList.remove("hidden")
     }
+
+     if (userRole =="Admin") { // Check if the user role is "Admin"
+       statButton.classList.remove("hidden")
+    }
 }
+

@@ -38,27 +38,7 @@ popupForm.addEventListener("submit", handleSubmit);
 // functions
 
 async function loadFiles() {
-  // loading the file using fetch
-  //   if (!localStorage.addedBooks) {
-  //     localStorage.addedBooks = JSON.stringify(Books);
-  //   } else {
-  //     Books = JSON.parse(localStorage.addedBooks);
-  //   }
-  //   console.log(Books);
-
-  if (!localStorage.transactions) {
-    localStorage.transactions = JSON.stringify(transactions);
-  } else {
-    transactions = JSON.parse(localStorage.transactions);
-  }
-
-  console.log(transactions);
-
-  //   if (localStorage.userRole == "Seller") {
-  //   console.log("We enter filter");
-  //   const id = localStorage.currentUserID;
   filterBooks(); // filter the books if the role is seller
-  //   }
 }
 
 async function filterBooks(id) {

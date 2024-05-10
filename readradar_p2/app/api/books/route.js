@@ -8,6 +8,7 @@ export async function GET(request) {
   let userId = searchParams.get("userId");
   let searchWord = searchParams.get("searchWord");
   let bookId = searchParams.get("bookId");
+  // return Response.json({messege:currentUserID},{status:200})
   const addtion_include = {
     transactions: {
       include: {
@@ -32,12 +33,15 @@ export async function GET(request) {
     },
   };
   try {
-    const user = await readRadarRepo.getUser({ id: currentUserID });
-    if (user.role === "Admin") {
-      return responseRepo.success(
-        await readRadarRepo.getBooks({}, addtion_include)
-      );
-    } else {
+
+    if(currentUserID!= null && userId !=null){ // for the view sales page
+
+      const user = await readRadarRepo.getUser({ id: currentUserID });
+      if (user.role === "Admin") {
+        return responseRepo.success(
+          await readRadarRepo.getBooks({}, addtion_include)
+        );} 
+
       return responseRepo.success(
         await readRadarRepo.getBooks(
           {
@@ -51,14 +55,50 @@ export async function GET(request) {
                 }
               : undefined,
           },
+          
           userId ? addtion_include : {}
         )
       );
+
     }
-  } catch (error) {
+
+    else{ // for the homepage 
+      if (currentUserID) {
+      const user = await readRadarRepo.getUser({ id: currentUserID });
+      if (user.role === "Admin") {
+        return responseRepo.success(
+          await readRadarRepo.getBooks({}, addtion_include)
+        );} 
+      }
+
+        return responseRepo.success(
+        await readRadarRepo.getBooks(
+          {
+            isApproved: !sellerId && !userId ? true : undefined,
+            sellerId: sellerId ? +sellerId : undefined,
+            title: searchWord ? { contains: searchWord } : undefined,
+            id: bookId ? +bookId : undefined,
+            Seller: userId
+              ? {
+                  userId: userId,
+                }
+              : undefined,
+            quantity: {gt:0}
+          },
+          
+          userId ? addtion_include : {}
+        )
+      );
+
+    }      
+    }
+
+      catch (error) {
     return responseRepo.error(error.message);
   }
 }
+
+
 export async function POST(request) {
   try {
     return responseRepo.success(
@@ -88,3 +128,5 @@ export async function DELETE(request) {
     return responseRepo.error(error.message);
   }
 }
+
+GET();
