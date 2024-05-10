@@ -113,6 +113,20 @@ class readRadarRepo {
       throw error;
     }
   }
+
+  static async updateAddress(info){
+    try {
+      const address = await prisma.shipping_Address.update({
+        where: { id: info.id },
+        data: info
+      });
+      await prisma.$disconnect();
+      return address;
+    } catch (error) {
+      await prisma.$disconnect();
+      throw error;
+    }
+  }
   static async deleteBook(id) {
     try {
       const book = await prisma.book.delete({
@@ -307,3 +321,18 @@ class readRadarRepo {
 }
 
 export default readRadarRepo;
+
+// const repo = new readRadarRepo();
+//  const info ={
+//     id: 2,
+//     country: 'Qatar',
+//     city: 'Alkhor',
+//     street: '554',
+//     house_number: '9',
+//     customerId: 2
+//   }
+
+// const addresses = await repo.updateAddress(info)
+// console.log(addresses);
+
+

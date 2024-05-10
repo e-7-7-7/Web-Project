@@ -36,7 +36,7 @@ async function loadUser() {
       }
 
       if (userRole === "Seller" || userRole === "Admin") {
-        usernameArea.innerHTML = user.username; // the name here is the Admin/Seller (company) name
+        usernameArea.innerHTML = user.firstname; // the name here is the Admin/Seller (company) name
       }
     } else {
       usernameArea.innerHTML = "Guest";
@@ -80,7 +80,7 @@ function profileDetails() {
             <p>${user.username}</p>
 
             <label for="">Fullname:</label> <!--name + surname-->
-            <p>${user.username} ${user.surname??''}</p>
+            <p>${user.firstname} ${user.surname}</p>
         </div>
 
             <div class="profileDetailsTitle">
@@ -125,7 +125,7 @@ function profileDetails() {
             <label for="">Username:</label>
             <p>${user.username}</p>
             <label for="">Name:</label>
-            <p>${user.username}</p>
+            <p>${user.firstname}</p>
             <label for="">User ID:</label>
             <p>${user.id}</p>
             <label for="">Balance:</label>
@@ -147,7 +147,7 @@ function profileDetails() {
             <label for="">Username:</label>
             <p>${user.username}</p>
             <label for="">Name:</label>
-            <p>${user.username}</p>
+            <p>${user.firstname}</p>
             <label for="">User ID:</label>
             <p>${user.id}</p>
         </div>
@@ -193,16 +193,68 @@ function profileLogin() {
   window.location.href = "../../login/login.html";
 }
 
-function profileAddressUpdateSubmition(form) {
+async function profileAddressUpdateSubmition(form) {
   form.preventDefault();
+  const currentUserID = localStorage.getItem("currentUserID");
   const shipping_address = formToObject(form.target);
+  // console.log(shipping_address);
 
-  const usersData = JSON.parse(localStorage.getItem("users")) || [];
-  const index = usersData.findIndex((u) => u.id === user.id);
-  wantedUser = usersData[index];
-  wantedUser.shipping_address = shipping_address;
+  try {
+      const response = await fetch(`/api/login?currentUserID=${currentUserID}`);
+      if (response.ok) {
+        user = (await response.json()).data;
+      } else {
+        alert((await response.json()).error);
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  console.log(user);
+  const currentAddress = user.shipping_address
+  currentAddress.country = shipping_address.country
+  currentAddress.city = shipping_address.city
+  currentAddress.street = shipping_address.street
+  currentAddress.house_number = shipping_address.house_number
 
-  localStorage.setItem("users", JSON.stringify(usersData));
+  const customer = {
+    id             : user.customers[0].id,  
+  account_Balance  : user.customers[0].account_Balance,
+  userId        :user.customers[0].userId,   
+  shipping_address :user.customers[0].shipping_address,
+  }
+
+ customer.shipping_address[0] = currentAddress
+
+ console.log(customer);
+ console.log(user.customers[0]);
+ 
+  try {
+        await fetch("/api/customer", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(
+            customer
+          ),
+        })
+    } catch (error) {
+      alert(error.message);
+    }
+
+
+     
+  try {
+         await fetch("/api/address", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(
+            currentAddress
+          ),
+    })
+    } catch (error) {
+      alert(error.message);
+    }
+
+
   loadUser();
   alert("the Shipping Address has been updated successfully");
   addressUpdatePopup.classList.add("hidden");
