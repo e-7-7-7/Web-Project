@@ -141,7 +141,7 @@ async function displayBooksFromLocalStorage() {
     const genreSection = document.querySelector(genreSectionId);
     if (genreSection) {
       const cardContent = createBookCard(book);
-      genreSection.innerHTML = cardContent;
+      genreSection.innerHTML += cardContent;
     } else {
       console.error(
         `No section found for genre: ${book.genre}. Ensure your HTML has a matching section.`
