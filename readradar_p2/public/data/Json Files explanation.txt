@@ -1,0 +1,52 @@
+-OnSale: (localStorage.onSaleBooks)
+Books that are currently on sale(Added books)
+
+    "id"
+    "title"
+    "author"
+    "genre"
+    "price"
+    "cover"
+    "description"
+    "seller_id"
+    "quantity"
+
+
+
+-Transactions: (localStorage.transactions)
+The data of buying a Book (sold books)
+
+    "id"
+    "books"
+    "seller_id"
+    "customer_id"
+    "amount"
+    "date"
+
+-Shopping Cart:  (depends on omar , if not needed please Delete it (localStorage.shoppingCart)
+Books are put here before Purchase
+
+    "books"
+    "amount"
+
+
+- users (localStorage.users) 
+The data of all the users the website
+
+    "username"
+    "password"
+    "role" admin or customer or seller
+    "id" unique id for all users 
+    "name" can be customer name or store name of seller or name of the admin
+    "balance"
+
+- 
+
+
+
+
+
+
+
+
+
