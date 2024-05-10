@@ -36,6 +36,7 @@ CREATE TABLE "Shipping_Address" (
 -- CreateTable
 CREATE TABLE "Seller" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "account_Balance" REAL NOT NULL,
     "userId" TEXT NOT NULL,
     CONSTRAINT "Seller_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );

@@ -117,6 +117,7 @@ function profileDetails() {
   }
 
   if (userRole === "Seller") {
+    console.log(user);
     return `
         <div class="profileDetailsTitle">
             <h2>User Details</h2>
@@ -129,7 +130,7 @@ function profileDetails() {
             <label for="">User ID:</label>
             <p>${user.id}</p>
             <label for="">Balance:</label>
-            <p>${user.account_Balance} QR</p>
+            <p>${user.sellers[0].account_Balance} QR</p>
         </div>
         <div class="profileButtons">
             <button type="button" id="logoutButton" onclick="profileLogout()">Logout</button>

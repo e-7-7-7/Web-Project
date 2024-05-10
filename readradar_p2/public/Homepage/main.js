@@ -80,40 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// function processAndSaveBook(coverImageUrl, title, author, price, description, genre,quantity,sellerId) {
-//     const newBook = { coverImageUrl, title, author, price, description, genre,quantity,sellerId, isApproved: false };
-//     saveBookToLocalStorage(newBook);
-//     alert("the Book is submitted and pending approval from the website's adminstrators")
-//    displayBooksFromLocalStorage();
-// }
-
-function approveBook(id) {
-  const addedBooks = JSON.parse(localStorage.getItem("addedBooks")) || [];
-  const bookIndex = addedBooks.findIndex((book) => book.id == id);
-  if (bookIndex !== -1) {
-    addedBooks[bookIndex].isApproved = true;
-    localStorage.setItem("addedBooks", JSON.stringify(addedBooks));
-    alert("Book Approved successfully");
-    displayBooksFromLocalStorage(); //  refresh customer view if admin is on the same page
-  }
-}
-
-function deleteBook(id) {
-  let addedBooks = JSON.parse(localStorage.getItem("addedBooks")) || [];
-  addedBooks = addedBooks.filter((book) => book.id !== id);
-  localStorage.setItem("addedBooks", JSON.stringify(addedBooks));
-  alert("Book Rejected successfully");
-
-  displayBooksFromLocalStorage(); // refresh customer view if admin is on the same page
-}
-
-// function saveBookToLocalStorage(book) {
-//     let addedBooks = JSON.parse(localStorage.getItem('addedBooks')) || [];
-//     const uniqueId = Date.now() // Generate a unique ID for the book
-//     const bookWithId = { ...book, id: uniqueId }; // Add the unique ID to the book object
-//     addedBooks.unshift(bookWithId); // Add the new book to the array
-//     localStorage.setItem('addedBooks', JSON.stringify(addedBooks)); // Save the updated array back to localStorage
-// }
 
 async function displayBooksFromLocalStorage() {
   const currentUserID = localStorage.getItem("currentUserID");
@@ -415,7 +381,7 @@ function createBookCard(book) {
 async function purchaseItem(bookId, selectedQuantity) {
   const currentUserID = localStorage.getItem("currentUserID");
   if (!currentUserID) {
-    alert("plz login");
+    alert("please login to purchase");
     return;
   }
   try {
@@ -430,6 +396,7 @@ async function purchaseItem(bookId, selectedQuantity) {
     });
     if (response.ok) {
       // (await response.json()).data;
+      alert("Purchase Completed")
 
       window.location.reload();
     } else {
@@ -438,27 +405,7 @@ async function purchaseItem(bookId, selectedQuantity) {
   } catch (error) {
     alert(error.message);
   }
-  // displayBooksFromLocalStorage();
+
 }
 
-function purchaseHistory(book, total, quantity, sellerId, title) {
-  let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-  const custId = localStorage.getItem("currentUserID");
-  const usersData = JSON.parse(localStorage.getItem("users")) || [];
-  const users = usersData.find((user) => user.id == custId);
-  const newTransaction = {
-    custId: custId,
-    sellerId: sellerId,
-    book: book,
-    bookTitle: title,
-    total: total,
-    quantity: quantity,
-    date: new Date().toISOString(),
-    transactionId: Date.now() + Math.random().toString(36).substr(2, 9),
-    shipCity: users.shipping_address.city,
-  };
 
-  transactions.unshift(newTransaction);
-
-  localStorage.setItem("transactions", JSON.stringify(transactions));
-}
