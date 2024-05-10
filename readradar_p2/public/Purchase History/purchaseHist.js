@@ -59,7 +59,7 @@ async function displayPurchaseHistory() {
                             <td>${transaction.Book.Seller.id}</td>
                             <td>${transaction.date}</td>
                             <td>${
-                              transaction.Customer.Shipping_address.city
+                              transaction.Customer.shipping_address[0]?.city
                             }</td>
                         </tr>
                     `
