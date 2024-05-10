@@ -1,3 +1,6 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,33 +10,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-generator dbml {
-  provider = "prisma-dbml-generator"
-}
-
 model User {
-  id        String    @id @default(cuid())
-  username  String    @unique
+  id        String        @id @default(cuid())
+  username  String     @unique
   password  String
   firstname String
   surname   String?
-  admins    Admin?
-  customers Customer?
-  sellers   Seller?
+  customers Customer[]
+  sellers   Seller[]
+  admins    Admin[]
 }
 
 model Admin {
-  id     Int    @id @default(autoincrement())
-  userId String @unique
-  User   User   @relation(fields: [userId], references: [id])
+  id     Int  @id @default(autoincrement())
+  User   User @relation(fields: [userId], references: [id])
+  userId String  @unique
 }
 
 model Customer {
-  id               Int               @id @default(autoincrement())
+  id               Int                @id @default(autoincrement())
   account_Balance  Float
-  userId           String            @unique
-  User             User              @relation(fields: [userId], references: [id])
-  shipping_address Shipping_Address?
+  User             User               @relation(fields: [userId], references: [id])
+  userId           String                @unique
+  shipping_address Shipping_Address[]
   Transaction      Transaction[]
 }
 
@@ -43,15 +42,15 @@ model Shipping_Address {
   city         String
   street       String
   house_number String
-  customerId   Int      @unique
   Customer     Customer @relation(fields: [customerId], references: [id])
+  customerId   Int      @unique
 }
 
 model Seller {
   id     Int    @id @default(autoincrement())
-  userId String @unique
-  books  Book[]
   User   User   @relation(fields: [userId], references: [id])
+  userId String    @unique
+  books  Book[]
 }
 
 model Book {
@@ -64,17 +63,17 @@ model Book {
   quantity      Int
   coverImageUrl String
   isApproved    Boolean       @default(false)
-  sellerId      Int
   Seller        Seller        @relation(fields: [sellerId], references: [id])
-  transactions  Transaction[]
+  sellerId      Int
+  transactions   Transaction[]
 }
 
 model Transaction {
   id         Int      @id @default(autoincrement())
   amount     Int
   date       DateTime
-  customerId Int
-  bookId     Int
-  Book       Book     @relation(fields: [bookId], references: [id])
   Customer   Customer @relation(fields: [customerId], references: [id])
+  customerId Int
+  Book       Book     @relation(fields: [bookId], references: [id])
+  bookId     Int
 }
