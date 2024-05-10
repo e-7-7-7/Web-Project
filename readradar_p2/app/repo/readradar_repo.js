@@ -197,6 +197,113 @@ class readRadarRepo {
       throw error;
     }
   }
+
+  static async getTopBooksBySales() {
+    //--
+    const result = await this.prisma.transaction.groupBy({
+      by: ["bookId"],
+      orderBy: {
+        _sum: {
+          amount: "desc",
+        },
+      },
+      _sum: {
+        amount: true,
+      },
+      take: 4,
+    });
+    return result;
+  }
+
+  static async getAverageQuantitySoldPerBook() {
+    const result = await this.prisma.transaction.groupBy({
+      by: ["bookId"],
+      _avg: {
+        amount: true,
+      },
+    });
+    return result;
+  }
+
+  async getAveragePurchaseAmountPerBuyer() {
+    const result = await this.prisma.transaction.groupBy({
+      by: ["customerId"],
+      _avg: {
+        amount: true,
+      },
+    });
+    return result;
+  }
+
+  static async countTransactionsPerSeller() {
+    const sellersWithTransactionCount = await prisma.seller.findMany({
+      select: {
+        id: true,
+        User: {
+          select: {
+            username: true,
+          },
+        },
+        books: {
+          select: {
+            transactions: {
+              select: {
+                id: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    const result = sellersWithTransactionCount.map((seller) => ({
+      sellerId: seller.id,
+      username: seller.User.username,
+      transactionCount: seller.books.reduce(
+        (acc, book) => acc + book.transactions.length,
+        0
+      ),
+    }));
+    return result;
+  }
+
+  async getTotalRevenuePerMonth(year) {
+    const result = await prisma.transaction.groupBy({
+      by: ["date"],
+      _sum: {
+        amount: true,
+      },
+      where: {
+        date: {
+          gte: new Date(year, 0, 1),
+          lt: new Date(year + 1, 0, 1),
+        },
+      },
+      orderBy: {
+        date: "asc",
+      },
+    });
+
+    const monthlyRevenue = result.map((entry) => {
+      const month = entry.date.getMonth();
+      return {
+        year: year,
+        month: month + 1,
+        totalRevenue: entry._sum.amount || 0,
+      };
+    });
+
+    const revenuePerMonth = monthlyRevenue.reduce((acc, revenue) => {
+      const monthKey = `${revenue.year}-${revenue.month}`;
+      if (!acc[monthKey]) {
+        acc[monthKey] = revenue.totalRevenue;
+      } else {
+        acc[monthKey] += revenue.totalRevenue;
+      }
+      return acc;
+    }, {});
+
+    return revenuePerMonth;
+  }
 }
 
 export default readRadarRepo;
