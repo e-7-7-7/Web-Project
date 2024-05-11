@@ -10,7 +10,7 @@ export default async function TopBooksBySales() {
     AverageQuantitySoldPerBookDataset.push(data._avg.amount);
   });
   return (
-    <div>
+    <div style={{ fontSize: '10px' ,margin:"3rem"}}>
       <h1> Average Quantity Sold PerBook</h1>
       <BarGraph
         lable={AverageQuantitySoldPerBookLaples}

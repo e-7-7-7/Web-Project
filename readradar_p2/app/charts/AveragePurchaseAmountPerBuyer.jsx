@@ -10,7 +10,7 @@ export default async function AveragePurchaseAmountPerBuyer() {
     AveragePurchaseAmountPerBuyerDataset.push(data._avg.amount);
   });
   return (
-    <div>
+    <div style={{ fontSize: '10px' ,margin:"3rem"}}>
       <h1> Average Purchase Amount Per Buyer</h1>
       <BarGraph
         lable={AveragePurchaseAmountPerBuyerLaples}

@@ -11,7 +11,7 @@ export default async function TotalRevenuePerMonth() {
     TotalRevenuePerMonthDataset.push(count);
   });
   return (
-    <div>
+    <div style={{ fontSize: '10px' ,margin:"3rem"}}>
       <h1> Total Revenue Per Month</h1>
       <BarGraph
         lable={TotalRevenuePerMonthLaples}

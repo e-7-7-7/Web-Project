@@ -11,19 +11,33 @@ export default function BarGraph({ lable, dataset }) {
       {
         label: "Steps",
         data: dataset,
-        borderColor: "rgb(75, 192, 192)",
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgb(144,238,144)",
+        backgroundColor: "rgba(144,238,144, 0.3)",
       },
     ],
   };
   const options = {
     responsive: true,
     maintainAspectRatio: true,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "X-Axis Label",
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: "Y-Axis Label",
+        },
+      },
+    },
   };
 
   return (
     <>
-      <div style={{ height: "70vh", width: "100vw", margin: "auto" }}>
+      <div style={{ height: "30vh", width: "50vw", margin: "auto" }}>
         <Bar options={options} data={LineChartData} />
       </div>
     </>

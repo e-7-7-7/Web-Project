@@ -10,8 +10,8 @@ export default async function CountTransactionsPerSeller() {
     countTransactionsPerSellerDataset.push(data.transactionCount);
   });
   return (
-    <div>
-      <h1> count Transactions Per Seller</h1>
+    <div style={{ fontSize: '10px' ,margin:"3rem"}}>
+      <h1> Transaction Count Per Seller</h1>
       <BarGraph
         lable={countTransactionsPerSellerLaples}
         dataset={countTransactionsPerSellerDataset}

@@ -9,7 +9,7 @@ export default async function TopBooksBySales() {
     getTopBooksBySalesDataset.push(data._sum.amount);
   });
   return (
-    <div>
+    <div style={{ fontSize: '10px' ,margin:"3rem"}}>
       <h1>Top Books By Sales</h1>
       <BarGraph
         lable={getTopBooksBySalesLaples}
