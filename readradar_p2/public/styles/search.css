@@ -1,16 +1,15 @@
 
-  
-  body {
-    display: grid;
-    grid-template-areas:
-      "header"
-      "navbar"
-      "main"
-      "aside"
-      "footer";
-    grid-template-rows: auto auto 1fr auto auto; /* Adjust row sizes as needed */
-    height: 100vh;
-  }
+body {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "navbar"
+    "main"
+    "aside"
+    "footer";
+  grid-template-rows: auto auto 1fr auto auto; 
+  height: 100vh;
+}
 
 
   /*main*/
@@ -175,6 +174,7 @@ button#closePopup {
     gap: 1rem;
     background-color: #74A9CF; 
     padding: 1em;
+    max-width: 300px; 
   }
 
   
