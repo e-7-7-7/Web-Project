@@ -1,0 +1,87 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  username String [unique, not null]
+  password String [not null]
+  firstname String [not null]
+  surname String
+  customers Customer [not null]
+  sellers Seller [not null]
+  admins Admin [not null]
+}
+
+Table Admin {
+  id Int [pk, increment]
+  User User [not null]
+  userId String [unique, not null]
+}
+
+Table Customer {
+  id Int [pk, increment]
+  account_Balance Float [not null]
+  User User [not null]
+  userId String [unique, not null]
+  shipping_address Shipping_Address [not null]
+  Transaction Transaction [not null]
+}
+
+Table Shipping_Address {
+  id Int [pk, increment]
+  country String [not null]
+  city String [not null]
+  street String [not null]
+  house_number String [not null]
+  Customer Customer [not null]
+  customerId Int [unique, not null]
+}
+
+Table Seller {
+  id Int [pk, increment]
+  account_Balance Float [not null]
+  User User [not null]
+  userId String [unique, not null]
+  books Book [not null]
+}
+
+Table Book {
+  id Int [pk, increment]
+  title String [not null]
+  author String [not null]
+  price Float [not null]
+  description String
+  genre String [not null]
+  quantity Int [not null]
+  coverImageUrl String [not null]
+  isApproved Boolean [not null, default: false]
+  Seller Seller [not null]
+  sellerId Int [not null]
+  transactions Transaction [not null]
+}
+
+Table Transaction {
+  id Int [pk, increment]
+  amount Int [not null]
+  city String [not null]
+  date DateTime [not null]
+  Customer Customer [not null]
+  customerId Int [not null]
+  Book Book [not null]
+  bookId Int [not null]
+}
+
+Ref: Admin.userId > User.id
+
+Ref: Customer.userId > User.id
+
+Ref: Shipping_Address.customerId > Customer.id
+
+Ref: Seller.userId > User.id
+
+Ref: Book.sellerId > Seller.id
+
+Ref: Transaction.customerId > Customer.id
+
+Ref: Transaction.bookId > Book.id
