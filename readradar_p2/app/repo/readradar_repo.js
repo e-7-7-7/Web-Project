@@ -350,7 +350,31 @@ class readRadarRepo {
   }
 
 
+  static async getSellerCount() {
+    try {
+      const sellerCount = await prisma.seller.count();
+      await prisma.$disconnect();
+      return sellerCount;
+    } catch (error) {
+      await prisma.$disconnect();
+      throw error;
+    }
+  }
+  
+  static async getCustomerCount() {
+    try {
+      const customerCount = await prisma.customer.count();
+      await prisma.$disconnect();
+      return customerCount;
+    } catch (error) {
+      await prisma.$disconnect();
+      throw error;
+    }
+  }
+
 }
+
+
 
 export default readRadarRepo;
 
