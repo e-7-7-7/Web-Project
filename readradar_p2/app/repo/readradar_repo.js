@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class readRadarRepo {
+
   static async getUser(where) {
     try {
       const user = await prisma.user.findUnique({
@@ -33,6 +34,16 @@ class readRadarRepo {
     } catch (error) {
       await prisma.$disconnect();
       throw error;
+    }
+  }
+
+  static async getSeller(id){
+    try {
+      return prisma.seller.findFirst({
+        where:{id}
+      })
+    } catch (error) {
+      return {error:error.message}
     }
   }
 
@@ -114,6 +125,20 @@ class readRadarRepo {
     }
   }
 
+  static async updateSeller(info) {
+    try {
+      const seller = await prisma.seller.update({
+        where: { id: info.id },
+        data: info,
+      });
+      await prisma.$disconnect();
+      return seller;
+    } catch (error) {
+      await prisma.$disconnect();
+      throw error;
+    }
+  }
+
   static async updateAddress(info){
     try {
       const address = await prisma.shipping_Address.update({
@@ -139,8 +164,9 @@ class readRadarRepo {
       throw error;
     }
   }
-  static async createTransaction({ userId, bookId, amount }) {
+  static async createTransaction({ userId, bookId, amount,sellerId }) {
     try {
+      const s = await readRadarRepo.getSeller( sellerId );
       const user = await readRadarRepo.getUser({ id: userId });
       if (user.customerId === undefined) {
         throw new Error("this account not a customer user");
@@ -174,6 +200,9 @@ class readRadarRepo {
         id: user.customerId,
         account_Balance: user.account_Balance - totalPrice,
       });
+      s.account_Balance+= totalPrice
+      await readRadarRepo.updateSeller(s)
+
       return transaction;
     } catch (error) {
       await prisma.$disconnect();
@@ -318,6 +347,8 @@ class readRadarRepo {
 
     return revenuePerMonth;
   }
+
+
 }
 
 export default readRadarRepo;
@@ -334,5 +365,19 @@ export default readRadarRepo;
 
 // const addresses = await repo.updateAddress(info)
 // console.log(addresses);
+
+// const seller1 = await readRadarRepo.getUser({id:"clw1c57mx0001h632z8wvnai1"})
+// console.log(seller1);
+
+// const seller = await readRadarRepo.getSeller(4)
+// console.log(seller);
+
+// seller.account_Balance=6000;
+// console.log(seller);
+
+// const seller3 = await readRadarRepo.UpdateSeller(seller)
+// console.log(seller3);
+
+
 
 

@@ -85,9 +85,9 @@ async function seed() {
       };
     } else if (user.role === "Seller") {
       data.sellers = {
-        create: [{
+        create: {
           account_Balance: user.account_Balance
-        }]
+        }
         
       };
     } else if (user.role === "Customer") {

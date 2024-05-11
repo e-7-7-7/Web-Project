@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       document.querySelector("#checkoutForm").style.display = "none";
 
-      getUserAddress();
+      // getUserAddress();
     });
   });
 
@@ -285,7 +285,7 @@ async function displayOnCheckout(
       checkoutButton.addEventListener("click", function (event) {
         event.preventDefault();
         if (quantity <= intialQuant && quantity != 0) {
-          purchaseItem(bookId, quantity);
+          purchaseItem(bookId, quantity,sellerId);
         } else if (intialQuant == 0) {
           alert("Item out of stock");
           window.location.reload();
@@ -378,7 +378,8 @@ function createBookCard(book) {
   return cardContent; // Return the card element for appending in the display function
 }
 
-async function purchaseItem(bookId, selectedQuantity) {
+async function purchaseItem(bookId, selectedQuantity,sId) {
+  // console.log(sId);
   const currentUserID = localStorage.getItem("currentUserID");
   if (!currentUserID) {
     alert("please login to purchase");
@@ -392,6 +393,7 @@ async function purchaseItem(bookId, selectedQuantity) {
         userId: currentUserID,
         bookId: +bookId,
         amount: +selectedQuantity,
+        sellerId:sId
       }),
     });
     if (response.ok) {
