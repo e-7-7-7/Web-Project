@@ -72,6 +72,7 @@ model Book {
 model Transaction {
   id         Int      @id @default(autoincrement())
   amount     Int
+  city       String
   date       DateTime
   Customer   Customer @relation(fields: [customerId], references: [id])
   customerId Int

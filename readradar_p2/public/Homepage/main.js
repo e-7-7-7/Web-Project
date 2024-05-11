@@ -393,7 +393,8 @@ async function purchaseItem(bookId, selectedQuantity,sId) {
         userId: currentUserID,
         bookId: +bookId,
         amount: +selectedQuantity,
-        sellerId:sId
+        sellerId:sId,
+        city : user.shipping_address.city
       }),
     });
     if (response.ok) {

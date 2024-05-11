@@ -60,6 +60,7 @@ CREATE TABLE "Book" (
 CREATE TABLE "Transaction" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "amount" INTEGER NOT NULL,
+    "city" TEXT NOT NULL,
     "date" DATETIME NOT NULL,
     "customerId" INTEGER NOT NULL,
     "bookId" INTEGER NOT NULL,

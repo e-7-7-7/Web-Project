@@ -96,7 +96,6 @@ function showBooks() {
   pendingButton.classList = "";
 
   bookListArea.innerHTML = ""; // reset the page
-  console.log("All Books button is clicked");
   bookAreaTitle.innerHTML = "<h1>All Books</h1>";
   const pendingBooks = Books.filter((b) => b.isApproved == false);
   const onSaleBooks = Books.filter((b2) => b2.isApproved);
@@ -379,20 +378,20 @@ async function deleteBook(id) {
     `Are you sure about deleting\nBook: ${book.title}\nPrice: ${book.price}  \nBook ID: ${book.id}`
   );
   if (result) {
-    try {
-      const response = await fetch("/api/books", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id }),
-      });
-      if (!response.ok) {
-        alert((await response.json()).error);
-        return;
-      }
-    } catch (error) {
-      alert(error.message);
+     try {
+    const response = await fetch("/api/books", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    if (!response.ok) {
+      alert((await response.json()).error);
       return;
     }
+  } catch (error) {
+    alert(error.message);
+    return;
+  }
     await filterBooks();
     // localStorage.addedBooks = JSON.stringify(Books);
     alert(`The book with the id ${book.id} has been deleted successfully`);
@@ -428,28 +427,7 @@ async function handleSubmit(event) {
   const coverImageUrl = popupCover.value;
   const quantity = +popupQuantity.value;
 
-  // Use FileReader to read the selected file (coverImageUrl image)
-  //   if (coverImageUrl) {
-  //     const reader = new FileReader();
-  //     reader.onload = function (e) {
-  //       // Process and save the new book after reading the cover image
-  //       updateBook(
-  //         e.target.result,
-  //         title,
-  //         author,
-  //         price,
-  //         description,
-  //         genre,
-  //         quantity,
-  //         id
-  //       );
-  //     };
-  //     reader.readAsDataURL(coverImageUrl);
-  //   } else {
-  //     // Process and save the new book even if there's no cover image
-  //     updateBook("", title, author, price, description, genre, quantity, id);
-  //   }
-  //   localStorage.addedBooks = JSON.stringify(Books);
+
   try {
     const response = await fetch("/api/books", {
       method: "PUT",
@@ -480,28 +458,7 @@ async function handleSubmit(event) {
   showSelectedTab();
 }
 
-// function updateBook(
-//   imageURL,
-//   title,
-//   author,
-//   price,
-//   description,
-//   genre,
-//   quantity,
-//   id
-// ) {
-//   //update the book by replacing old values with new values
-//   const index = Books.findIndex((b) => b.id == id);
-//   Books[index].title = title;
-//   Books[index].author = author;
-//   Books[index].price = price;
-//   Books[index].description = description;
-//   Books[index].genre = genre;
-//   Books[index].quantity = quantity;
-//   if (imageURL != "") {
-//     Books[index].coverImageUrl = imageURL;
-//   }
-// }
+
 
 function handleCancel() {
   console.log("Cancel reached");

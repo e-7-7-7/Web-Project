@@ -164,7 +164,7 @@ class readRadarRepo {
       throw error;
     }
   }
-  static async createTransaction({ userId, bookId, amount,sellerId }) {
+  static async createTransaction({ userId, bookId, amount,sellerId,city }) {
     try {
       const s = await readRadarRepo.getSeller( sellerId );
       const user = await readRadarRepo.getUser({ id: userId });
@@ -190,6 +190,7 @@ class readRadarRepo {
           date: new Date().toISOString(),
           customerId: user.customerId,
           bookId: bookId,
+          city:city
         },
       });
       await readRadarRepo.UpdateBook({
