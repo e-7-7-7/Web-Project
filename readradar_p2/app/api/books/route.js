@@ -34,6 +34,19 @@ export async function GET(request) {
   };
   try {
 
+    if (searchWord!= null) {
+      return responseRepo.success(
+        await readRadarRepo.getBooks(
+          {
+            isApproved: true,
+            OR:[{title: { contains: searchWord }},{ author: { contains: searchWord }}],
+            quantity: {gt:0}
+          },
+          
+        )
+      );
+    }
+
     if(currentUserID!= null && userId !=null){ // for the view sales page
 
       const user = await readRadarRepo.getUser({ id: currentUserID });
@@ -129,4 +142,3 @@ export async function DELETE(request) {
   }
 }
 
-GET();
